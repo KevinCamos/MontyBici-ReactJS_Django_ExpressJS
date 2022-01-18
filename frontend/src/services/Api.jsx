@@ -1,38 +1,38 @@
-import axios from 'axios'
-// import { useRouter } from "vue-router";
-// import { useStore } from "vuex";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
-
-export default (URL) => {
-//   const router = useRouter();
-//   const store = useStore();
+const API = (URL) => {
+  let navigate = useNavigate();
 
   const axiosInstance = axios.create({
-/*     baseURL: `${secret.LARAVEL_APP_URL}` */
-    baseURL: URL
-  })
+    baseURL: URL,
+  });
 
-   const token = localStorage.getItem('token')
+  const token = localStorage.getItem("token");
   if (token) {
-    // axiosInstance.defaults.headers.common.Authorization = `Bearer ${token}`
-    axiosInstance.defaults.headers.common.Authorization = `Bearer ${token}`
-  } 
+    axiosInstance.defaults.headers.common.Authorization = `Bearer ${token}`;
+  }
 
   axiosInstance.interceptors.response.use(
     (response) => response,
     (error) => {
-      console.log(error)
+      console.log(error);
       if (error.response.status === 401) {
-        localStorage.removeItem('token')
-        localStorage.removeItem('user')
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+
         // store.dispatch("user/" + Constant.USER_REMOVE, {
         //   succes: true,
         // });
-        // router.push({ name: "signin" });
       }
-      return Promise.reject(error)
-    }
-  )
+      console.log("Hi ha problemes a la petició")
 
-  return axiosInstance
-}
+      navigate(`/login`);
+
+      return Promise.reject(error);
+    }
+  );
+
+  return axiosInstance;
+};
+export default API;

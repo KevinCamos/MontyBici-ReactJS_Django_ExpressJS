@@ -1,7 +1,7 @@
 
 import Api from './Api'
 import secret from '../secret.js'
-
+  
 const userServices ={
 
   postLogin(data) {
