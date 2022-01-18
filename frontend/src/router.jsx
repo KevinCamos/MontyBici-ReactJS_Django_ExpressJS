@@ -10,7 +10,7 @@ import {
 
 export default function MyRouter() {
   // const { auth } = useUser();
-  const Login = React.lazy(() => import("./pages/Login/Login"));
+  const LoginPage = React.lazy(() => import("./pages/Login/LoginPage"));
 
   return(
     <div>
@@ -18,8 +18,8 @@ export default function MyRouter() {
       <BrowserRouter>
 
         <Routes>
-          <Route  path="/login" element={<Login/>} />
-          <Route index  element={<Login/>} />
+          <Route  path="/login" element={<LoginPage/>} />
+          <Route index  element={<LoginPage/>} />
         </Routes>
       </BrowserRouter>
       </Suspense>
