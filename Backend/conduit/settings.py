@@ -28,6 +28,7 @@ DEBUG = True
 ALLOWED_HOSTS = ['0.0.0.0', 'localhost','123.0.0.1']
 
 
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -43,7 +44,10 @@ INSTALLED_APPS = [
     # 'django_extensions',
     'rest_framework',
 
-    'conduit.apps.bikes'
+    'conduit.apps.bikes',
+    'conduit.apps.stations',
+     'conduit.apps.core',
+
 ]
 
 MIDDLEWARE = [
