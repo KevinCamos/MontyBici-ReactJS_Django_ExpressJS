@@ -2,11 +2,13 @@
 import userServices from "../services/UserServices";
 export default function useUser() {
   const onSubmit = (data) => {
-      console.log("eh")
-      alert("eh")
+      console.log(data);
+
     userServices.postLogin(data)
       .then((data) => {
-        console.log("eh");
+        console.log("data");
+
+        console.log(data);
       }).catch((error) => {
         console.log(error);
       });

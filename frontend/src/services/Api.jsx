@@ -1,8 +1,7 @@
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
-const API = (URL) => {
-  let navigate = useNavigate();
+export default function Api(URL) {
 
   const axiosInstance = axios.create({
     baseURL: URL,
@@ -17,6 +16,7 @@ const API = (URL) => {
     (response) => response,
     (error) => {
       console.log(error);
+      alert("ehrrror")
       if (error.response.status === 401) {
         localStorage.removeItem("token");
         localStorage.removeItem("user");
@@ -26,8 +26,9 @@ const API = (URL) => {
         // });
       }
       console.log("Hi ha problemes a la petició")
+      // let navigate = useNavigate();
 
-      navigate(`/login`);
+      // navigate(`/login`);
 
       return Promise.reject(error);
     }
@@ -35,4 +36,3 @@ const API = (URL) => {
 
   return axiosInstance;
 };
-export default API;

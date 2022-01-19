@@ -1,1 +1,1 @@
-const SERVER_URL = 'ficar enllaç'
+const SERVER_URL = 'http://localhost:8000/api/'
