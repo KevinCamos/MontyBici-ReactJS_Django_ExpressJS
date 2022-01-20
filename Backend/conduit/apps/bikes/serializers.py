@@ -8,5 +8,4 @@ class BikeSerializer(serializers.ModelSerializer):
         fields = (
             'id',
             'state',
-            'location',
         )

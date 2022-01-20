@@ -4,7 +4,6 @@ from django.db import models
 
 
 class Station(models.Model):
-    # id = models.AutoField(primary_key=True)
     slug = models.SlugField(db_index=True, max_length=255, unique=True)
 
     name = models.CharField(db_index=True, max_length=30, unique=True)
@@ -14,7 +13,7 @@ class Station(models.Model):
     # battery =  models.IntegerField()
 
     def __str__(self):
-        return self.slug
+        return str(self.slug)
 
 
 class Point(models.Model):
@@ -22,10 +21,10 @@ class Point(models.Model):
     # id = models.AutoField(primary_key=True)
     
     id_station = models.ForeignKey(Station, on_delete=models.CASCADE)
-    id_bike = models.ForeignKey('bikes.Bike', on_delete=models.SET_NULL,null=True,)
+    id_bike = models.ForeignKey('bikes.Bike', on_delete=models.SET_NULL,unique=True, blank=True, null=True)
 
-    status = models.CharField(max_length=10, unique=True)
+    status = models.CharField(max_length=10, unique=False)
 
 
     def __str__(self):
-        return self.slug
+        return str(self.id)
