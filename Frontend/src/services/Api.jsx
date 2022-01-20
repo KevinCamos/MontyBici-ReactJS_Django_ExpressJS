@@ -1,10 +1,11 @@
 import axios from "axios";
 // import { useNavigate } from "react-router-dom";
+import SERVER_URL from '../secrets'
 
-export default function Api(URL) {
-
+export default function Api() {
+// console.log( SERVER_URL.SERVER_URL)
   const axiosInstance = axios.create({
-    baseURL: URL,
+    baseURL: SERVER_URL,
   });
 
   const token = localStorage.getItem("token");
@@ -16,7 +17,7 @@ export default function Api(URL) {
     (response) => response,
     (error) => {
       console.log(error);
-      alert("ehrrror")
+      alert("error en API")
       if (error.response.status === 401) {
         localStorage.removeItem("token");
         localStorage.removeItem("user");
@@ -25,6 +26,8 @@ export default function Api(URL) {
         //   succes: true,
         // });
       }
+      console.log( SERVER_URL)
+
       console.log("Hi ha problemes a la petició")
       // let navigate = useNavigate();
 

@@ -11,13 +11,13 @@ const Header = () => {
 
   return (
     <>
-      <nav class="navbar navbar-expand-lg navbar-dark bg-dark rounded">
-        <a class="navbar-brand  font-weight-bolder" href="/">
+      <nav className="navbar navbar-expand-lg navbar-dark bg-dark rounded">
+        <a className="navbar-brand  font-weight-bolder" href="/">
           {/* <img src={Logo} alt="Logo" width="36" height="36" className="vertical-align-middle" /> */}
           <h3>MontyBicis</h3>
         </a>
         <button
-          class="custom-toggler navbar-toggler"
+          className="custom-toggler navbar-toggler"
           type="button"
           data-toggle="collapse"
           data-target="#navbarsTarger"
@@ -26,12 +26,12 @@ const Header = () => {
           aria-label="Toggle navigation"
           onClick={handleNavCollapse}
         >
-          <span class="navbar-toggler-icon"></span>
+          <span className="navbar-toggler-icon"></span>
         </button>
 
-        <div class={`${isNavCollapsed ? "collapse" : ""} navbar-collapse`} id="navbarsTarger">
-          <Link className="nav-link text-white" to="/">
-            Home
+        <div className={`${isNavCollapsed ? "collapse" : ""} navbar-collapse`} id="navbarsTarger">
+          <Link className="nav-link text-white" to="/stations">
+            Stations
           </Link>
           <Link className="nav-link text-white" to="/Login">
             Login

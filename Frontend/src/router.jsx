@@ -7,6 +7,7 @@ export default function MyRouter() {
   const Header = React.lazy(() => import("./components/Header/Header"));
 
   const LoginPage = React.lazy(() => import("./pages/Login/LoginPage"));
+  const StationPage = React.lazy(() => import("./pages/Stations/StationPage"));
 
   return (
     <div>
@@ -15,6 +16,9 @@ export default function MyRouter() {
           <Routes>
             <Route path="/login" element={<Header />}>
               <Route path="/login/:" element={<LoginPage />} />
+            </Route>
+            <Route path="/stations" element={<Header />}>
+              <Route path="/stations" element={<StationPage />} />
             </Route>
             <Route path="*" element={<Header />}>
               <Route index element={<LoginPage />} />

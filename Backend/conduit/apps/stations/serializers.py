@@ -21,18 +21,6 @@ class StationSerializer(serializers.ModelSerializer):
 
 
 class StationPointsSerializer(serializers.ModelSerializer):
-    # id = serializers.
-    # name =  serializers.CharField(required=True)
-    # direction =  serializers.CharField(required=True)
-    # location =  serializers.CharField(required=True)
-    # img =  serializers.CharField(required=False)
-    # points= "eh"
-    # slug = serializers.SlugField(many=True)
-
-
-    # points = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
-    # points = serializers.PrimaryKeyRelatedField(queryset=Point.objects.all())
-        # points = Point.objects.filter(id_station=id)
 
     class Meta:
 
