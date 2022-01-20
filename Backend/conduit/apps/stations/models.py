@@ -10,6 +10,8 @@ class Station(models.Model):
     direction = models.CharField(max_length=100)
     location = models.CharField(max_length=30)
     img = models.CharField(max_length=200)
+
+    
     # battery =  models.IntegerField()
 
     def __str__(self):
@@ -21,7 +23,7 @@ class Point(models.Model):
     # id = models.AutoField(primary_key=True)
     
     id_station = models.ForeignKey(Station, on_delete=models.CASCADE)
-    id_bike = models.ForeignKey('bikes.Bike', on_delete=models.SET_NULL,unique=True, blank=True, null=True)
+    id_bike = models.ForeignKey('bikes.Bike', related_name='points', on_delete=models.SET_NULL,unique=True, blank=True, null=True)
 
     status = models.CharField(max_length=10, unique=False)
 
