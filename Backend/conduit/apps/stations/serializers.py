@@ -46,6 +46,6 @@ class StationPointsSerializer(serializers.ModelSerializer):
             "name": instance.name,
             "direction": instance.direction,
             "location": instance.location,
-            "img": instance.img,
+            "img": instance.slug,
             "points": list(Point.objects.filter(id_station=instance.id).values())
         }

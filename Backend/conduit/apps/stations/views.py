@@ -19,19 +19,19 @@ from .serializers import StationSerializer, StationPointsSerializer
 
 class StationListAPIView(ListAPIView):
     queryset = Station.objects.all()
-    pagination_class = None
+    # pagination_class = None
     permission_classes = (AllowAny,)
     serializer_class = StationPointsSerializer  
 
-    def list(self, request):
-        serializer_data = self.get_queryset()
-        serializer = self.serializer_class(serializer_data, many=True)
+    # def list(self, request):
+    #     serializer_data = self.get_queryset()
+    #     serializer = self.serializer_class(serializer_data, many=True)
 
-        print('*********** serializer.data ************')
-        print(serializer.data)
-        return Response({
-            'stations': serializer.data
-        }, status=status.HTTP_200_OK)
+    #     print('*********** serializer.data ************')
+    #     print(serializer.data)
+    #     return Response({
+    #         'stations': serializer.data
+    #     }, status=status.HTTP_200_OK)
 
 
 class StationRetrieveAPIView(RetrieveAPIView):
