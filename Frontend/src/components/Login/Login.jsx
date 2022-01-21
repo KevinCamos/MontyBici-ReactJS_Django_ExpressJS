@@ -18,7 +18,7 @@ export default function Login() {
   return (
     <div className="row justify-content-md-center m-5">
       <h2>Login</h2>
-    
+
       <form onSubmit={handleSubmit(onSubmit)} className="col-6">
         <div className="mb-3">
           <label className="form-label">Email</label>
