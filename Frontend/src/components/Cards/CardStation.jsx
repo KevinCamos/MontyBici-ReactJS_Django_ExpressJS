@@ -20,7 +20,7 @@ export default function CardStation({station}) {
         <Box sx={{ display: "flex", alignItems: "center", pl: 1, pb: 1 }}>
   
           {station.points.map((point, index) => (
-            <PedalBikeIcon color={point.id_bike_id?"success":""}/>
+            <PedalBikeIcon color={point.id_bike_id?"success":""} key={index}/>
           ))}
         </Box>
       </Box>

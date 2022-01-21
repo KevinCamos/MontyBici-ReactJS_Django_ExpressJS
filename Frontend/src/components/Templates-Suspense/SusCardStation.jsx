@@ -3,7 +3,7 @@ import { Box, Card, CardContent, Typography, Paper, Grid } from "@mui/material";
 
 import PedalBikeIcon from "@mui/icons-material/PedalBike";
 
-export default function MediaControlCard() {
+export default function SuspendeStationCard() {
   return (
     <>
       {Array.from(Array(4)).map((_, index) => (
@@ -20,7 +20,7 @@ export default function MediaControlCard() {
               </CardContent>
               <Box sx={{ display: "flex", alignItems: "center", pl: 1, pb: 1 }}>
                 {Array.from(Array(4)).map((_, index) => (
-                  <PedalBikeIcon />
+                  <PedalBikeIcon key={"PedalBikeIcon"+index}/>
                 ))}
               </Box>
             </Box>
