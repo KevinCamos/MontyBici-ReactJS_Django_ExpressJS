@@ -25,8 +25,8 @@ class Point(models.Model):
     id_station = models.ForeignKey(Station, on_delete=models.CASCADE)
     id_bike = models.ForeignKey('bikes.Bike',  on_delete=models.SET_NULL,unique=True, blank=True, null=True)
 
-    status = models.CharField(max_length=10, unique=False)
+    active = models.BooleanField( unique=False , default=True)
 
 
     def __str__(self):
-        return str(self.id)
+        return str(self.id)+"-"+str(self.id_station)

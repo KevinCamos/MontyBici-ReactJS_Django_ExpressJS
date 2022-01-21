@@ -15,7 +15,7 @@ export default function MyRouter() {
         <BrowserRouter>
           <Routes>
             <Route path="/login" element={<Header />}>
-              <Route path="/login/:" element={<LoginPage />} />
+              <Route path="/login/" element={<LoginPage />} />
             </Route>
             <Route path="/stations" element={<Header />}>
               <Route path="/stations" element={<StationPage />} />

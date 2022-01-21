@@ -9,7 +9,7 @@ class Bike(models.Model):
     # location = models.CharField(max_length=50)
 
     def __str__(self):
-        return str(self.id)
+        return str(self.id)+"-"+self.state
 
 
 # # Modelo de Register_Bike, data_get se modifica automáticamente la primera vez que se crea, data_return es la última vez que se modifica (al devoler la bici)
