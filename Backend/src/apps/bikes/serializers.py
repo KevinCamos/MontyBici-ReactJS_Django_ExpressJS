@@ -7,5 +7,5 @@ class BikeSerializer(serializers.ModelSerializer):
         model = Bike
         fields = (
             'id',
-            'state',
+            'active',
         )

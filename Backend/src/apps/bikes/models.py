@@ -4,9 +4,9 @@ from django.db import models
 
 
 class Bike(models.Model):
-    state = models.CharField(max_length=20)
+    active = models.BooleanField( unique=False , default=True)
     def __str__(self):
-        return str(self.id)+"-"+self.state
+        return str(self.id)+"-"+self.active
 
 
 # # Modelo de Register_Bike, data_get se modifica automáticamente la primera vez que se crea, data_return es la última vez que se modifica (al devoler la bici)

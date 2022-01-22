@@ -44,6 +44,10 @@ INSTALLED_APPS = [
     'src.apps.stations',
     'src.apps.core',
 
+     'src.apps.authentication',
+    'src.apps.profiles',
+    
+
 ]
 
 MIDDLEWARE = [
@@ -132,10 +136,28 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+# REST_FRAMEWORK = {
+#     'DEFAULT_PERMISSION_CLASSES': [
+#         'rest_framework.permissions.AllowAny',
+#     ]
+# }
+# Tell Django about the custom `User` model we created. The string
+# `authentication.User` tells Django we are referring to the `User` model in
+# the `authentication` module. This module is registered above in a setting
+# called `INSTALLED_APPS`.
+
+
+
+AUTH_USER_MODEL = 'authentication.User'
 REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.AllowAny',
-    ]
+    'EXCEPTION_HANDLER': 'src.apps.core.exceptions.core_exception_handler',
+    'NON_FIELD_ERRORS_KEY': 'error',
+
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'src.apps.authentication.backends.JWTAuthentication',
+    ),
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 20,
 }
 
 
