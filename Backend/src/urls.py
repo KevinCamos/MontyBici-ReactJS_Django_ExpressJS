@@ -1,4 +1,4 @@
-"""conduit URL Configuration
+"""src URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/3.1/topics/http/urls/
@@ -18,7 +18,7 @@ from django.urls import include,path
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/bikes/', include('conduit.apps.bikes.urls')), # new
-    path('api/stations/', include('conduit.apps.stations.urls')), # new
+    path('api/bikes/', include('src.apps.bikes.urls')), # new
+    path('api/stations/', include('src.apps.stations.urls')), # new
 
 ]

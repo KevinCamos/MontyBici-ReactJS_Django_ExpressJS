@@ -1,7 +1,7 @@
-from conduit.apps.core.renderers import ConduitJSONRenderer
+from src.apps.core.renderers import srcJSONRenderer
 
 
-class UserJSONRenderer(ConduitJSONRenderer):
+class UserJSONRenderer(srcJSONRenderer):
     charset = 'utf-8'
     object_label = 'user'
     pagination_object_label = 'users'

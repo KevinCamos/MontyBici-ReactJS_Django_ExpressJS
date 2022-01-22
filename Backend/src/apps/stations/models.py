@@ -1,5 +1,5 @@
 from django.db import models
-
+from src.apps.bikes.models import Bike
 # Create your models here.
 
 
@@ -11,19 +11,20 @@ class Station(models.Model):
     location = models.CharField(max_length=30)
     img = models.CharField(max_length=200, blank=True)
 
-    
-    # battery =  models.IntegerField()
-
     def __str__(self):
         return str(self.name)
 
 
+
+
+
+
+
+
+
 class Point(models.Model):
-    """ Por defecto, Django da el modelo ID """
-    # id = models.AutoField(primary_key=True)
-    
     id_station = models.ForeignKey(Station, on_delete=models.CASCADE)
-    id_bike = models.ForeignKey('bikes.Bike',  on_delete=models.SET_NULL,unique=True, blank=True, null=True)
+    id_bike = models.ForeignKey(Bike,  on_delete=models.SET_NULL,unique=True, blank=True, null=True)
 
     active = models.BooleanField( unique=False , default=True)
 

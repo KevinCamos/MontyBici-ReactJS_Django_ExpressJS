@@ -2,11 +2,11 @@ from django.apps import AppConfig
 
 
 class StationAppConfig(AppConfig):
-    name = 'conduit.apps.stations'
+    name = 'src.apps.stations'
     label = 'stations'
     verbose_name = 'Stations'
 
     def ready(self):
-        import conduit.apps.stations.signals
+        import src.apps.stations.signals
 
-default_app_config = 'conduit.apps.stations.StationAppConfig'
+default_app_config = 'src.apps.stations.StationAppConfig'

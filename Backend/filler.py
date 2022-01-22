@@ -1,8 +1,8 @@
 from faker import Faker
-from conduit.apps.stations.models import Station
+from src.apps.stations.models import Station
 import django
 import os
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'conduit.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'src.settings')
 
 django.setup()
 

@@ -2,7 +2,7 @@ from django.db import models
 
 from django.db import models
 
-from conduit.apps.core.models import TimestampedModel
+from src.apps.core.models import TimestampedModel
 
 
 class Profile(TimestampedModel):
