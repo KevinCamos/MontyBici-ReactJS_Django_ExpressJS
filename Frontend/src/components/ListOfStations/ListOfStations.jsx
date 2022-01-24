@@ -6,14 +6,20 @@ import Grid from "@mui/material/Grid";
 import CardStation from "../Cards/CardStation";
 import SusCardStation from "../Templates-Suspense/SusCardStation";
 
-export default function ListOfStations({ stations }) {
+export default function ListOfStations({ stations , loading}) {
   /*   // const { stations } = useStation();
   // stations()
 //  var station= stations(); */
   return (
     <>
+    {loading}
+    {loading}
+    {loading}
+    {loading}
+    {loading}
+    {loading}
       <Box sx={{ flexGrow: 1, m: 3 }}>
-        <Grid container spacing={{ xs: 2, md: 7 }} columns={{ xs: 6, sm: 6, md: 13 }}>
+        <Grid container spacing={{ xs: 3, md: 3 }} columns={{ xs: 3, sm: 8, md: 13 }}>
           {stations.length > 0 ? (
             stations.map((station, index) => (
               <Grid item xs={2} sm={4} md={4} key={index}>

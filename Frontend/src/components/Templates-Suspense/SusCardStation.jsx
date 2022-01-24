@@ -20,7 +20,7 @@ export default function MediaControlCard() {
               </CardContent>
               <Box sx={{ display: "flex", alignItems: "center", pl: 1, pb: 1 }}>
                 {Array.from(Array(4)).map((_, index) => (
-                  <PedalBikeIcon />
+                  <PedalBikeIcon/>
                 ))}
               </Box>
             </Box>

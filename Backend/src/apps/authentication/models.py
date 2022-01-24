@@ -10,7 +10,6 @@ from django.db import models
 
 from src.apps.core.models import TimestampedModel
 
-
 class UserManager(BaseUserManager):
     """
     Django requires that custom users define their own Manager class. By

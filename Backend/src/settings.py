@@ -44,9 +44,9 @@ INSTALLED_APPS = [
     'src.apps.stations',
     'src.apps.core',
 
-     'src.apps.authentication',
+    'src.apps.authentication',
     'src.apps.profiles',
-    
+
 
 ]
 
@@ -88,12 +88,12 @@ WSGI_APPLICATION = 'src.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE'  : 'django.db.backends.mysql', # <-- UPDATED line 
-        'NAME'    : 'MontyBici',                 # <-- UPDATED line 
-        'USER'    : 'kevin',                     # <-- UPDATED line
+        'ENGINE': 'django.db.backends.mysql',  # <-- UPDATED line
+        'NAME': 'MontyBici',                 # <-- UPDATED line
+        'USER': 'kevin',                     # <-- UPDATED line
         'PASSWORD': 'kevin',              # <-- UPDATED line
-        'HOST'    : 'localhost',                # <-- UPDATED line
-        'PORT'    : '3306',
+        'HOST': 'localhost',                # <-- UPDATED line
+        'PORT': '3306',
     }
 }
 
@@ -145,7 +145,6 @@ STATIC_URL = '/static/'
 # `authentication.User` tells Django we are referring to the `User` model in
 # the `authentication` module. This module is registered above in a setting
 # called `INSTALLED_APPS`.
-
 
 
 AUTH_USER_MODEL = 'authentication.User'

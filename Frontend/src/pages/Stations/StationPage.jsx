@@ -3,11 +3,12 @@ import ListOfStations from "../../components/ListOfStations/ListOfStations";
 import useStation from "../../hooks/useStation";
 
 export default function StationPage() {
-  const { stations } = useStation();
+  const { stations, loading} = useStation();
+
 
   return (
     <>
-      <ListOfStations stations={stations} />
+      <ListOfStations stations={stations} loading={loading}/>
     </>
   );
 }
