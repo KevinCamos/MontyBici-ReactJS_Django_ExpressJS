@@ -1,4 +1,5 @@
 import React, { Suspense } from "react";
+import {StationsContextProvider} from "./context/StationsContext";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
@@ -10,22 +11,24 @@ export default function MyRouter() {
   const StationPage = React.lazy(() => import("./pages/Stations/StationPage"));
 
   return (
-    <div>
+    <>
       <Suspense fallback={<div>Cargando...</div>}>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/login" element={<Header />}>
-              <Route path="/login/" element={<LoginPage />} />
-            </Route>
-            <Route path="/stations" element={<Header />}>
-              <Route path="/stations" element={<StationPage />} />
-            </Route>
-            <Route path="*" element={<Header />}>
-              <Route index element={<LoginPage />} />
-            </Route>
-          </Routes>
-        </BrowserRouter>
+        <StationsContextProvider>
+          <BrowserRouter>
+            <Routes>
+              <Route path="/login" element={<Header />}>
+                <Route path="/login/" element={<LoginPage />} />
+              </Route>
+              <Route path="/stations" element={<Header />}>
+                <Route path="/stations" element={<StationPage />} />
+              </Route>
+              <Route path="*" element={<Header />}>
+                <Route index element={<LoginPage />} />
+              </Route>
+            </Routes>
+          </BrowserRouter>
+        </StationsContextProvider>
       </Suspense>
-    </div>
+    </>
   );
 }

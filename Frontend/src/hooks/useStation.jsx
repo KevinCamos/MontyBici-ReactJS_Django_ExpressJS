@@ -1,23 +1,28 @@
-import { /* useContext, */ useEffect, useState } from "react";
+import {  useContext,  useEffect , /* useState */} from "react";
 import stationsServices from "../services/StationsServices";
-export default function useStations() {
-  const [stations, setStations] = useState([]);
-  const [loading, setLoading] = useState(true);
 
+import StationsContext from '../context/StationsContext'
+
+export default function useStations() {
+  // const [stations, setStations] = useContext([]);
+  const {stations, setStations} = useContext(StationsContext)
+  // const {loading, setLoading} = useState(false)
+  // setStations([])
   useEffect(
     function () {
-      setLoading(true)
+      // setLoading(true)
 
       stationsServices.getStations().then((stations) => {
-        console.log(stations.data)
-        setStations(stations.data);
-        setLoading(false)
+        console.log(stations.data.results)
+        setStations(stations.data.results);
+        // setLoading(false)
         // guardamos la keyword en el localStorage
         // localStorage.setItem('lastKeyword', keyword)
       });
     },
-    [setStations]
+    [setStations/* ,setLoading */]
   );
 
-  return { stations,  loading };
+  return { stations,  /* loading */ };
+
 }

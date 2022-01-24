@@ -23,7 +23,7 @@ export default function ListOfStations({ stations , loading}) {
           {stations.length > 0 ? (
             stations.map((station, index) => (
               <Grid item xs={2} sm={4} md={4} key={index}>
-                <CardStation station={station} />
+                <CardStation station={station}key={station.id}/>
               </Grid>
             ))
           ) : (
