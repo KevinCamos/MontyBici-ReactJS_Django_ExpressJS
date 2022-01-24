@@ -12,12 +12,7 @@ export default function ListOfStations({ stations , loading}) {
 //  var station= stations(); */
   return (
     <>
-    {loading}
-    {loading}
-    {loading}
-    {loading}
-    {loading}
-    {loading}
+ 
       <Box sx={{ flexGrow: 1, m: 3 }}>
         <Grid container spacing={{ xs: 3, md: 3 }} columns={{ xs: 3, sm: 8, md: 13 }}>
           {stations.length > 0 ? (
