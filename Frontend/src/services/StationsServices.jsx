@@ -1,14 +1,9 @@
+import Api from "./Api";
 
-import Api from './Api'
-  
-const stationsServices ={
-
+const stationsServices = {
   getStations() {
-    return Api().get('stations/station');
+    return Api().get("stations/station");
   },
-
-
-}
+};
 
 export default stationsServices;
-

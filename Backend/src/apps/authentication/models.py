@@ -2,7 +2,8 @@ import jwt
 # import uuid
 from datetime import datetime, timedelta
 
-from django.conf import settings
+from src import settings
+
 from django.contrib.auth.models import (
     AbstractBaseUser, BaseUserManager, PermissionsMixin
 )

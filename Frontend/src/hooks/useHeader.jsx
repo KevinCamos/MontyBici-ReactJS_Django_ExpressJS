@@ -13,6 +13,7 @@ export default function useHeader() {
   };
 
   const handleCloseNavMenu = () => {
+    console.log(handleCloseNavMenu)
     setAnchorElNav(null);
   };
 

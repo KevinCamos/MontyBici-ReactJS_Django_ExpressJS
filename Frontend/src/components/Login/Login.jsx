@@ -6,12 +6,8 @@ import "./Login.css";
 import useUser from "../../hooks/useUser";
 
 export default function Login() {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
-  const { onSubmit } = useUser();
+  const {register,handleSubmit,formState: { errors },} = useForm();
+  const { login } = useUser();
 
   console.log(errors);
 
@@ -19,15 +15,15 @@ export default function Login() {
     <div className="row justify-content-md-center m-5">
       <h2>Login</h2>
 
-      <form onSubmit={handleSubmit(onSubmit)} className="col-6">
+      <form onSubmit={handleSubmit(login)} className="col-12">
         <div className="mb-3">
           <label className="form-label">Email</label>
-          <input type="email" className="form-control" placeholder="Email" {...register("Email", { required: true, pattern: /^\S+@\S+$/i })} />
+          <input type="email" className="form-control" placeholder="Email" {...register("email", { required: true, pattern: /^\S+@\S+$/i })} />
           {errors.Email && <small className="error">El email es requerido</small>}
         </div>
         <div className="mb-3">
           <label className="form-label">Password</label>
-          <input type="password" className="form-control" placeholder="Password" {...register("Password1", { required: true, maxLength: 12 })} />
+          <input type="password" className="form-control" placeholder="Password" {...register("password", { required: true, maxLength: 12 })} />
           {errors.Password1 && <small className="error">El password es requerido</small>}
         </div>
 

@@ -3,6 +3,8 @@ from django.contrib.auth import authenticate
 from rest_framework import serializers
 
 from src.apps.profiles.serializers import ProfileSerializer
+from django.core.serializers import serialize
+
 
 from .models import User
 
@@ -38,6 +40,7 @@ class LoginSerializer(serializers.Serializer):
     username = serializers.CharField(max_length=255, read_only=True)
     password = serializers.CharField(max_length=128, write_only=True)
     token = serializers.CharField(max_length=255, read_only=True)
+    image = serializers.CharField(max_length=255, read_only=True)
 
     def validate(self, data):
         # The `validate` method is where we make sure that the current
@@ -45,8 +48,11 @@ class LoginSerializer(serializers.Serializer):
         # user in, this means validating that they've provided an email
         # and password and that this combination matches one of the users in
         # our database.
+        
         email = data.get('email', None)
         password = data.get('password', None)
+
+        
 
         # As mentioned above, an email is required. Raise an exception if an
         # email is not provided.
@@ -68,12 +74,15 @@ class LoginSerializer(serializers.Serializer):
         # model, we set `USERNAME_FIELD` as `email`.
         user = authenticate(username=email, password=password)
 
+    
+
         # If no user was found matching this email/password combination then
         # `authenticate` will return `None`. Raise an exception in this case.
         if user is None:
             raise serializers.ValidationError(
                 'A user with this email and password was not found.'
             )
+
 
         # Django provides a flag on our `User` model called `is_active`. The
         # purpose of this flag to tell us whether the user has been banned
@@ -84,15 +93,21 @@ class LoginSerializer(serializers.Serializer):
                 'This user has been deactivated.'
             )
 
-
+        # try:
+        #     user = User.objects.get(pk=payload['id'])
+        # except User.DoesNotExist:
+        #     msg = 'No user matching this token was found.'
+        #     raise exceptions.AuthenticationFailed(msg)
 
         # The `validate` method should return a dictionary of validated data.
         # This is the data that is passed to the `create` and `update` methods
         # that we will see later on.
+        # users = serialize(user)
+
         return {
             'email': user.email,
             'username': user.username,
-            'token': user.token
+            'token': user.token,
         }
 
 

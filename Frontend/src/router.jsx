@@ -1,5 +1,6 @@
 import React, { Suspense } from "react";
-import {StationsContextProvider} from "./context/StationsContext";
+import { StationsContextProvider } from "./context/StationsContext";
+import { UserContextProvider } from "./context/UserContext";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
@@ -13,21 +14,23 @@ export default function MyRouter() {
   return (
     <>
       <Suspense fallback={<div>Cargando...</div>}>
-        <StationsContextProvider>
-          <BrowserRouter>
-            <Routes>
-              <Route path="/login" element={<Header />}>
-                <Route path="/login/" element={<LoginPage />} />
-              </Route>
-              <Route path="/stations" element={<Header />}>
-                <Route path="/stations" element={<StationPage />} />
-              </Route>
-              <Route path="*" element={<Header />}>
-                <Route index element={<LoginPage />} />
-              </Route>
-            </Routes>
-          </BrowserRouter>
-        </StationsContextProvider>
+        <UserContextProvider>
+          <StationsContextProvider>
+            <BrowserRouter>
+              <Routes>
+                <Route path="/login" element={<Header />}>
+                  <Route path="/login/" element={<LoginPage />} />
+                </Route>
+                <Route path="/stations" element={<Header />}>
+                  <Route path="/stations" element={<StationPage />} />
+                </Route>
+                <Route path="*" element={<Header />}>
+                  <Route index element={<LoginPage />} />
+                </Route>
+              </Routes>
+            </BrowserRouter>
+          </StationsContextProvider>
+        </UserContextProvider>
       </Suspense>
     </>
   );
