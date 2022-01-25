@@ -9,7 +9,6 @@ export function UserContextProvider({ children }) {
       userServices
         .checkUser()
         .then((data) => {
-  console.log(data.data.user.token)
           sessionStorage.setItem("token", data.data.user.token);
           setJWT(data.data.user.token);
           setUser(data.data.user);
@@ -18,7 +17,7 @@ export function UserContextProvider({ children }) {
           sessionStorage.removeItem("token");
           setJWT(null);
 
-          console.log(error);
+          error.log(error);
           // window.location.reload();
 
         });
@@ -26,14 +25,10 @@ export function UserContextProvider({ children }) {
   };
 
 
-
-
-
   const [jwt, setJWT] =  useState(() => checkUser());
   const [user, setUser] = useState(null);
 
 
-  console.log(jwt);
   return <Context.Provider value={{ jwt, setJWT, user, setUser }}>{children}</Context.Provider>;
 }
 

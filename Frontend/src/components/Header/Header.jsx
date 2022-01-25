@@ -17,15 +17,8 @@ import useHeader from "../../hooks/useHeader";
 import useUser from "../../hooks/useUser";
 
 const Header = () => {
-  const pages = ["Stations"];
-  const settings = ["Profile", "Account", "Dashboard"];
-  // const [isNavCollapsed, setIsNavCollapsed] = useState(true);
-
-  // const handleNavCollapse = () => setIsNavCollapsed(!isNavCollapsed);
-
-  const { anchorElNav, anchorElUser, handleOpenNavMenu, handleOpenUserMenu, handleCloseNavMenu, handleCloseUserMenu } = useHeader();
+  const { anchorElNav, anchorElUser, handleOpenNavMenu, handleOpenUserMenu, handleCloseNavMenu, handleCloseUserMenu, pagesLogged, pagesNoLogged, settings } = useHeader();
   const { isLogged, user, logout } = useUser();
-  console.log(isLogged);
 
   return (
     <>
@@ -58,52 +51,50 @@ const Header = () => {
                   display: { xs: "block", md: "none" },
                 }}
               >
-                {isLogged ? (
-                  pages.map((page) => (
-                    <MenuItem key={page} onClick={handleCloseNavMenu}>
-                      <Typography textAlign="center">
-                        <Link className="nav-link " to={"/" + page}>
-                          {page}
-                        </Link>
-                      </Typography>
-                    </MenuItem>
-                  ))
-                ) : (
-                  <MenuItem key="Login" onClick={handleCloseNavMenu}>
-                    <Typography textAlign="center">
-                      <Link className="nav-link " to={"/Login"}>
-                        Login
-                      </Link>
-                    </Typography>
-                  </MenuItem>
-                )}
+                {isLogged
+                  ? pagesLogged.map((page) => (
+                      <MenuItem key={page} onClick={handleCloseNavMenu}>
+                        <Typography textAlign="center">
+                          <Link className="nav-link " to={"/" + page}>
+                            {page}
+                          </Link>
+                        </Typography>
+                      </MenuItem>
+                    ))
+                  : pagesNoLogged.map((page) => (
+                      <MenuItem key={page} onClick={handleCloseNavMenu}>
+                        <Typography textAlign="center">
+                          <Link className="nav-link " to={"/" + page}>
+                            {page}
+                          </Link>
+                        </Typography>
+                      </MenuItem>
+                    ))}
               </Menu>
             </Box>
             <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
               MontyBici
             </Typography>
             <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-
-            {isLogged ? (pages.map((page) => (
-                <Button key={page} onClick={handleCloseNavMenu} sx={{ my: 2, color: "white", display: "block" }}>
-                  <Link className="nav-link text-white" to={"/" + page}>
-                    {page}
-                  </Link>
-                </Button>
-              ))
-                ) : (
-                <Button key={"Login"} onClick={handleCloseNavMenu} sx={{ my: 2, color: "white", display: "block" }}>
-                  <Link className="nav-link text-white" to={"/Login"}>
-                   Login
-                  </Link>
-                </Button>
-              )}
-             
+              {isLogged
+                ? pagesLogged.map((page) => (
+                    <Button key={page} onClick={handleCloseNavMenu} sx={{ my: 2, color: "white", display: "block" }}>
+                      <Link className="nav-link text-white" to={"/" + page}>
+                        {page}
+                      </Link>
+                    </Button>
+                  ))
+                : pagesNoLogged.map((page) => (
+                    <Button key={page} onClick={handleCloseNavMenu} sx={{ my: 2, color: "white", display: "block" }}>
+                      <Link className="nav-link text-white" to={"/" + page}>
+                        {page}
+                      </Link>
+                    </Button>
+                  ))}
             </Box>
 
             {isLogged && (
               <>
-               
                 <Typography variant="h6" noWrap component="div" sx={{ mr: 2, display: { xs: "none", md: "flex" } }}>
                   {user.username}
                 </Typography>

@@ -8,7 +8,8 @@ export default function MyRouter() {
   // const { auth } = useUser();
   const Header = React.lazy(() => import("./components/Header/Header"));
 
-  const LoginPage = React.lazy(() => import("./pages/Login/LoginPage"));
+  const Login = React.lazy(() => import("./pages/Login/Login"));
+  const Register = React.lazy(() => import("./pages/Register/Register"));
   const StationPage = React.lazy(() => import("./pages/Stations/StationPage"));
 
   return (
@@ -19,14 +20,21 @@ export default function MyRouter() {
             <BrowserRouter>
               <Routes>
                 <Route path="/login" element={<Header />}>
-                  <Route path="/login/" element={<LoginPage />} />
+                  <Route path="/login/" element={<Login />} />
                 </Route>
+
+                <Route path="/register" element={<Header />}>
+                  <Route path="/register/" element={<Register />} />
+                </Route>
+
                 <Route path="/stations" element={<Header />}>
                   <Route path="/stations" element={<StationPage />} />
                 </Route>
+
                 <Route path="*" element={<Header />}>
-                  <Route index element={<LoginPage />} />
+                  <Route index element={<Login />} />
                 </Route>
+
               </Routes>
             </BrowserRouter>
           </StationsContextProvider>

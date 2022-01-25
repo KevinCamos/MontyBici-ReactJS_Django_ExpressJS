@@ -1,6 +1,5 @@
 import { useState } from "react";
 
-
 export default function useHeader() {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
@@ -13,7 +12,7 @@ export default function useHeader() {
   };
 
   const handleCloseNavMenu = () => {
-    console.log(handleCloseNavMenu)
+    console.log(handleCloseNavMenu);
     setAnchorElNav(null);
   };
 
@@ -21,6 +20,8 @@ export default function useHeader() {
     setAnchorElUser(null);
   };
 
-  return { anchorElNav,anchorElUser, handleOpenNavMenu, handleOpenUserMenu,handleCloseNavMenu ,handleCloseUserMenu}
-  
+  const pagesLogged = ["Stations"];
+  const pagesNoLogged = ["login", "register"];
+  const settings = ["profile", "account", "dashboard"];
+  return { anchorElNav, anchorElUser, handleOpenNavMenu, handleOpenUserMenu, handleCloseNavMenu, handleCloseUserMenu, pagesLogged, pagesNoLogged, settings };
 }
