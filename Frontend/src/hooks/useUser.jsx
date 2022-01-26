@@ -4,11 +4,11 @@ import { useNavigate } from "react-router-dom";
 import UserContext from "../context/UserContext";
 
 import userServices from "../services/UserServices";
-export default function useUser() {
+export default  function useUser() {
   let navigate = useNavigate();
 
   const [state, setState] = useState({ loading: false, error: false, errorPassword:false });
-  const { jwt, setJWT, user, setUser } = useContext(UserContext);
+  const { jwt, setJWT, user, setUser,isJWTLoading } = useContext(UserContext);
 
   const login = useCallback(
     (data) => {
@@ -74,5 +74,5 @@ export default function useUser() {
     navigate("/Login");
   };
 
-  return { login, signup, isLogged, user, logout ,state};
+  return { login, signup, isLogged, user, logout ,state, isJWTLoading};
 }

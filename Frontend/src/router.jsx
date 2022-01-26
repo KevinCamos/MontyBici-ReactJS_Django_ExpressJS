@@ -1,6 +1,7 @@
 import React, { Suspense } from "react";
 import { StationsContextProvider } from "./context/StationsContext";
 import { UserContextProvider } from "./context/UserContext";
+import GuardedRoute from "./services/Guards/GuardsUser";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
@@ -19,22 +20,17 @@ export default function MyRouter() {
           <StationsContextProvider>
             <BrowserRouter>
               <Routes>
-                <Route path="/login" element={<Header />}>
-                  <Route path="/login/" element={<Login />} />
-                </Route>
-
-                <Route path="/register" element={<Header />}>
-                  <Route path="/register/" element={<Register />} />
-                </Route>
-
-                <Route path="/stations" element={<Header />}>
-                  <Route path="/stations" element={<StationPage />} />
+                <Route path="/" element={<Header />}>
+                  <Route path="/login" element={<Login />} />
+                  <Route path="/register" element={<Register />} />
+                  <Route path="/stations" element={<GuardedRoute />}>
+                    <Route index element={<StationPage />} />
+                  </Route>
                 </Route>
 
                 <Route path="*" element={<Header />}>
-                  <Route index element={<Login />} />
+                <Route index element={<Register />} />
                 </Route>
-
               </Routes>
             </BrowserRouter>
           </StationsContextProvider>
