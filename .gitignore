@@ -92,3 +92,4 @@ ENV/
 db.sqlite3
 Backend/conduit/settings.py
 Frontend/src/secrets.js
+Frontend/src/services/Guards/GuardsUser exemple.jsx

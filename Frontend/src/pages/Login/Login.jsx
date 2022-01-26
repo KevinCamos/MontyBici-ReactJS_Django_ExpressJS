@@ -49,6 +49,9 @@ export default function Login() {
             <span className="load">Cargando datos del usuario...</span>
           ) : (
             <>
+                          <Grid container spacing={2}>
+                          <Grid item xs={12}>
+
               <TextField
                 margin="normal"
                 required
@@ -61,20 +64,23 @@ export default function Login() {
                 {...register("email", { required: true, pattern: /^\S+@\S+$/i })}
               />
               {errors.email && <small className="error">El email es requerido</small>}
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-                {...register("password", { required: true, maxLength: 12 })}
-              />
+              </Grid>
+                <Grid item xs={12}>
+                  
+               <TextField
+                    required
+                    fullWidth
+                    name="password"
+                    label="Password"
+                    type="password"
+                    id="password"
+                    autoComplete="new-password"
+                    {...register("password", { required: true, max: 16, min: 8, maxLength: 16 })}
+                  />
               {errors.password && <div className="error">El password es requerido</div>}
               {state.error && <span className="error">¿Has escrito bien tu email y password?</span>}
-
+              </Grid>
+              </Grid>
               <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
                 Sign In
               </Button>

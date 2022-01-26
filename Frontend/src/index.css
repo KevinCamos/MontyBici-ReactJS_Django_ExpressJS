@@ -5,11 +5,19 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #282c34;
+  /* background-color: #313133;  */
 
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+
+.buttonLoading{
+  border-radius: 35;
+  background-color: "white";
+  padding: "18px 36px";
+  font-size: "18px";
 }

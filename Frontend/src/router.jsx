@@ -1,7 +1,8 @@
 import React, { Suspense } from "react";
 import { StationsContextProvider } from "./context/StationsContext";
 import { UserContextProvider } from "./context/UserContext";
-import GuardedRoute from "./services/Guards/GuardsUser";
+import GuardUser from "./services/Guards/GuardsUser";
+import { LoadingButton } from '@mui/lab';
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
@@ -12,6 +13,8 @@ export default function MyRouter() {
   const Login = React.lazy(() => import("./pages/Login/Login"));
   const Register = React.lazy(() => import("./pages/Register/Register"));
   const StationPage = React.lazy(() => import("./pages/Stations/StationPage"));
+  const NotFound = React.lazy(() => import("./pages/NotFound/NotFound"));
+  const Loading = React.lazy(() => import("./components/Templates-Suspense/Loading"));
 
   return (
     <>
@@ -21,16 +24,21 @@ export default function MyRouter() {
             <BrowserRouter>
               <Routes>
                 <Route path="/" element={<Header />}>
-                  <Route path="/login" element={<Login />} />
-                  <Route path="/register" element={<Register />} />
-                  <Route path="/stations" element={<GuardedRoute />}>
+
+                <Route path="/" element={<GuardUser />}>
                     <Route index element={<StationPage />} />
                   </Route>
+
+                  <Route path="/login" element={<Login />} />
+                  <Route path="/register" element={<Register />} />
+
+                  <Route path="/stations" element={<GuardUser />}>
+                    <Route index element={<StationPage />} />
+                  </Route>
+                  
+                  <Route path="*" element={<NotFound />} />
                 </Route>
 
-                <Route path="*" element={<Header />}>
-                <Route index element={<Register />} />
-                </Route>
               </Routes>
             </BrowserRouter>
           </StationsContextProvider>

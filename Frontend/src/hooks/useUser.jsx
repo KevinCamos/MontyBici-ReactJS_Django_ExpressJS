@@ -5,7 +5,7 @@ import UserContext from "../context/UserContext";
 
 import userServices from "../services/UserServices";
 export default  function useUser() {
-  let navigate = useNavigate();
+  const navigate = useNavigate();
 
   const [state, setState] = useState({ loading: false, error: false, errorPassword:false });
   const { jwt, setJWT, user, setUser,isJWTLoading } = useContext(UserContext);
@@ -71,7 +71,7 @@ export default  function useUser() {
     sessionStorage.removeItem("token");
     setJWT(null);
     setUser(null);
-    navigate("/Login");
+    navigate("/login");
   };
 
   return { login, signup, isLogged, user, logout ,state, isJWTLoading};
