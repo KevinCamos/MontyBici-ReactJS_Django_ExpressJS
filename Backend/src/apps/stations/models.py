@@ -28,4 +28,4 @@ class Point(models.Model):
 
 
     def __str__(self):
-        return str(self.id)+"-"+str(self.id_station)
+        return str(self.id)+"-"+str(self.station)

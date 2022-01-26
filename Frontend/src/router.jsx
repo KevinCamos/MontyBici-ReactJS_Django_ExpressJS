@@ -2,7 +2,7 @@ import React, { Suspense } from "react";
 import { StationsContextProvider } from "./context/StationsContext";
 import { UserContextProvider } from "./context/UserContext";
 import GuardUser from "./services/Guards/GuardsUser";
-import { LoadingButton } from '@mui/lab';
+// import { LoadingButton } from '@mui/lab';
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
@@ -14,7 +14,7 @@ export default function MyRouter() {
   const Register = React.lazy(() => import("./pages/Register/Register"));
   const StationPage = React.lazy(() => import("./pages/Stations/StationPage"));
   const NotFound = React.lazy(() => import("./pages/NotFound/NotFound"));
-  const Loading = React.lazy(() => import("./components/Templates-Suspense/Loading"));
+  // const Loading = React.lazy(() => import("./components/Templates-Suspense/Loading"));
 
   return (
     <>

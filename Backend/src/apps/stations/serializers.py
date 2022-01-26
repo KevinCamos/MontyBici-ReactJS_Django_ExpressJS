@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import Station, Point
+from src.apps.bikes.serializers import BikeSerializer
 
 
 class StationSerializer(serializers.ModelSerializer):
@@ -43,13 +44,16 @@ class StationPointsSerializer(serializers.ModelSerializer):
 
 
 
+
+
+### YOLANDA, m'has de ficar un punt més quan corregeixes açò
 class PointsSerializer(serializers.ModelSerializer):
     # categories = UserPostCategoriesSerializer(many=True)
+    bike = BikeSerializer(many=False)
 
     class Meta:
         model = Point
-        fields = ["id","bike_id", "active"]
-###YOLANDA, m'has de ficar un punt més quan corregeixes açò
+        fields = ["id","bike", "active"]
 class serializerStationsPoints(serializers.ModelSerializer):
 
     points = PointsSerializer(many=True)

@@ -10,23 +10,22 @@ from .serializers import StationPointsSerializer, serializerStationsPoints
 
 
 # # Esta función saca toda los puntos de bici, y de cada punto su estación, aunque todas las estaciones son la misma 
-# class PointListFiltered(generics.ListAPIView):
-#     lookup_field = 'station__slug'
-#     lookup_url_kwarg = 'slug'
-#     permission_classes = (IsAuthenticatedOrReadOnly,)
-#     queryset = Point.objects.select_related(
-#         'station'
-#     )
-#     # renderer_classes = (PointJSONRenderer)
-#     serializer_class = PointsSerializer
+class GetOneStationAPIView(generics.ListAPIView):
+    lookup_field = 'slug'
+    lookup_url_kwarg = 'slug'
+    permission_classes = (IsAuthenticatedOrReadOnly,)
+    queryset = Station.objects.all()
+    
+    # renderer_classes = (PointJSONRenderer)
+    serializer_class = serializerStationsPoints
 
-#     def filter_queryset(self, queryset):
-#         # The built-in list function calls `filter_queryset`. Since we only
-#         # want comments for a specific article, this is a good place to do
-#         # that filtering.
-#         filters = {self.lookup_field: self.kwargs[self.lookup_url_kwarg]}
+    def filter_queryset(self, queryset):
+        # The built-in list function calls `filter_queryset`. Since we only
+        # want comments for a specific article, this is a good place to do
+        # that filtering.
+        filters = {self.lookup_field: self.kwargs[self.lookup_url_kwarg]}
 
-#         return queryset.filter(**filters)
+        return queryset.filter(**filters)
 
 #ESTE YA NO ES GASTA
 # class StationListAPIView(generics.ListAPIView):
@@ -42,7 +41,8 @@ from .serializers import StationPointsSerializer, serializerStationsPoints
 
 
 class StationListAPIView(generics.ListAPIView):
-    queryset = Station.objects.all().prefetch_related('points')
+    # permission_classes = (IsAuthenticated,)
+    queryset = Station.objects.all().prefetch_related('points').all()
     serializer_class = serializerStationsPoints
 
 
