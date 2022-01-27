@@ -6,7 +6,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 // import  from 'booststrap'
-document.title = "MontyBici"
+// document.title = "MontyBici"
 ReactDOM.render(
   <React.StrictMode>
     <App />

@@ -1,20 +1,23 @@
 import React from "react";
+import {Helmet} from "react-helmet";
+
 import ListOfStations from "../../components/ListOfStations/ListOfStations";
 import useStation from "../../hooks/useStation";
-import { ThemeProvider } from '@mui/material/styles';
+import { ThemeProvider } from "@mui/material/styles";
 import theme from "./themeCard";
 
 export default function StationPage() {
-  const { stations, loading} = useStation();
-
+  const { stations, loading } = useStation();
 
   return (
     <>
-          <ThemeProvider theme={theme}>
+    <Helmet>
+          <title>Estaciones MontyBicis</title>
+        </Helmet>
 
-      <ListOfStations stations={stations} loading={loading}/>
+      <ThemeProvider theme={theme}>
+        <ListOfStations stations={stations} loading={loading} />
       </ThemeProvider>
-
     </>
   );
 }

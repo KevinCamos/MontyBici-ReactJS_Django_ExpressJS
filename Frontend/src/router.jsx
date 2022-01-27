@@ -13,6 +13,7 @@ export default function MyRouter() {
   const Login = React.lazy(() => import("./pages/Login/Login"));
   const Register = React.lazy(() => import("./pages/Register/Register"));
   const StationPage = React.lazy(() => import("./pages/Stations/StationPage"));
+  const DetailsPage = React.lazy(() => import("./pages/Details/DetailsPage"));
   const NotFound = React.lazy(() => import("./pages/NotFound/NotFound"));
   // const Loading = React.lazy(() => import("./components/Templates-Suspense/Loading"));
 
@@ -24,8 +25,7 @@ export default function MyRouter() {
             <BrowserRouter>
               <Routes>
                 <Route path="/" element={<Header />}>
-
-                <Route path="/" element={<GuardUser />}>
+                  <Route path="/" element={<GuardUser />}>
                     <Route index element={<StationPage />} />
                   </Route>
 
@@ -34,11 +34,12 @@ export default function MyRouter() {
 
                   <Route path="/stations" element={<GuardUser />}>
                     <Route index element={<StationPage />} />
+                    <Route path="/stations/:slug" element={<DetailsPage />} />
+
                   </Route>
-                  
+
                   <Route path="*" element={<NotFound />} />
                 </Route>
-
               </Routes>
             </BrowserRouter>
           </StationsContextProvider>

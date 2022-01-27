@@ -15,34 +15,14 @@ class GetOneStationAPIView(generics.ListAPIView):
     lookup_url_kwarg = 'slug'
     permission_classes = (IsAuthenticatedOrReadOnly,)
     queryset = Station.objects.all()
-    
     # renderer_classes = (PointJSONRenderer)
     serializer_class = serializerStationsPoints
 
     def filter_queryset(self, queryset):
-        # The built-in list function calls `filter_queryset`. Since we only
-        # want comments for a specific article, this is a good place to do
-        # that filtering.
         filters = {self.lookup_field: self.kwargs[self.lookup_url_kwarg]}
-
         return queryset.filter(**filters)
 
-#ESTE YA NO ES GASTA
-# class StationListAPIView(generics.ListAPIView):
-#     queryset = Station.objects.all()
-#     # permission_classes = (AllowAny,)
-#     serializer_class = StationPointsSerializer  
-
-
-# class StationRetrieveAPIView(generics.RetrieveAPIView):
-#     queryset = Station.objects.all()
-#     serializer_class = StationPointsSerializer
-
-
-
-class StationListAPIView(generics.ListAPIView):
+class GetAllStationListAPIView(generics.ListAPIView):
     # permission_classes = (IsAuthenticated,)
-    queryset = Station.objects.all().prefetch_related('points').all()
+    queryset = Station.objects.all()
     serializer_class = serializerStationsPoints
-
-

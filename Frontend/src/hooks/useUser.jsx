@@ -66,13 +66,18 @@ export default  function useUser() {
     }},
     [setJWT, setUser, navigate,setState]
   );
+
+
+  
   const isLogged = Boolean(jwt) && Boolean(user);
-  const logout = () => {
+  const logout = useCallback(() => {
     sessionStorage.removeItem("token");
     setJWT(null);
     setUser(null);
     navigate("/login");
-  };
+  },
+  [setJWT, setUser, navigate]
+  );
 
   return { login, signup, isLogged, user, logout ,state, isJWTLoading};
 }

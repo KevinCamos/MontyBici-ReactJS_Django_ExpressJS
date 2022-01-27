@@ -44,8 +44,6 @@ class StationPointsSerializer(serializers.ModelSerializer):
 
 
 
-
-
 ### YOLANDA, m'has de ficar un punt més quan corregeixes açò
 class PointsSerializer(serializers.ModelSerializer):
     # categories = UserPostCategoriesSerializer(many=True)
