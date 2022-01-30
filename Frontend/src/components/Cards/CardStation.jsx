@@ -3,8 +3,10 @@ import { CardActionArea, CardActions, Card, CardContent, CardMedia, Typography }
 import PedalBikeIcon from "@mui/icons-material/PedalBike";
 
 import { Link } from "react-router-dom";
-
+import useBike from "../../hooks/useBike";
 export default function CardStation({ station }) {
+  const { statusBike } = useBike();
+
   return (
     <Card sx={{ maxWidth: 345 ,    boxShadow: 1}}>
       <CardActionArea>
@@ -27,7 +29,7 @@ export default function CardStation({ station }) {
         </CardContent>
       <CardActions>
         {station.points.map((point, index) => (
-          <PedalBikeIcon color={point.bike ? (point.bike.active ? "primary" : "secondary") : "disabled"} key={index} />
+          <PedalBikeIcon color={statusBike(point.bike) } key={index} />
         ))}
       </CardActions>
     </Card>

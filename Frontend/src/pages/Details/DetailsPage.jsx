@@ -1,21 +1,23 @@
 import React from "react";
-import {Helmet} from "react-helmet";
+import { Helmet } from "react-helmet";
 import { useParams } from "react-router-dom";
+import "./Details.css";
+import SelectBike from "./SelectBike";
 
-import { CardActionArea, CardActions, Card, CardContent, CardMedia, Typography,Box } from "@mui/material";
+import { CardActionArea, CardActions, Card, CardContent, CardMedia, Typography, Box, Grid } from "@mui/material";
 import PedalBikeIcon from "@mui/icons-material/PedalBike";
 
 import useOnlyStation from "../../hooks/useOnlyStation";
 import { ThemeProvider } from "@mui/material/styles";
 
-import theme from "../Stations/themeCard";
+import theme from "../Themes/themeCard";
 
 export default function DetailsPage() {
   const { slug } = useParams();
   const { oneStation, isLoading, isError } = useOnlyStation({ slug: slug });
   console.log(oneStation);
   console.log(slug);
-  console.log(isLoading,isError);
+  console.log(isLoading, isError);
 
   if (isLoading) {
     return (
@@ -36,7 +38,7 @@ export default function DetailsPage() {
   } else {
     return (
       <>
-      <Helmet>
+        <Helmet>
           <title> Estación {oneStation.name}</title>
         </Helmet>
         <ThemeProvider theme={theme}>
@@ -58,18 +60,15 @@ export default function DetailsPage() {
                 />
               </CardActionArea>
               <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
+                <Typography gutterBottom variant="h2" component="div">
                   {oneStation.name}
                 </Typography>
-                <Typography variant="body2" color="text.secondary">
+                <Typography variant="h5" color="text.secondary">
                   {`${oneStation.direction} `}
                 </Typography>
               </CardContent>
-              <CardActions>
-                {oneStation.points.map((point, index) => (
-                  <PedalBikeIcon fontSize="large" color={point.bike ? (point.bike.active ? "primary" : "secondary") : "disabled"} key={index} />
-                ))}
-              </CardActions>
+             
+              <SelectBike points={oneStation.points}/>
             </Card>
           </Box>
         </ThemeProvider>
