@@ -1,9 +1,13 @@
 # apis/urls.py
-from django.urls import path
-
+from django.conf.urls import url
+from .views import RegisterAPIView
 from .views import BikeViewSet
 from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
 router.register('', BikeViewSet, basename='montybicis')
-urlpatterns = router.urls
+
+urlpatterns = [
+    url(r'^register/$', RegisterAPIView.as_view()),
+
+]

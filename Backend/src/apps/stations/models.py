@@ -1,6 +1,7 @@
 from django.db import models
 from src.apps.bikes.models import Bike
 # Create your models here.
+from rest_framework.exceptions import NotFound
 
 
 class Station(models.Model):
@@ -15,11 +16,6 @@ class Station(models.Model):
         return str(self.name)
 
 
-
-
-
-
-
 class Point(models.Model):
     station = models.ForeignKey(Station, on_delete=models.CASCADE,   related_name='points',)
     bike = models.OneToOneField(Bike,  on_delete=models.SET_NULL,unique=True, blank=True, null=True)
@@ -29,3 +25,33 @@ class Point(models.Model):
 
     def __str__(self):
         return str(self.id)+"-"+str(self.station)
+
+    def checkPoint(self):
+     
+        if self.active == False : 
+            return "Este punto está estropeado no está disponible"
+        elif self.bike == None : 
+            return "No hay bicicleta"
+        elif self.bike.active == False : 
+            return "Esta bicicleta no se encuentra disponible"
+        elif self.bike.active == True : 
+            return self.bike.pk
+        else :
+            raise NotFound('Error not found.')
+    
+        # """Follow `profile` if we're not already following `profile`."""
+        # self.follows.add(profile)
+    def RemoveBike(self):
+        try:
+            self.bike = None
+            print("BICI ELIMINADA")
+            self.save()
+
+        except Point.DoesNotExist:
+            raise NotFound('Este punto de estación no existe.')
+
+        
+
+    
+        # """Follow `profile` if we're not already following `profile`."""
+        # self.follows.add(profile)

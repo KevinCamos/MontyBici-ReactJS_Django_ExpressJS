@@ -4,8 +4,8 @@ import { useParams } from "react-router-dom";
 import "./Details.css";
 import SelectBike from "./SelectBike";
 
-import { CardActionArea, CardActions, Card, CardContent, CardMedia, Typography, Box, Grid } from "@mui/material";
-import PedalBikeIcon from "@mui/icons-material/PedalBike";
+import { CardActionArea, /* CardActions, */ Card, CardContent, CardMedia, Typography, Box, /* Grid */ } from "@mui/material";
+// import PedalBikeIcon from "@mui/icons-material/PedalBike";
 
 import useOnlyStation from "../../hooks/useOnlyStation";
 import { ThemeProvider } from "@mui/material/styles";
