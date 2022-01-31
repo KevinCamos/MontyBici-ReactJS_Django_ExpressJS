@@ -1,6 +1,7 @@
 from django.db import models
-
-# Create your models here.
+# from rest_framework import serializers
+# from rest_framework.exceptions import NotFound
+# from src.apps.stations.models import Point
 
 
 class Bike(models.Model):
@@ -30,3 +31,14 @@ class Register_Bike(models.Model):
 
     def __str__(self):
         return self.id
+
+
+    # def getPoint(self, id_point):
+     
+    #     if self.count() != 0:
+    #         raise serializers.ValidationError('Debe devolver antes la bici.')
+    #     else:
+    #         try:
+    #            return Point.objects.get(pk=id_point)
+    #         except Point.DoesNotExist:
+    #             raise NotFound('Este punto de estación no existe.')

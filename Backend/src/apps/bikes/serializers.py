@@ -32,7 +32,6 @@ class RegisterSerializer(serializers.ModelSerializer):
         )
 
     def create(self, validated_data):
-        print("ENTRA FINS ACÍ")
 
         user = self.context['user']
         bike = self.context['bike']
@@ -44,3 +43,13 @@ class RegisterSerializer(serializers.ModelSerializer):
 
     def data_return(self, instance):
         return instance.updated_at.isoformat()
+
+    def update(self, instance, validated_data):
+        print("EHHHH")
+        print("EHHHH")
+        print("EHHHH")
+        print("EHHHH")
+        print("EHHHH")
+        instance.point_return = validated_data.get('point_return', instance.point_return)
+        instance.save()
+        return instance

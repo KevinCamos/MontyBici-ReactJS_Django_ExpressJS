@@ -26,10 +26,10 @@ class Point(models.Model):
     def __str__(self):
         return str(self.id)+"-"+str(self.station)
 
-    def checkPoint(self):
+    def checkPointAvailable(self):
      
         if self.active == False : 
-            return "Este punto está estropeado no está disponible"
+            return "Este punto está estropeado, no está disponible"
         elif self.bike == None : 
             return "No hay bicicleta"
         elif self.bike.active == False : 
@@ -38,13 +38,32 @@ class Point(models.Model):
             return self.bike.pk
         else :
             raise NotFound('Error not found.')
-    
+
+    def checkFreePoint(self):
+     
+        if self.active == False : 
+            return "Este punto está estropeado, no está disponible"
+        elif self.bike != None : 
+            return "Hay una bicicleta en este puesto"
+        else : 
+            return self
+            
         # """Follow `profile` if we're not already following `profile`."""
         # self.follows.add(profile)
     def RemoveBike(self):
         try:
             self.bike = None
             print("BICI ELIMINADA")
+            self.save()
+
+        except Point.DoesNotExist:
+            raise NotFound('Este punto de estación no existe.')
+
+    def SaveBike(self,bike):
+        try:
+            print("Bici Guardada")
+            self.bike = bike
+
             self.save()
 
         except Point.DoesNotExist:
