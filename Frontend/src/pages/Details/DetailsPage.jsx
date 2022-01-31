@@ -2,7 +2,7 @@ import React from "react";
 import { Helmet } from "react-helmet";
 import { useParams } from "react-router-dom";
 import "./Details.css";
-import SelectBike from "./SelectBike";
+import SelectBike from "../../components/TabBike/TabBike";
 
 import { CardActionArea, /* CardActions, */ Card, CardContent, CardMedia, Typography, Box, /* Grid */ } from "@mui/material";
 // import PedalBikeIcon from "@mui/icons-material/PedalBike";

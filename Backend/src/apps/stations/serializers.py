@@ -52,6 +52,8 @@ class PointsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Point
         fields = ["id","bike", "active"]
+
+        
 class serializerStationsPoints(serializers.ModelSerializer):
 
     points = PointsSerializer(many=True)

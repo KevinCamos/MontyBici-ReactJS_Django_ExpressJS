@@ -5,11 +5,6 @@ import { Link } from "react-router-dom";
 
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 
-// import FormControlLabel from '@mui/material/FormControlLabel';
-// import Checkbox from '@mui/material/Checkbox';
-// import Link from '@mui/material/Link';
-// import Grid from '@mui/material/Grid';
-// import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 import { useForm } from "react-hook-form";
 

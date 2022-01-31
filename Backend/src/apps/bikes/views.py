@@ -22,11 +22,11 @@ class BikeViewSet(viewsets.ModelViewSet):
 
 
 class RegisterAPIView(APIView):
-
     permission_classes = (IsAuthenticated,)
     serializer_class = RegisterSerializer
 
     def post(self, request):
+
         self_uuid = self.request.user.profile.pk
         data = request.data.get('id_point', {})
 
@@ -63,12 +63,7 @@ class RegisterAPIView(APIView):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
-class EndRegisterUpdateAPIView(generics.UpdateAPIView):
-
-    permission_classes = (IsAuthenticated,)
-    serializer_class = RegisterSerializer
-
-    def update(self, request, username=None):
+    def put(self, request):
         self_uuid = self.request.user.profile.pk
         data = request.data.get('id_point', {})
    
@@ -76,7 +71,7 @@ class EndRegisterUpdateAPIView(generics.UpdateAPIView):
             registered = Register_Bike.objects.get(
                 user=self_uuid, point_return__isnull=True)
         except Register_Bike.DoesNotExist:
-            raise NotFound('Este punto de estación no existe.')
+            raise NotFound('Actualmente no tienes ninguna bici.')
 
         try:
             point = Point.objects.get(pk=data)
@@ -91,7 +86,7 @@ class EndRegisterUpdateAPIView(generics.UpdateAPIView):
         if (type(free_point) != Point):
             raise NotFound(free_point)
             # print(registered.bike)
-     
+
 
         serializer = self.serializer_class(
           instance=registered,   data={"point_return": data}, partial=True)

@@ -5,7 +5,8 @@ from rest_framework.exceptions import NotFound
 
 
 class Station(models.Model):
-    slug = models.SlugField(db_index=True, max_length=255, unique=True, blank=True)
+    slug = models.SlugField(
+        db_index=True, max_length=255, unique=True, blank=True)
 
     name = models.CharField(db_index=True, max_length=30, unique=True)
     direction = models.CharField(max_length=100)
@@ -17,37 +18,38 @@ class Station(models.Model):
 
 
 class Point(models.Model):
-    station = models.ForeignKey(Station, on_delete=models.CASCADE,   related_name='points',)
-    bike = models.OneToOneField(Bike,  on_delete=models.SET_NULL,unique=True, blank=True, null=True)
+    station = models.ForeignKey(
+        Station, on_delete=models.CASCADE,   related_name='points',)
+    bike = models.OneToOneField(
+        Bike,  on_delete=models.SET_NULL, unique=True, blank=True, null=True)
 
-    active = models.BooleanField( unique=False , default=True)
-
+    active = models.BooleanField(unique=False, default=True)
 
     def __str__(self):
         return str(self.id)+"-"+str(self.station)
 
     def checkPointAvailable(self):
-     
-        if self.active == False : 
-            return "Este punto está estropeado, no está disponible"
-        elif self.bike == None : 
-            return "No hay bicicleta"
-        elif self.bike.active == False : 
-            return "Esta bicicleta no se encuentra disponible"
-        elif self.bike.active == True : 
+
+        if self.active == False:
+            raise NotFound("Este punto está estropeado, no está disponible")
+        elif self.bike == None:
+            raise NotFound("No hay bicicleta")
+        elif self.bike.active == False:
+            raise NotFound("Esta bicicleta no se encuentra disponible")
+        elif self.bike.active == True:
             return self.bike.pk
-        else :
+        else:
             raise NotFound('Error not found.')
 
     def checkFreePoint(self):
-     
-        if self.active == False : 
-            return "Este punto está estropeado, no está disponible"
-        elif self.bike != None : 
-            return "Hay una bicicleta en este puesto"
-        else : 
+
+        if self.active == False:
+            raise NotFound( "Este punto está estropeado, no está disponible")
+        elif self.bike != None:
+            raise NotFound( "Hay una bicicleta en este puesto")
+        else:
             return self
-            
+
         # """Follow `profile` if we're not already following `profile`."""
         # self.follows.add(profile)
     def RemoveBike(self):
@@ -59,7 +61,7 @@ class Point(models.Model):
         except Point.DoesNotExist:
             raise NotFound('Este punto de estación no existe.')
 
-    def SaveBike(self,bike):
+    def SaveBike(self, bike):
         try:
             print("Bici Guardada")
             self.bike = bike
@@ -69,8 +71,5 @@ class Point(models.Model):
         except Point.DoesNotExist:
             raise NotFound('Este punto de estación no existe.')
 
-        
-
-    
         # """Follow `profile` if we're not already following `profile`."""
         # self.follows.add(profile)

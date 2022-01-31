@@ -45,11 +45,7 @@ class RegisterSerializer(serializers.ModelSerializer):
         return instance.updated_at.isoformat()
 
     def update(self, instance, validated_data):
-        print("EHHHH")
-        print("EHHHH")
-        print("EHHHH")
-        print("EHHHH")
-        print("EHHHH")
+ 
         instance.point_return = validated_data.get('point_return', instance.point_return)
         instance.save()
         return instance
