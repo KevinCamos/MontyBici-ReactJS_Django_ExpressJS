@@ -2,7 +2,7 @@ from django.contrib.auth import authenticate
 
 from rest_framework import serializers
 
-from src.apps.profiles.serializers import ProfileSerializer
+from src.apps.profiles.serializers import ProfileSerializer, ProfileRegisterSerializer
 from django.core.serializers import serialize
 
 
@@ -23,12 +23,14 @@ class RegistrationSerializer(serializers.ModelSerializer):
     # The client should not be able to send a token along with a registration
     # request. Making `token` read-only handles that for us.
     token = serializers.CharField(max_length=255, read_only=True)
+    
+    profile = ProfileRegisterSerializer(many=False, required=False)
 
     class Meta:
         model = User
         # List all of the fields that could possibly be included in a request
         # or response, including fields specified explicitly above.
-        fields = ['email', 'username', 'password', 'token']
+        fields = ['email', 'username', 'password', 'token','profile']
 
     def create(self, validated_data):
         # Use the `create_user` method we wrote earlier to create a new user.
@@ -40,7 +42,7 @@ class LoginSerializer(serializers.Serializer):
     username = serializers.CharField(max_length=255, read_only=True)
     password = serializers.CharField(max_length=128, write_only=True)
     token = serializers.CharField(max_length=255, read_only=True)
-    image = serializers.CharField(max_length=255, read_only=True)
+    profile = ProfileSerializer(many=False, required=False)
 
     def validate(self, data):
         # The `validate` method is where we make sure that the current
@@ -103,11 +105,13 @@ class LoginSerializer(serializers.Serializer):
         # This is the data that is passed to the `create` and `update` methods
         # that we will see later on.
         # users = serialize(user)
-
+        print("-----1-----")
+        print(user.profile.pk) 
         return {
             'email': user.email,
             'username': user.username,
             'token': user.token,
+            'profile':user.profile
         }
 
 
@@ -127,7 +131,8 @@ class UserSerializer(serializers.ModelSerializer):
     # When a field should be handled as a serializer, we must explicitly say
     # so. Moreover, `UserSerializer` should never expose profile information,
     # so we set `write_only=True`.
-    profile = ProfileSerializer(write_only=True)
+    # profile = ProfileSerializer(write_only=True)
+    profile = ProfileSerializer(many=False, required=False)
     
     # We want to get the `bio` and `image` fields from the related Profile
     # model.

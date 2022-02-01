@@ -31,13 +31,10 @@ class Profile(TimestampedModel):
 
       
     #RANDOM IMAGE ON REGISTER PROFILE
-        # randomstring= uuid.uuid4
-
     randomstring= ''.join(random.sample(ascii_uppercase,4)+random.sample(digits,4)+random.sample(ascii_uppercase,1))
 
     url = "https://avatars.dicebear.com/api/avataaars/"+randomstring+".svg"
-    image = models.TextField(blank=True, default=url)
-    image = models.URLField(blank=True)
+    image = models.URLField(blank=True,  default=url)
 
     # This is an example of a Many-To-Many relationship where both sides of the
     # relationship are of the same model. In this case, the model is `Profile`.
