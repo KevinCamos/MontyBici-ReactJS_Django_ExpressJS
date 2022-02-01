@@ -105,8 +105,6 @@ class LoginSerializer(serializers.Serializer):
         # This is the data that is passed to the `create` and `update` methods
         # that we will see later on.
         # users = serialize(user)
-        print("-----1-----")
-        print(user.profile.pk) 
         return {
             'email': user.email,
             'username': user.username,

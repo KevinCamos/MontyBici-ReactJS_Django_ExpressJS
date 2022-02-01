@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from django.db.models import F
 
 from .models import Profile
 from src.apps.bikes.models import Register_Bike
@@ -20,7 +21,7 @@ class ProfileSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         register = Register_Bike.objects.filter(
-            user=instance.pk, point_return__isnull=True).values('bike')
+            user=instance.pk, point_return__isnull=True).values('bike',station=F('point_get__station__name'))
         if register.count() == 0:
             return{
                 "image": instance.image,
@@ -29,8 +30,8 @@ class ProfileSerializer(serializers.ModelSerializer):
             return{
                 "image": instance.image,
                 "registers": register[0]
-
             }
+
 
 
 class ProfileRegisterSerializer(serializers.ModelSerializer):

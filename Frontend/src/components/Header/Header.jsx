@@ -1,16 +1,17 @@
 import React from "react";
 import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
+import {Box,Grid} from "@mui/material";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
-import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
+import PedalBikeIcon from "@mui/icons-material/PedalBike";
+import MenuIcon from "@mui/icons-material/Menu";
 
 import { Outlet, Link } from "react-router-dom";
 
@@ -77,6 +78,7 @@ const Header = () => {
             <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
               MontyBici
             </Typography>
+
             <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
               {isLogged
                 ? pagesLogged.map((page) => (
@@ -97,9 +99,18 @@ const Header = () => {
 
             {isLogged && (
               <>
-                <Typography variant="h6" noWrap component="div" sx={{ mr: 2, display: { xs: "none", md: "flex" } }}>
-                  {user.username}
-                </Typography>
+                {user.profile.registers && (
+                  <Box variant="h6" noWrap component="div" sx={{ mr: 2, display: { xs: "flex", md: "flex" } }}>
+                    <Grid item xs zeroMinWidth>
+                  <Typography noWrap>
+                    <PedalBikeIcon/>
+                    </Typography>
+                    <Typography noWrap>
+                    {user.profile.registers.station}
+                    </Typography>
+                    </Grid>
+                  </Box>
+                )}
                 <Box sx={{ flexGrow: 0 }}>
                   <Tooltip title="Open settings">
                     <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
