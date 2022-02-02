@@ -5,7 +5,6 @@ const stationsServices = {
     return Api().get("stations/station");
   },
   getOneStation(slug) {
-    console.log(`stations/station/${slug}`)
     return Api().get(`stations/station/${slug}`);
   },
 };

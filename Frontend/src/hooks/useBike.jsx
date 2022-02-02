@@ -1,8 +1,11 @@
-import { useCallback, useState,useEffect } from "react";
+import { useCallback, useState,useContext } from "react";
 import bikeServices from "../services/BikeServices";
+import UserContext from "../context/UserContext";
+import StationsContext from "../context/StationsContext";
 
 export default function useStations() {
-  // const {stations, setStations} = useContext(StationsContext)
+  const {stations, setStations} = useContext(StationsContext)
+  const {user, setUser } = useContext(UserContext);
   const [errorBike, setErrorBike] = useState(null);
   const obtainBike = useCallback(
     (data) => {
@@ -10,9 +13,17 @@ export default function useStations() {
       bikeServices
         .obtainBike({ id_point: data })
         .then((data) => {
-          let user = data.data.user;
-          console.log(user);
+          let refreshStation= [...stations.map((station) => station.points.map((point) => point = null))]
+          let refreshUser = {...user}
+          refreshUser.profile=data.data.user;
+         
+          setStations(refreshStation)
+          setUser(refreshUser)
           setErrorBike(null);
+
+
+          console.log(refreshStation)
+          console.log(user);
         })
         .catch((error) => {
         
@@ -22,7 +33,7 @@ export default function useStations() {
           setErrorBike(errors);
         });
     },
-    [setErrorBike]
+    [setErrorBike, user, setUser]
   );
 
 

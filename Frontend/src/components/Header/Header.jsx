@@ -18,10 +18,10 @@ import { Outlet, Link } from "react-router-dom";
 import useHeader from "../../hooks/useHeader";
 import useUser from "../../hooks/useUser";
 
+
 const Header = () => {
   const { anchorElNav, anchorElUser, handleOpenNavMenu, handleOpenUserMenu, handleCloseNavMenu, handleCloseUserMenu, pagesLogged, pagesNoLogged, settings } = useHeader();
   const { isLogged, user, logout } = useUser();
-  console.log(isLogged);
 
   return (
     <>

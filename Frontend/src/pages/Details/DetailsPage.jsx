@@ -15,9 +15,7 @@ import theme from "../Themes/themeCard";
 export default function DetailsPage() {
   const { slug } = useParams();
   const { oneStation, isLoading, isError } = useOnlyStation({ slug: slug });
-  console.log(oneStation);
-  console.log(slug);
-  console.log(isLoading, isError);
+
 
   if (isLoading) {
     return (

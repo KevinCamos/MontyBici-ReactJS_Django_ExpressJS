@@ -90,8 +90,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',  # <-- UPDATED line
         'NAME': 'MontyBici',                 # <-- UPDATED line
-        'USER': 'kevin',                     # <-- UPDATED line
-        'PASSWORD': 'kevin',              # <-- UPDATED line
+        'USER': 'root',                     # <-- UPDATED line
+        'PASSWORD': 'root',              # <-- UPDATED line
         'HOST': 'localhost',                # <-- UPDATED line
         'PORT': '3306',
     }
