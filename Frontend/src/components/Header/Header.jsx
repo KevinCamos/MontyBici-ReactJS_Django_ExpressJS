@@ -111,11 +111,16 @@ const Header = () => {
                   </Box>
                 )}
                 <Box sx={{ flexGrow: 0 }}>
+                <Grid item xs zeroMinWidth>
                   <Tooltip title="Open settings">
                     <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                       <Avatar alt={user.username.toUpperCase()} title={user.username} src={`https://avatars.dicebear.com/api/avataaars/${user.username}.svg`} />
                     </IconButton>
                   </Tooltip>
+                  <Typography noWrap>
+                    {user.username}
+                    </Typography>
+                    </Grid>
                   <Menu
                     sx={{ mt: "45px" }}
                     id="menu-appbar"

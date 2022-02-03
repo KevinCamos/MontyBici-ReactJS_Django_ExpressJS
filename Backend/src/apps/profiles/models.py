@@ -36,22 +36,6 @@ class Profile(TimestampedModel):
     url = "https://avatars.dicebear.com/api/avataaars/"+randomstring+".svg"
     image = models.URLField(blank=True,  default=url)
 
-    # This is an example of a Many-To-Many relationship where both sides of the
-    # relationship are of the same model. In this case, the model is `Profile`.
-    # As mentioned in the text, this relationship will be one-way. Just because
-    # you are following mean does not mean that I am following you. This is
-    # what `symmetrical=False` does for us.
-
-    # follows = models.ManyToManyField(
-    #     'self',
-    #     related_name='followed_by',
-    #     symmetrical=False
-    # )
-
-    # registers = models.ManyToManyField(
-    #     'bikes.Register_Bike',
-    #     related_name='my_registers'
-    # )
 
 
     def __str__(self):

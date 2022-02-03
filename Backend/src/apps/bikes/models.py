@@ -17,11 +17,11 @@ class Register_Bike(models.Model):
     user = models.ForeignKey('profiles.Profile', on_delete=models.DO_NOTHING)
     bike = models.ForeignKey(Bike, on_delete=models.DO_NOTHING)
 
-    point_get = models.ForeignKey('stations.Point', on_delete=models.DO_NOTHING, related_name='id_point_get')
+    point_get = models.ForeignKey('stations.Point', on_delete=models.DO_NOTHING, related_name='point_get')
 
     data_get = models.DateField(auto_now_add=True, auto_now=False)
 
-    point_return = models.ForeignKey('stations.Point',  on_delete=models.DO_NOTHING, null=True, related_name='id_point_return') #Comprovar que no n'ha tornada
+    point_return = models.ForeignKey('stations.Point',  on_delete=models.DO_NOTHING, null=True, related_name='point_return') #Comprovar que no n'ha tornada
     data_return = models.DateField(auto_now_add=False, auto_now=True)
 
     # Quan s'hatja de calcular el temps entre les dos dates => https://stackoverflow.com/questions/41229963/how-to-calculate-diff-between-two-dates-in-django
@@ -30,7 +30,7 @@ class Register_Bike(models.Model):
 
 
     def __str__(self):
-        return self.id
+        return str(self.id)
 
 
     # def getPoint(self, id_point):

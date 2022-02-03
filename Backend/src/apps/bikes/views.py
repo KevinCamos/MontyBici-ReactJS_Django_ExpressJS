@@ -9,7 +9,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 # SERIALIZERS
-from .serializers import BikeSerializer, RegisterSerializer
+from .serializers import BikeSerializer, RegisterSerializer,MyRegisterSerializer
 
 # MODELS
 from .models import Bike, Register_Bike
@@ -95,3 +95,44 @@ class RegisterAPIView(APIView):
         serializer.save()
         point.SaveBike(registered.bike)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+
+# class ObtainMyRegisterAPIView(APIView):
+#     permission_classes = (IsAuthenticated,)
+#     queryset = Register_Bike.objects.all()
+
+#     def get_queryset(self):
+#         queryset = self.queryset
+#         user_uuid = self.request.user.profile.pk
+#         queryset = list(queryset.filter(user= user_uuid).values())
+
+#         return queryset
+
+#     def get(self, request):
+#         try:
+#             serializer = self.serializer_class(
+#             data={"point_get": data}, context=serializer_context
+#                                                                 )     
+#             queryset = self.get_queryset()
+#             print(queryset)
+#             data = MyRegisterSerializer(queryset, fields=("data_get","bike")).data
+
+#             return Response( {"data" : data } ,status=status.HTTP_200_OK)
+#         except Exception as error:
+#             return Response( { "error" : str(error) } , status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+class ObtainMyRegisterAPIView(generics.ListAPIView):
+    permission_classes = (IsAuthenticated,)
+
+    queryset = Register_Bike.objects.all()
+
+    serializer_class = MyRegisterSerializer
+    def get_queryset(self):
+        queryset = self.queryset
+        user_uuid = self.request.user.profile.pk
+        queryset = queryset.filter(user= user_uuid)
+        # self.serializer_class(queryset, fields=('user'))
+        return queryset
+
+
+

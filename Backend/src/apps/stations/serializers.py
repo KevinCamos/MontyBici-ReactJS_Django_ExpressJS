@@ -1,24 +1,20 @@
 from rest_framework import serializers
 from .models import Station, Point
-from src.apps.bikes.serializers import BikeSerializer
+from src.apps.bikes.models import Bike
 
 
+#Estos dos serializadores se utilizan para serializar las estaciones de los registros
 class StationSerializer(serializers.ModelSerializer):
-    slug = serializers.SlugField(required=False)
-    name = serializers.CharField(required=True)
-    direction = serializers.CharField(required=True)
-    location = serializers.CharField(required=True)
-    img = serializers.CharField(required=False)
-
     class Meta:
         model = Station
-        fields = (
-            'slug',
-            'name',
-            'direction',
-            'location',
-            'img',
-        )
+        fields =[ 'name']
+        
+class MyPointsSerializer(serializers.ModelSerializer):
+    station = StationSerializer(many=False)
+
+    class Meta:
+        model = Point
+        fields = ["id","station"]
 
 ##//ESTE YA NO ES GASTA
 class StationPointsSerializer(serializers.ModelSerializer):
@@ -44,6 +40,13 @@ class StationPointsSerializer(serializers.ModelSerializer):
 
 
 
+class BikeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Bike
+        fields = (
+            'id',
+            'active',
+        )
 ### YOLANDA, m'has de ficar un punt més quan corregeixes açò
 class PointsSerializer(serializers.ModelSerializer):
     # categories = UserPostCategoriesSerializer(many=True)
