@@ -8,6 +8,10 @@ const bikeServices ={
     return Api().post('bikes/register/', data);
   },
   
+  returnBike(data) {
+    console.log(data)
+    return Api().put('bikes/register/', data);
+  },
 
 }
 

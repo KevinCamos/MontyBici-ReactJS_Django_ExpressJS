@@ -11,10 +11,17 @@ export function UserContextProvider({ children }) {
       userServices
         .checkUser()
         .then((data) => {
-          sessionStorage.setItem("token", data.data.user.token);
-          setJWT(data.data.user.token);
-          setUser(data.data.user);
+          let dataUser = data.data.user;
+          sessionStorage.setItem("token", dataUser.token);
+          setJWT(dataUser.token);
+          setUser(dataUser);
           setIsJWTLoading(false);
+          if(dataUser.profile.registers){
+            setIsRegisters(true)
+          }else{
+            setIsRegisters(false)
+          }
+
         })
         .catch((error) => {
           sessionStorage.removeItem("token");
@@ -27,10 +34,11 @@ export function UserContextProvider({ children }) {
     }
   };
 
+  const [isRegisters, setIsRegisters] = useState(false);
   const [jwt, setJWT] = useState(() => checkUser());
   const [user, setUser] = useState(null);
 
-  return <Context.Provider value={{ jwt, setJWT, user, setUser, isJWTLoading, setIsJWTLoading }}>{children}</Context.Provider>;
+  return <Context.Provider value={{ jwt, setJWT, user, setUser, isJWTLoading, setIsJWTLoading,isRegisters, setIsRegisters }}>{children}</Context.Provider>;
 }
 
 export default Context;

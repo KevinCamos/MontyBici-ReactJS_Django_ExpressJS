@@ -22,7 +22,6 @@ import useUser from "../../hooks/useUser";
 const Header = () => {
   const { anchorElNav, anchorElUser, handleOpenNavMenu, handleOpenUserMenu, handleCloseNavMenu, handleCloseUserMenu, pagesLogged, pagesNoLogged, settings } = useHeader();
   const { isLogged, user, logout } = useUser();
-
   return (
     <>
       <AppBar position="static" color="primary">
@@ -55,10 +54,10 @@ const Header = () => {
                 }}
               >
                 {isLogged
-                  ? pagesLogged.map((page) => (
+                  ?  pagesLogged.map((page) => (
                       <MenuItem key={page} onClick={handleCloseNavMenu}>
                         <Typography textAlign="center">
-                          <Link className="nav-link " to={"/" + page}>
+                          <Link className="nav-link " to={"/" + page} >
                             {page}
                           </Link>
                         </Typography>

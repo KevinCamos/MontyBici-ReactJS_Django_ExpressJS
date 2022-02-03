@@ -2,7 +2,8 @@ import React from "react";
 import { Helmet } from "react-helmet";
 import { useParams } from "react-router-dom";
 import "./Details.css";
-import SelectBike from "../../components/TabBike/TabBike";
+import TabBike from "../../components/TabBike/TabBike";
+import TabPoint from "../../components/TabPoint/TabPoint";
 
 import { CardActionArea, /* CardActions, */ Card, CardContent, CardMedia, Typography, Box, /* Grid */ } from "@mui/material";
 // import PedalBikeIcon from "@mui/icons-material/PedalBike";
@@ -14,7 +15,7 @@ import theme from "../Themes/themeCard";
 
 export default function DetailsPage() {
   const { slug } = useParams();
-  const { oneStation, isLoading, isError } = useOnlyStation({ slug: slug });
+  const { oneStation, isLoading, isError, isRegisters } = useOnlyStation({ slug: slug });
 
 
   if (isLoading) {
@@ -65,13 +66,12 @@ export default function DetailsPage() {
                   {`${oneStation.direction} `}
                 </Typography>
               </CardContent>
-             
-              <SelectBike points={oneStation.points}/>
+              {isRegisters
+                ? <TabPoint points={oneStation.points} />
+                : <TabBike points={oneStation.points} />}
             </Card>
           </Box>
         </ThemeProvider>
-
-        {/* </Container> */}
       </>
     );
   }

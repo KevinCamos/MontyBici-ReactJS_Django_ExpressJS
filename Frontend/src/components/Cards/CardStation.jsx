@@ -1,14 +1,15 @@
 import * as React from "react";
 import { CardActionArea, CardActions, Card, CardContent, CardMedia, Typography } from "@mui/material";
 import PedalBikeIcon from "@mui/icons-material/PedalBike";
+import Home from '@mui/icons-material/Home';
 
 import { Link } from "react-router-dom";
 import useBike from "../../hooks/useBike";
 export default function CardStation({ station }) {
-  const { statusBike } = useBike();
-
+  const { statusBike, statusPoint, isRegisters } = useBike();
+  console.log("Está registrado :", isRegisters)
   return (
-    <Card sx={{ maxWidth: 345 ,    boxShadow: 1}}>
+    <Card sx={{ maxWidth: 345, boxShadow: 1 }}>
       <CardActionArea>
         <Link to={"/stations/" + station.slug}>
           <CardMedia
@@ -19,19 +20,29 @@ export default function CardStation({ station }) {
           />
         </Link>
       </CardActionArea>
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
-            {station.name}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            {`${station.direction} `}
-          </Typography>
-        </CardContent>
-      <CardActions>
-        {station.points.map((point, index) => (
-          <PedalBikeIcon color={statusBike(point.bike) } key={index} />
-        ))}
-      </CardActions>
+      <CardContent>
+        <Typography gutterBottom variant="h5" component="div">
+          {station.name}
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          {`${station.direction} `}
+        </Typography>
+      </CardContent>
+
+
+      {isRegisters ?
+        <CardActions>
+          {station.points.map((point, index) => (
+            <Home color={statusPoint(point)} key={index} />
+          ))}
+        </CardActions>
+        :
+        <CardActions>
+          {station.points.map((point, index) => (
+            <PedalBikeIcon color={statusBike(point.bike)} key={index} />
+          ))}
+        </CardActions>
+      }
     </Card>
   );
 }

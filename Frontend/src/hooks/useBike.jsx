@@ -1,35 +1,52 @@
-import { useCallback, useState,useContext } from "react";
+import { useCallback, useState, useContext } from "react";
 import bikeServices from "../services/BikeServices";
 import UserContext from "../context/UserContext";
 import StationsContext from "../context/StationsContext";
-
 export default function useStations() {
-  const {stations, setStations} = useContext(StationsContext)
-  const {user, setUser } = useContext(UserContext);
+  const { stations, setStations } = useContext(StationsContext)
+  const { user, setUser, isRegisters, setIsRegisters } = useContext(UserContext);
   const [errorBike, setErrorBike] = useState(null);
   const obtainBike = useCallback(
-    (data) => {
-      console.log({ id_point: data });
+    (id_point) => {
+      console.log({ id_point: id_point });
       bikeServices
-        .obtainBike({ id_point: data })
+        .obtainBike({ id_point: id_point })
         .then((data) => {
-          let refreshStation= [...stations.map((station) => station.points.map((point) => point = null))]
-          let refreshUser = {...user}
-          refreshUser.profile=data.data.user;
-         
-          setStations(refreshStation)
+          removeBike(id_point)
+          let refreshUser = { ...user }
+          refreshUser.profile = data.data.user;
           setUser(refreshUser)
+          setIsRegisters(true)
+
           setErrorBike(null);
-
-
-          console.log(refreshStation)
-          console.log(user);
         })
         .catch((error) => {
-        
-          console.error(error.response.data.errors[0]);
-          let detailerror= error.response.data.errors
-          let errors= detailerror.detail? detailerror.detail : detailerror[0];
+          // console.error(error.response.data.errors[0]);
+          let detailerror = error.response.data.errors
+          let errors = detailerror.detail ? detailerror.detail : detailerror[0];
+          setErrorBike(errors);
+        });
+    },
+    [setErrorBike, user, setUser]
+  );
+
+  const returnBike = useCallback(
+    (id_point) => {
+      console.log({ id_point: id_point });
+      bikeServices
+        .returnBike({ id_point: id_point })
+        .then((data) => {
+          addBike(id_point, data.data)
+          let refreshUser = { ...user }
+          refreshUser.profile = data.data.user;
+          setUser(refreshUser)
+          setIsRegisters(false)
+          setErrorBike(null);
+        })
+        .catch((error) => {
+          // console.error(error.response.data.errors[0]);
+          let detailerror = error.response.data.errors
+          let errors = detailerror.detail ? detailerror.detail : detailerror[0];
           setErrorBike(errors);
         });
     },
@@ -37,7 +54,27 @@ export default function useStations() {
   );
 
 
+  const removeBike = (id_point) => {
+    let refreshStations = [...stations]
+    refreshStations.map((station) => station.points.map((point) => {
 
+      if (point.id == id_point) point.bike = null
+      return point
+    }))
+    setStations(refreshStations)
+  }
+
+  const addBike = (id_point, data) => {
+    let refreshStations = [...stations]
+    console.log(data)
+    refreshStations.map((station) => station.points.map((point) => {
+
+      if (point.id == id_point) point.bike = data.bike
+      return point
+    }))
+    console.log(refreshStations)
+    setStations(refreshStations)
+  }
   const statusBike = useCallback((bike) => {
     let result;
     if (!bike) result = "disabled";
@@ -47,6 +84,14 @@ export default function useStations() {
     return result;
     // return bike ? (bike.active ? "primary" : "secondary") : "disabled"
   }, []);
+  const statusPoint = useCallback((point) => {
+    let result;
+    if (point.bike) result = "disabled";
+    else if (!point.active) result = "secondary";
+    else result = "primary";
+    return result;
+  }, []);
+
 
 
 
@@ -59,5 +104,5 @@ export default function useStations() {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-  return { statusBike, handleChange, value, response, obtainBike,errorBike };
+  return { statusBike, statusPoint, handleChange, value, response, obtainBike, returnBike, errorBike, isRegisters };
 }

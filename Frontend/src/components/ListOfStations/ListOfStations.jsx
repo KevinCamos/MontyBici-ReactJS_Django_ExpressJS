@@ -5,7 +5,7 @@ import Grid from "@mui/material/Grid";
 import CardStation from "../Cards/CardStation";
 import SusCardStation from "../Templates-Suspense/SusCardStation";
 
-export default function ListOfStations({ stations , loading}) {
+export default function ListOfStations({ stations}) {
 
   return (
     <>

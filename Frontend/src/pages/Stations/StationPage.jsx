@@ -7,8 +7,7 @@ import { ThemeProvider } from "@mui/material/styles";
 import theme from "../Themes/themeCard";
 
 export default function StationPage() {
-  const { stations, loading } = useStation();
-
+  const { stations } = useStation();
   return (
     <>
     <Helmet>
@@ -16,7 +15,7 @@ export default function StationPage() {
         </Helmet>
 
       <ThemeProvider theme={theme}>
-        <ListOfStations stations={stations} loading={loading} />
+        <ListOfStations stations={stations}  />
       </ThemeProvider>
     </>
   );
