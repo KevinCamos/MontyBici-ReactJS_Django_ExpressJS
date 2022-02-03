@@ -1,0 +1,52 @@
+version: "3"
+services:
+  angular:
+    container_name: bualabob-angular
+    build: ./cliente
+    ports:
+      - 4200:4200
+    networks:
+      - api-network
+  graphql:
+    container_name: bualabob-graphql
+    build: ./servidor/graphQL
+    depends_on:
+      - mongo
+    ports:
+      - 3000:3000
+    env_file:
+      - .env
+    environment:
+      DB_MONGO: ${DB_MONGO}
+    networks:
+      - api-network
+  rest:
+    container_name: bualabob-rest
+    build: ./servidor/rest
+    depends_on:
+      - mongo
+    ports:
+      - 4000:4000
+    env_file:
+      - .env
+    environment:
+      DB_MONGO: ${DB_MONGO}
+      SECRET: ${SECRET}
+    networks:
+      - api-network
+  mongo:
+    container_name: bualabob-mongo
+    image: mongo:latest
+    volumes:
+      - ./dump:/var/dump
+      - ./mongorestore.sh:/docker-entrypoint-initdb.d/mongorestore.sh
+    # command: mongorestore /var/dump, amb el "docker-entrypoint.... ja executa l'script"
+    ports:
+      - 27017:27017
+    networks:
+      - api-network
+networks:
+  api-network:
+    driver: bridge
+  nodejs_express_mongo_angular12_api-network:
+    driver: bridge
