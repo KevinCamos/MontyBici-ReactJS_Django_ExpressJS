@@ -21,3 +21,24 @@ code {
   padding: "18px 36px";
   font-size: "18px";
 }
+
+
+
+
+.error{
+	color:red;
+	font-size: 75%;
+}
+.load{
+	color:black;
+	font-size: 75%;
+}
+body{
+	color:black;
+
+}
+.select{
+  background-color: lightblue;
+  border-radius:25px;
+  padding:10px
+}

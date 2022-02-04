@@ -1,7 +1,6 @@
 import axios from "axios";
 import SERVER_URL from '../secrets'
-
-export default function Api() {
+const Api = () => {
   const axiosInstance = axios.create({
     baseURL: SERVER_URL,
   });
@@ -29,3 +28,4 @@ export default function Api() {
 
   return axiosInstance;
 };
+export default Api

@@ -1,20 +1,9 @@
 import React from "react";
 import AppBar from "@mui/material/AppBar";
-import {Box,Grid} from "@mui/material";
-import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import Menu from "@mui/material/Menu";
-import Container from "@mui/material/Container";
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import Tooltip from "@mui/material/Tooltip";
-import MenuItem from "@mui/material/MenuItem";
+import { Box, Grid, Toolbar, IconButton, Typography, Menu, Container, Avatar, Button, Tooltip, MenuItem } from "@mui/material";
 import PedalBikeIcon from "@mui/icons-material/PedalBike";
 import MenuIcon from "@mui/icons-material/Menu";
-
 import { Outlet, Link } from "react-router-dom";
-
 import useHeader from "../../hooks/useHeader";
 import useUser from "../../hooks/useUser";
 
@@ -54,24 +43,24 @@ const Header = () => {
                 }}
               >
                 {isLogged
-                  ?  pagesLogged.map((page) => (
-                      <MenuItem key={page} onClick={handleCloseNavMenu}>
-                        <Typography textAlign="center">
-                          <Link className="nav-link " to={"/" + page} >
-                            {page}
-                          </Link>
-                        </Typography>
-                      </MenuItem>
-                    ))
+                  ? pagesLogged.map((page) => (
+                    <MenuItem key={page} onClick={handleCloseNavMenu}>
+                      <Typography textAlign="center">
+                        <Link className="nav-link " to={"/" + page} >
+                          {page}
+                        </Link>
+                      </Typography>
+                    </MenuItem>
+                  ))
                   : pagesNoLogged.map((page) => (
-                      <MenuItem key={page} onClick={handleCloseNavMenu}>
-                        <Typography textAlign="center">
-                          <Link className="nav-link " to={"/" + page}>
-                            {page}
-                          </Link>
-                        </Typography>
-                      </MenuItem>
-                    ))}
+                    <MenuItem key={page} onClick={handleCloseNavMenu}>
+                      <Typography textAlign="center">
+                        <Link className="nav-link " to={"/" + page}>
+                          {page}
+                        </Link>
+                      </Typography>
+                    </MenuItem>
+                  ))}
               </Menu>
             </Box>
             <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
@@ -81,19 +70,19 @@ const Header = () => {
             <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
               {isLogged
                 ? pagesLogged.map((page) => (
-                    <Button key={page} onClick={handleCloseNavMenu} sx={{ my: 2, color: "white", display: "block" }}>
-                      <Link className="nav-link text-white" to={"/" + page}>
-                        {page}
-                      </Link>
-                    </Button>
-                  ))
+                  <Button key={page} onClick={handleCloseNavMenu} sx={{ my: 2, color: "white", display: "block" }}>
+                    <Link className="nav-link text-white" to={"/" + page}>
+                      {page}
+                    </Link>
+                  </Button>
+                ))
                 : pagesNoLogged.map((page) => (
-                    <Button key={page} onClick={handleCloseNavMenu} sx={{ my: 2, color: "white", display: "block" }}>
-                      <Link className="nav-link text-white" to={"/" + page}>
-                        {page}
-                      </Link>
-                    </Button>
-                  ))}
+                  <Button key={page} onClick={handleCloseNavMenu} sx={{ my: 2, color: "white", display: "block" }}>
+                    <Link className="nav-link text-white" to={"/" + page}>
+                      {page}
+                    </Link>
+                  </Button>
+                ))}
             </Box>
 
             {isLogged && (
@@ -101,26 +90,26 @@ const Header = () => {
                 {user.profile.registers && (
                   <Box variant="h6" noWrap component="div" sx={{ mr: 2, display: { xs: "flex", md: "flex" } }}>
                     <Grid item xs zeroMinWidth>
-                  <Typography noWrap>
-                    <PedalBikeIcon/>
-                    </Typography>
-                    <Typography noWrap>
-                    {user.profile.registers.station}
-                    </Typography>
+                      <Typography noWrap>
+                        <PedalBikeIcon />
+                      </Typography>
+                      <Typography noWrap>
+                        {user.profile.registers.station}
+                      </Typography>
                     </Grid>
                   </Box>
                 )}
                 <Box sx={{ flexGrow: 0 }}>
-                <Grid item xs zeroMinWidth>
-                  <Tooltip title="Open settings">
-                    <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                      <Avatar alt={user.username.toUpperCase()} title={user.username} src={`https://avatars.dicebear.com/api/avataaars/${user.username}.svg`} />
-                    </IconButton>
-                  </Tooltip>
-                  <Typography noWrap>
-                    {user.username}
+                  <Grid item xs zeroMinWidth>
+                    <Tooltip title="Open settings">
+                      <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                        <Avatar alt={user.username.toUpperCase()} title={user.username} src={`https://avatars.dicebear.com/api/avataaars/${user.username}.svg`} />
+                      </IconButton>
+                    </Tooltip>
+                    <Typography noWrap>
+                      {user.username}
                     </Typography>
-                    </Grid>
+                  </Grid>
                   <Menu
                     sx={{ mt: "45px" }}
                     id="menu-appbar"

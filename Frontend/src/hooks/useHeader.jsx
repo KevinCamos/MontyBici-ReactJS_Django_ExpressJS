@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function useHeader() {
+const useHeader = () => {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
 
@@ -25,3 +25,5 @@ export default function useHeader() {
   const settings = ["profile", "account", "dashboard"];
   return { anchorElNav, anchorElUser, handleOpenNavMenu, handleOpenUserMenu, handleCloseNavMenu, handleCloseUserMenu, pagesLogged, pagesNoLogged, settings };
 }
+
+export default useHeader

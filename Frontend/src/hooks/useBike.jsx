@@ -6,16 +6,18 @@ import StationsContext from "../context/StationsContext";
 import { useSnackbar } from 'notistack';
 
 
-export default function useStations() {
+export default function useBike() {
   const { enqueueSnackbar } = useSnackbar();
-
-
-
-
   const { stations, setStations } = useContext(StationsContext)
   const { user, setUser, isRegisters, setIsRegisters } = useContext(UserContext);
   const [errorBike, setErrorBike] = useState(null);
+  const response = {
+    secondary: "Esta bicicleta se encuentra inhabilitada temporalmente",
+    disabled: "En este punto no hay ninguna bicicleta aparcada",
+  };
+  const [value, setValue] = useState(0);
 
+  
   const obtainBike = useCallback(
 
     (id_point) => {
@@ -117,12 +119,7 @@ export default function useStations() {
 
 
 
-  const response = {
-    secondary: "Esta bicicleta se encuentra inhabilitada temporalmente",
-    disabled: "En este punto no hay ninguna bicicleta aparcada",
-  };
-  const [value, setValue] = useState(0);
-
+ 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };

@@ -5,7 +5,8 @@ import Home from '@mui/icons-material/Home';
 
 import { Link } from "react-router-dom";
 import useBike from "../../hooks/useBike";
-export default function CardStation({ station }) {
+const CardStation = ({ station }) => {
+
   const { statusBike, statusPoint, isRegisters } = useBike();
   console.log("Está registrado :", isRegisters)
   return (
@@ -46,3 +47,4 @@ export default function CardStation({ station }) {
     </Card>
   );
 }
+export default CardStation

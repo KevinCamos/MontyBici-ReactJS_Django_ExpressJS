@@ -1,38 +1,29 @@
-import{ useCallback, useContext,  useState  } from "react";
+import { useCallback, useContext, useState } from "react";
 
 import { useNavigate } from "react-router-dom";
 
 import UserContext from "../context/UserContext";
 
 import userServices from "../services/UserServices";
-export default  function useUser() {
+const useUser = () => {
   const navigate = useNavigate();
 
-  const [state, setState] = useState({ loading: false, error: false, errorPassword:false });
-  const { jwt, setJWT, user, setUser,isJWTLoading } = useContext(UserContext);
+  const [state, setState] = useState({ loading: false, error: false, errorPassword: false });
+  const { jwt, setJWT, user, setUser, isJWTLoading, isRegisters } = useContext(UserContext);
 
   const login = useCallback(
     (data) => {
-      setState({ loading: true, error: false})
+      setState({ loading: true, error: false })
       console.log({ user: data });
       userServices
         .login({ user: data })
         .then((data) => {
-          let user = data.data.user;
-          console.log(user);
-
-
-          sessionStorage.setItem("token", user.token);
-          setJWT(sessionStorage.token);
-          setUser(user);
-          navigate("/stations");
+          saveUser(data.data.user)
         })
         .catch((error) => {
-          setState({ loading: false, error: true})
-
+          setState({ loading: false, error: true })
           sessionStorage.removeItem("token");
-
-          console.log(error);
+          console.error(error);
         });
     },
     [setJWT, setUser, navigate]
@@ -40,36 +31,34 @@ export default  function useUser() {
 
   const signup = useCallback(
     (data) => {
-      if(data.password !== data.password2){
-        setState({ loading: false, error: false, errorPassword:true })
-      }else{
-        setState({ loading: true, error: false, errorPassword:false })
+      if (data.password !== data.password2) {
+        setState({ loading: false, error: false, errorPassword: true })
+      } else {
+        setState({ loading: true, error: false, errorPassword: false })
 
-      console.log({ user: data });
-      userServices
-        .register({ user: data })
-        .then((data) => {
-          let user = data.data.user;
-          console.log(user);
-
-          sessionStorage.setItem("token", user.token);
-          setJWT(sessionStorage.token);
-          setUser(user);
-          navigate("/stations");
-        })
-        .catch((error) => {
-          setState({ loading: false, error: true, errorPassword:false })
-
-          sessionStorage.removeItem("token");
-
-          console.log(error);
-        });
-    }},
-    [setJWT, setUser, navigate,setState]
+        console.log({ user: data });
+        userServices
+          .register({ user: data })
+          .then((data) => {
+            saveUser(data.data.user)
+          })
+          .catch((error) => {
+            setState({ loading: false, error: true, errorPassword: false })
+            sessionStorage.removeItem("token");
+            console.log(error);
+          });
+      }
+    },
+    [setJWT, setUser, navigate, setState]
   );
 
+  const saveUser = (user) => {
+    sessionStorage.setItem("token", user.token);
+    setJWT(sessionStorage.token);
+    setUser(user);
+    navigate("/stations");
+  }
 
-  
   const isLogged = Boolean(jwt) && Boolean(user);
   const logout = useCallback(() => {
     sessionStorage.removeItem("token");
@@ -77,8 +66,11 @@ export default  function useUser() {
     setUser(null);
     navigate("/login");
   },
-  [setJWT, setUser, navigate]
+    [setJWT, setUser, navigate]
   );
 
-  return { login, signup, isLogged, user, logout ,state, isJWTLoading};
+  return { login, signup, isLogged, user, logout, state, isJWTLoading, isRegisters };
 }
+
+
+export default useUser

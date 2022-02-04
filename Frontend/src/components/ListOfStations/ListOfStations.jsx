@@ -4,8 +4,8 @@ import Grid from "@mui/material/Grid";
 
 import CardStation from "../Cards/CardStation";
 import SusCardStation from "../Templates-Suspense/SusCardStation";
+const ListOfStations = ({ stations }) => {
 
-export default function ListOfStations({ stations}) {
 
   return (
     <>
@@ -25,3 +25,4 @@ export default function ListOfStations({ stations}) {
     </>
   );
 }
+export default ListOfStations

@@ -7,8 +7,7 @@ const GuardUser = () => {
 
   if (!isJWTLoading) {
     return !isLogged ? <Navigate to="/login" /> : <Outlet />;
-  } else {
-    return <></>;
-  }
+  } 
+    return null;
 };
 export default GuardUser;

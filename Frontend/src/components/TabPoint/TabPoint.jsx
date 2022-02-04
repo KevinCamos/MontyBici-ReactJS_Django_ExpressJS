@@ -6,8 +6,8 @@ import { TabPanel, a11yProps } from "../Tab/Tab";
 import Home from "@mui/icons-material/Home";
 import ReturnBike from "../Buttons/ReturnBike";
 
+const TabPoint = ({ points }) => {
 
-export default function TabPoint({ points }) {
   const { statusPoint, handleChange, value } = useBike();
 
   const response = {
@@ -38,3 +38,4 @@ export default function TabPoint({ points }) {
     </Box>
   );
 }
+export default TabPoint

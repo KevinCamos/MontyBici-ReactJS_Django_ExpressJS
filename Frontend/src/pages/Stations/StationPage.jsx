@@ -5,8 +5,8 @@ import ListOfStations from "../../components/ListOfStations/ListOfStations";
 import useStation from "../../hooks/useStation";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "../Themes/themeCard";
+const StationPage = () => {
 
-export default function StationPage() {
   const { stations } = useStation();
   return (
     <>
@@ -20,3 +20,4 @@ export default function StationPage() {
     </>
   );
 }
+export default StationPage

@@ -2,8 +2,8 @@ import * as React from "react";
 import {  CardActionArea,CardActions, Card, CardContent,Typography, Grid } from "@mui/material";
 
 import PedalBikeIcon from "@mui/icons-material/PedalBike";
+const SuspendeStationCard = () => {
 
-export default function SuspendeStationCard() {
   return (
     <>
       {Array.from(Array(4)).map((_, index) => (
@@ -33,3 +33,4 @@ export default function SuspendeStationCard() {
     </>
   );
 }
+export default SuspendeStationCard

@@ -1,19 +1,14 @@
 import React from "react";
 import { Helmet } from "react-helmet";
 import { useParams } from "react-router-dom";
-import "./Details.css";
 import TabBike from "../../components/TabBike/TabBike";
 import TabPoint from "../../components/TabPoint/TabPoint";
-
-import { CardActionArea, /* CardActions, */ Card, CardContent, CardMedia, Typography, Box, /* Grid */ } from "@mui/material";
-// import PedalBikeIcon from "@mui/icons-material/PedalBike";
-
+import { CardActionArea,  Card, CardContent, CardMedia, Typography, Box, } from "@mui/material";
 import useOnlyStation from "../../hooks/useOnlyStation";
 import { ThemeProvider } from "@mui/material/styles";
-
 import theme from "../Themes/themeCard";
+const DetailsPage = () => {
 
-export default function DetailsPage() {
   const { slug } = useParams();
   const { oneStation, isLoading, isError, isRegisters } = useOnlyStation({ slug: slug });
 
@@ -76,3 +71,4 @@ export default function DetailsPage() {
     );
   }
 }
+export default DetailsPage

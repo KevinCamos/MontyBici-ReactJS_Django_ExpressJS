@@ -1,11 +1,10 @@
 import * as React from "react";
 import { Button } from "@mui/material";
 import useBike from "../../hooks/useBike";
-import './errors.css'
 
 
+const ObtainBike = ({ id_point }) => {
 
-export default function ObtainBike({ id_point }) {
   console.log(id_point);
   const { obtainBike, errorBike } = useBike();
 
@@ -19,3 +18,4 @@ export default function ObtainBike({ id_point }) {
     </>
   );
 }
+export default ObtainBike

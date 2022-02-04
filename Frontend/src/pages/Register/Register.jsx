@@ -1,16 +1,11 @@
 import React from "react";
-
 import { Avatar, Button, CssBaseline, TextField, Box, Typography, Container, Grid } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { Link } from "react-router-dom";
-
 import { useForm } from "react-hook-form";
-
-import "./Register.css";
-//   import people from "assets/images/people_SVG.svg";
 import useUser from "../../hooks/useUser";
+const StationPage = () => {
 
-export default function Register() {
   const {
     register,
     handleSubmit,
@@ -96,3 +91,4 @@ export default function Register() {
     </Container>
   );
 }
+export default StationPage

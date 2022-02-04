@@ -5,7 +5,8 @@ import { Typography, Box } from "@mui/material";
 
 
 // https://mui.com/components/tabs/
-function TabPanel(props) {
+const TabPanel = (props) => {
+
   const { children, value, index, ...other } = props;
 
   return (
@@ -23,7 +24,7 @@ TabPanel.propTypes = {
   index: PropTypes.number.isRequired,
   value: PropTypes.number.isRequired,
 };
-function a11yProps(index) {
+const a11yProps = (index) => {
   return {
     id: `simple-tab-${index}`,
     "aria-controls": `simple-tabpanel-${index}`,

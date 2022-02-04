@@ -1,7 +1,7 @@
 import * as React from "react";
 import {  CssBaseline,  Box,  Container,CardMedia } from "@mui/material";
+const NotFound = () => {
 
-export default function NotFound() {
   return (
     <>
      <Container component="main" maxWidth="xl">
@@ -26,3 +26,4 @@ export default function NotFound() {
     </>
   );
 }
+export default NotFound

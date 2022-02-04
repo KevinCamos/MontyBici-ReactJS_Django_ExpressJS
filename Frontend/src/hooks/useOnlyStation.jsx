@@ -4,7 +4,7 @@ import UserContext from "../context/UserContext";
 
 import StationsContext from "../context/StationsContext";
 
-export default function useOnlyStation({ slug }) {
+const useOnlyStation = ({ slug }) => {
   const { isRegisters } = useContext(UserContext);
 
   const { stations, setStations } = useContext(StationsContext);
@@ -48,3 +48,4 @@ export default function useOnlyStation({ slug }) {
 
   return { oneStation, isLoading, isError,isRegisters };
 }
+export default useOnlyStation

@@ -1,8 +1,8 @@
 import * as React from "react";
 import { Button } from "@mui/material";
 import useBike from "../../hooks/useBike";
-import './errors.css'
-export default function ReturnBike({ id_point }) {
+const ReturnBike = ({ id_point }) => {
+
   console.log(id_point);
   const { returnBike, errorBike } = useBike();
 
@@ -15,3 +15,4 @@ export default function ReturnBike({ id_point }) {
     </>
   );
 }
+export default ReturnBike

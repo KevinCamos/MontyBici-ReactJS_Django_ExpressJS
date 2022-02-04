@@ -1,25 +1,17 @@
 import React from "react";
-
 import { Avatar, Button, CssBaseline, TextField, Box, Typography, Container, Grid } from "@mui/material";
 import { Link } from "react-router-dom";
-
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-
-
 import { useForm } from "react-hook-form";
-
-import "./Login.css";
-//   import people from "assets/images/people_SVG.svg";
 import useUser from "../../hooks/useUser";
+const Login = () => {
 
-export default function Login() {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
   const { login, state } = useUser();
-  // const theme = createTheme();
   console.log(errors);
 
   return (
@@ -93,3 +85,5 @@ export default function Login() {
     </Container>
   );
 }
+
+export default Login

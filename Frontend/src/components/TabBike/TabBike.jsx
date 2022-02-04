@@ -8,9 +8,8 @@ import ObtainBike from "../Buttons/ObtainBike";
 import {TabPanel,a11yProps} from "../Tab/Tab";
 
 // https://mui.com/components/tabs/
+const BasicTabs = ({ points }) => {
 
-
-export default function BasicTabs({ points }) {
   const { statusBike, handleChange, value } = useBike();
 
   const response = {
@@ -41,3 +40,4 @@ export default function BasicTabs({ points }) {
     </Box>
   );
 }
+export default BasicTabs
