@@ -22,7 +22,7 @@ const useHeader = () => {
 
   const pagesLogged = ["Stations"];
   const pagesNoLogged = ["login", "register"];
-  const settings = ["profile", "account", "dashboard"];
+  const settings = [ "dashboard"];
   return { anchorElNav, anchorElUser, handleOpenNavMenu, handleOpenUserMenu, handleCloseNavMenu, handleCloseUserMenu, pagesLogged, pagesNoLogged, settings };
 }
 

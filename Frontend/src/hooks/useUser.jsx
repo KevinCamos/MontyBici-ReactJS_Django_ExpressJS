@@ -61,10 +61,12 @@ const useUser = () => {
 
   const isLogged = Boolean(jwt) && Boolean(user);
   const logout = useCallback(() => {
+    
     sessionStorage.removeItem("token");
     setJWT(null);
     setUser(null);
     navigate("/login");
+    
   },
     [setJWT, setUser, navigate]
   );

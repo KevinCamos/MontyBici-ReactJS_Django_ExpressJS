@@ -80,7 +80,7 @@ export default function useBike() {
     let refreshStations = [...stations]
     refreshStations.map((station) => station.points.map((point) => {
 
-      if (point.id == id_point) point.bike = null
+      if (point.id === id_point) point.bike = null
       return point
     }))
     setStations(refreshStations)
@@ -91,7 +91,7 @@ export default function useBike() {
     console.log(data)
     refreshStations.map((station) => station.points.map((point) => {
 
-      if (point.id == id_point) point.bike = data.bike
+      if (point.id === id_point) point.bike = data.bike
       return point
     }))
     console.log(refreshStations)

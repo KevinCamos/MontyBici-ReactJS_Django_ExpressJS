@@ -11,6 +11,10 @@ import useUser from "../../hooks/useUser";
 const Header = () => {
   const { anchorElNav, anchorElUser, handleOpenNavMenu, handleOpenUserMenu, handleCloseNavMenu, handleCloseUserMenu, pagesLogged, pagesNoLogged, settings } = useHeader();
   const { isLogged, user, logout } = useUser();
+  const logoutClick = (event) => {
+    handleCloseUserMenu();
+    logout();
+ }
   return (
     <>
       <AppBar position="static" color="primary">
@@ -127,12 +131,17 @@ const Header = () => {
                     onClose={handleCloseUserMenu}
                   >
                     {settings.map((setting) => (
-                      <MenuItem key={setting} onClick={handleCloseNavMenu}>
-                        <Typography textAlign="center">{setting}</Typography>
+                      <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                        <Link className="nav-link text-white" to={"/" + setting}>
+                          <Typography textAlign="center" color="common.black">{setting}</Typography>
+                        </Link>
                       </MenuItem>
                     ))}
-                    <MenuItem key="Logout" onClick={logout}>
-                      <Typography textAlign="center">Logout</Typography>
+                    <MenuItem key="Logout" onClick={logoutClick}>
+                      <Link className="nav-link text-white" to={""}>
+                        <Typography textAlign="center" color="common.black">Logout</Typography>
+                      </Link>
+
                     </MenuItem>
                   </Menu>
                 </Box>

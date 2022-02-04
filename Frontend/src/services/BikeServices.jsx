@@ -12,6 +12,10 @@ const bikeServices ={
     console.log(data)
     return Api().put('bikes/register/', data);
   },
+  returnMyRegisters(data) {
+    console.log(data)
+    return Api().get('bikes/myregisters/', data);
+  },
 
 }
 

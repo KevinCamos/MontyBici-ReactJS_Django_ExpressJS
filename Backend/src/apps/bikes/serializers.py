@@ -94,8 +94,8 @@ class MyRegisterSerializer(serializers.ModelSerializer):
     class Meta:
         model = Register_Bike
         fields = (
-            'user',
-            'bike',
+            # 'user',
+            # 'bike',
             'point_get',
             'data_get',
             'point_return',
