@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import Bike,Register_Bike
+from datetime import datetime
 
 from src.apps.profiles.serializers import ProfileSerializer
 from src.apps.stations.serializers import MyPointsSerializer
@@ -18,8 +19,8 @@ class RegisterSerializer(serializers.ModelSerializer):
     user = ProfileSerializer(required=False)
     bike = BikeSerializer(required=False)
 
-    # data_get = serializers.SerializerMethodField(method_name='get_data_get')
-    # data_return = serializers.SerializerMethodField(method_name='data_return')
+    data_get = serializers.SerializerMethodField(method_name='get_data_get')
+    data_return = serializers.SerializerMethodField(method_name='get_data_return')
 
     class Meta:
         model = Register_Bike
@@ -41,10 +42,10 @@ class RegisterSerializer(serializers.ModelSerializer):
             user=user, bike=bike, **validated_data
         )
     def get_data_get(self, instance):
-        return instance.data_get.isoformat()
+        return instance.data_get.ctime()
 
-    def data_return(self, instance):
-        return instance.updated_at.isoformat()
+    def get_data_return(self, instance):
+        return instance.data_return.ctime()
 
     def update(self, instance, validated_data):
  

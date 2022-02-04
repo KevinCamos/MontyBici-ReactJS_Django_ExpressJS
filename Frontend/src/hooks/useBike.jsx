@@ -79,7 +79,6 @@ export default function useBike() {
   const removeBike = (id_point) => {
     let refreshStations = [...stations]
     refreshStations.map((station) => station.points.map((point) => {
-
       if (point.id === id_point) point.bike = null
       return point
     }))

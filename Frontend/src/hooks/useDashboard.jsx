@@ -17,14 +17,14 @@ const useDashboard = () => {
 
             bikeServices.returnMyRegisters()
                 .then((data) => {
+                    console.log(data.data.results)
 
                     setcountRegister(data.data.count)
                     setRegisters(data.data.results)
 
-
                     //Creando datos para la tabla
                     const makingRows = []
-                    registers.map((register) => { makingRows.push(createData(register)) })
+                    data.data.results.map((register) => { makingRows.push(createData(register)) })
                     setRows(makingRows);
 
                     setIsLoading(false);
@@ -44,7 +44,17 @@ const useDashboard = () => {
 
 
     const handleChangePage = (event, newPage) => {
-        setPage(newPage);
+        console.log(event)
+        console.log(newPage)
+        if (event.target.value) {
+            setRowsPerPage(event.target.value);
+            setPage(0);
+
+        }else{
+            setPage(newPage);
+
+        }
+
     };
 
     const handleChangeRowsPerPage = (event) => {

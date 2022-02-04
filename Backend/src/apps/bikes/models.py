@@ -19,10 +19,10 @@ class Register_Bike(models.Model):
 
     point_get = models.ForeignKey('stations.Point', on_delete=models.DO_NOTHING, related_name='point_get')
 
-    data_get = models.DateField(auto_now_add=True, auto_now=False)
+    data_get = models.DateTimeField(auto_now_add=True, auto_now=False)
 
     point_return = models.ForeignKey('stations.Point',  on_delete=models.DO_NOTHING, null=True, related_name='point_return') #Comprovar que no n'ha tornada
-    data_return = models.DateField(auto_now_add=False, auto_now=True)
+    data_return = models.DateTimeField(auto_now_add=False, auto_now=True)
 
     # Quan s'hatja de calcular el temps entre les dos dates => https://stackoverflow.com/questions/41229963/how-to-calculate-diff-between-two-dates-in-django
     # total_time = models.DateField(auto_now_add=False, auto_now=False)
