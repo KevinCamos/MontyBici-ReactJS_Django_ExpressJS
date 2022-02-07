@@ -3,7 +3,10 @@ import { Avatar, Button, CssBaseline, TextField, Box, Typography, Container, Gri
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import Loading from "../../components/Templates-Suspense/Loading";
+
 import useUser from "../../hooks/useUser";
+
 const StationPage = () => {
 
   const {
@@ -33,7 +36,8 @@ const StationPage = () => {
         </Typography>
         <Box component="form" noValidate onSubmit={handleSubmit(signup)} sx={{ mt: 3 }}>
           {state.loading ? (
-            <span className="load">Registrando usuario...</span>
+            <Loading text={"Registrando usuario..."} />
+
           ) : (
             <>
               <Grid container spacing={2}>

@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { useForm } from "react-hook-form";
 import useUser from "../../hooks/useUser";
+import Loading from "../../components/Templates-Suspense/Loading";
+
 const Login = () => {
 
   const {
@@ -33,28 +35,29 @@ const Login = () => {
         </Typography>
         <Box component="form" onSubmit={handleSubmit(login)} noValidate sx={{ mt: 1 }}>
           {state.loading ? (
-            <span className="load">Cargando datos del usuario...</span>
+
+            <Loading text={"Cargando datos del usuario..."} />
           ) : (
             <>
-                          <Grid container spacing={2}>
-                          <Grid item xs={12}>
-
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
-                autoFocus
-                {...register("email", { required: true, pattern: /^\S+@\S+$/i })}
-              />
-              {errors.email && <small className="error">El email es requerido</small>}
-              </Grid>
+              <Grid container spacing={2}>
                 <Grid item xs={12}>
-                  
-               <TextField
+
+                  <TextField
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="email"
+                    label="Email Address"
+                    name="email"
+                    autoComplete="email"
+                    autoFocus
+                    {...register("email", { required: true, pattern: /^\S+@\S+$/i })}
+                  />
+                  {errors.email && <small className="error">El email es requerido</small>}
+                </Grid>
+                <Grid item xs={12}>
+
+                  <TextField
                     required
                     fullWidth
                     name="password"
@@ -64,9 +67,9 @@ const Login = () => {
                     autoComplete="new-password"
                     {...register("password", { required: true, max: 16, min: 8, maxLength: 16 })}
                   />
-              {errors.password && <div className="error">El password es requerido</div>}
-              {state.error && <span className="error">¿Has escrito bien tu email y password?</span>}
-              </Grid>
+                  {errors.password && <div className="error">El password es requerido</div>}
+                  {state.error && <span className="error">¿Has escrito bien tu email y password?</span>}
+                </Grid>
               </Grid>
               <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
                 Sign In

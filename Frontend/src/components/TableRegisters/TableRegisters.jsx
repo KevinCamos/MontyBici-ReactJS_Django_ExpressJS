@@ -16,8 +16,9 @@ const TableRegisters = ({ rows, handleChangePage, handleChangeRowsPerPage, page,
   const columns = [
     { id: 'station_get', label: 'Estación de recogida' },
     { id: 'data_get', label: 'Data de recogida' },
-    { id: 'station_return', label: 'Estación de devolución', },
-    { id: 'data_return', label: 'Data de devolución', },
+    { id: 'station_return', label: 'Estación de devolución' },
+    { id: 'data_return', label: 'Data de devolución' },
+    { id: 'time', label: 'Tiempo transcurrido' },
 
   ];
   return (

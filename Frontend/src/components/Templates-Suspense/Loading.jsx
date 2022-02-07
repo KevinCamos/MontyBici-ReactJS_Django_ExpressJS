@@ -1,13 +1,17 @@
-import { LoadingButton } from '@mui/lab';
-import { Grid } from "@mui/material";
+import Backdrop from '@mui/material/Backdrop';
+import CircularProgress from '@mui/material/CircularProgress';
 
-const Loading = () => {
-
+const Loading = ({text}) => {
   return (
     <>
-        <Grid item xs={2} sm={4} md={4} >
-         {LoadingButton}
-        </Grid>
+      <Backdrop
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={true}
+      >
+        <CircularProgress color="inherit" />
+        {text}
+      </Backdrop>
+
     </>
   );
 }

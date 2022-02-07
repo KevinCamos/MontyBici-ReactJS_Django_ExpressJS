@@ -2,11 +2,14 @@ import { useCallback, useState, useContext } from "react";
 import bikeServices from "../services/BikeServices";
 import UserContext from "../context/UserContext";
 import StationsContext from "../context/StationsContext";
+import { useNavigate } from "react-router-dom";
+
 
 import { useSnackbar } from 'notistack';
 
 
 export default function useBike() {
+  const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
   const { stations, setStations } = useContext(StationsContext)
   const { user, setUser, isRegisters, setIsRegisters } = useContext(UserContext);
@@ -33,7 +36,8 @@ export default function useBike() {
           setUser(refreshUser)
           setIsRegisters(true)
 
-          setErrorBike(null);
+          // setErrorBike(null);
+          navigate("/stations");
 
         })
         .catch((error) => {
@@ -59,7 +63,9 @@ export default function useBike() {
           refreshUser.profile = data.data.user;
           setUser(refreshUser)
           setIsRegisters(false)
-          setErrorBike(null);
+          // setErrorBike(null);
+          navigate("/stations");
+
           enqueueSnackbar('Bicicleta devuelta con éxito, muchas gracias.', { variant: 'success' });
 
         })

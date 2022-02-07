@@ -6,6 +6,7 @@ import UserContext from "../context/UserContext";
 
 import userServices from "../services/UserServices";
 const useUser = () => {
+
   const navigate = useNavigate();
 
   const [state, setState] = useState({ loading: false, error: false, errorPassword: false });
@@ -26,7 +27,7 @@ const useUser = () => {
           console.error(error);
         });
     },
-    [setJWT, setUser, navigate]
+    [setJWT, setUser]
   );
 
   const signup = useCallback(
@@ -49,7 +50,7 @@ const useUser = () => {
           });
       }
     },
-    [setJWT, setUser, navigate, setState]
+    [setJWT, setUser, setState]
   );
 
   const saveUser = (user) => {
@@ -57,6 +58,7 @@ const useUser = () => {
     setJWT(sessionStorage.token);
     setUser(user);
     navigate("/stations");
+
   }
 
   const isLogged = Boolean(jwt) && Boolean(user);

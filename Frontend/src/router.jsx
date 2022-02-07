@@ -3,6 +3,7 @@ import { StationsContextProvider } from "./context/StationsContext";
 import { UserContextProvider } from "./context/UserContext";
 import GuardUser from "./services/Guards/GuardsUser";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Loading from "./components/Templates-Suspense/Loading";
 
 export default function MyRouter() {
   const Header = React.lazy(() => import("./components/Header/Header"));
@@ -16,7 +17,7 @@ export default function MyRouter() {
 
   return (
     <>
-      <Suspense fallback={<div>Cargando...</div>}>
+      <Suspense fallback={<Loading/>}>
         <UserContextProvider>
           <StationsContextProvider>
             <BrowserRouter>
