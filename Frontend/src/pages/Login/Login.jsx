@@ -6,14 +6,14 @@ import { useForm } from "react-hook-form";
 import useUser from "../../hooks/useUser";
 import Loading from "../../components/Templates-Suspense/Loading";
 
-const Login = () => {
-
+const Login = ({ admin = false }) => {
+  console.log(admin)
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const { login, state } = useUser();
+  const { login,loginAdmin, state } = useUser();
   console.log(errors);
 
   return (
@@ -31,9 +31,9 @@ const Login = () => {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign in
+          Sign in {admin && <span>With Admin</span>}
         </Typography>
-        <Box component="form" onSubmit={handleSubmit(login)} noValidate sx={{ mt: 1 }}>
+        <Box component="form" onSubmit={admin? handleSubmit(loginAdmin):handleSubmit(login)} noValidate sx={{ mt: 1 }}>
           {state.loading ? (
 
             <Loading text={"Cargando datos del usuario..."} />
@@ -74,13 +74,13 @@ const Login = () => {
               <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
                 Sign In
               </Button>
-              <Grid container justifyContent="flex-end">
+              {!admin && <Grid container justifyContent="flex-end">
                 <Grid item>
                   <Link variant="body2" to={"/Register"}>
                     Already have an account? Sign in
                   </Link>
                 </Grid>
-              </Grid>
+              </Grid>}
             </>
           )}
         </Box>

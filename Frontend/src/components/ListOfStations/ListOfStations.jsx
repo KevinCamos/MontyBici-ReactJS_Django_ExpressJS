@@ -9,11 +9,11 @@ const ListOfStations = ({ stations }) => {
 
   return (
     <>
-      <Box sx={{ flexGrow: 1, m: 3 }}>
-        <Grid container spacing={{ xs: 3, md: 3 }} columns={{ xs: 3, sm: 8, md: 13 }}>
+      <Box sx={{  m: 3 }}>
+        <Grid container spacing={ 3 } columns={{ xs: 3, sm: 8, md: 18 }} >
           {stations.length > 0 ? (
             stations.map((station, index) => (
-              <Grid item md={4} key={index}>
+              <Grid item key={index}>
                 <CardStation station={station}key={station.id}/>
               </Grid>
             ))

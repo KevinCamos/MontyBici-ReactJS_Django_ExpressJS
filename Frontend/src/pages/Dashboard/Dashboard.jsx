@@ -7,7 +7,7 @@ import Loading from "../../components/Templates-Suspense/Loading";
 import useDashboard from "../../hooks/useDashboard";
 
 import TableRegisters from "../../components/TableRegisters/TableRegisters";
-import { PedalBike, CalendarToday, WatchLater } from "@mui/icons-material/";
+import { PedalBike, CalendarToday, WatchLater, House } from "@mui/icons-material/";
 
 // https://codesandbox.io/s/x5crv?file=/demo.js:987-1903
 const Dashboard = () => {
@@ -53,7 +53,7 @@ const Dashboard = () => {
         <CardDasboard icon={<WatchLater />} title={"Viaje más largo"} data={longerJourney} message={"El viaje más largo que has recorrido"} />
 
         {/* favStationGetter, favStationReturn */}
-        <CardDasboard icon={<PedalBike />} title={"Punto de partida favorito"} data={favStationGetter.key} message={`En esta estación has cogido una montibici un total de ${favStationGetter.value} veces`} />
+        <CardDasboard icon={<><House/><PedalBike /></>} title={"Punto de partida favorito"} data={favStationGetter.key} message={`En esta estación has cogido una montibici un total de ${favStationGetter.value} veces`} />
         <CardDasboard icon={<><PedalBike /><WatchLater /></>} title={"Punto de llegada favorito"} data={favStationReturn.key} message={`En esta estación has dejado una montibici un total de ${favStationReturn.value} veces`} />
 
         <TableRegisters rows={rows} handleChangePage={handleChangePage} handleChangeRowsPerPage={handleChangePage} page={page} rowsPerPage={rowsPerPage} />

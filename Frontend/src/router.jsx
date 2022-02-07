@@ -27,6 +27,7 @@ export default function MyRouter() {
                     <Route index element={<StationPage />} />
                   </Route>
                   <Route path="/login" element={<Login />} />
+                  <Route path="/admin" element={<Login admin={true}/>} />
                   <Route path="/register" element={<Register />} />
                   <Route path="/stations" element={<GuardUser />}>
                     <Route index element={<StationPage />} />

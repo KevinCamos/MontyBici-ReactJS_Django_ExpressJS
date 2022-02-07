@@ -68,6 +68,11 @@ const useDashboard = () => {
     }
 
     const mapToProp = (registers, prop) => {
+
+        //Este if es para evitar si hay un registro abierto 
+        if( !registers[registers.length-1][prop]){
+            registers.pop()
+        }
         return registers
             .reduce((res, item) => Object
                 .assign(res, {

@@ -21,7 +21,7 @@ const useHeader = () => {
   };
 
   const pagesLogged = ["Stations"];
-  const pagesNoLogged = ["login", "register"];
+  const pagesNoLogged = ["login", "register", "admin"];
   const settings = [ "dashboard"];
   return { anchorElNav, anchorElUser, handleOpenNavMenu, handleOpenUserMenu, handleCloseNavMenu, handleCloseUserMenu, pagesLogged, pagesNoLogged, settings };
 }
