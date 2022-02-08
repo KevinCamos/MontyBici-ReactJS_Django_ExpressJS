@@ -14,6 +14,7 @@ export function UserContextProvider({ children }) {
           let dataUser = data.data.user;
           sessionStorage.setItem("token", dataUser.token);
           setJWT(dataUser.token);
+          
           setUser(dataUser);
           setIsJWTLoading(false);
           if (dataUser.profile.registers) {

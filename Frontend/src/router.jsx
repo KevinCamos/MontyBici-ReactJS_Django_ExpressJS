@@ -43,10 +43,9 @@ export default function MyRouter() {
                 </Route>
 
                 <Route path="/admin-panel" element={<Drawer/>}>
-                  <Route path="/admin-panel"  element={<GuardAdmin  />}/>
-                  <Route index element={<StationPage />} />
-
-
+                  <Route path="/admin-panel"  element={<GuardAdmin/>}>
+                    <Route index element={<StationPage />} />
+                    </Route>
                 </Route>
               </Routes>
             </BrowserRouter>

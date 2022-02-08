@@ -1,6 +1,15 @@
+from django.forms import SlugField
+from django.forms import ImageField
 from rest_framework import serializers
 from .models import Station, Point
 from src.apps.bikes.models import Bike
+
+
+class CreatePointsSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Point
+        fields = ["id","station","bike"]
 
 
 #Estos dos serializadores se utilizan para serializar las estaciones de los registros
@@ -16,27 +25,6 @@ class MyPointsSerializer(serializers.ModelSerializer):
         model = Point
         fields = ["id","station"]
 
-##//ESTE YA NO ES GASTA
-class StationPointsSerializer(serializers.ModelSerializer):
-    station = StationSerializer(required=False)
-
-    class Meta:
-
-        model = Station
-        # model = Point
-        fields = '__all__'
-
-    def to_representation(self, instance):
-        return {
-
-            "slug": instance.slug,
-            "name": instance.name,
-            "direction": instance.direction,
-            "location": instance.location,
-            "img": instance.slug,
-            "points": list(Point.objects.filter(station=instance.id).values())
-        }
-##//ESTE YA NO ES GASTA
 
 
 
@@ -47,6 +35,7 @@ class BikeSerializer(serializers.ModelSerializer):
             'id',
             'active',
         )
+
 ### YOLANDA, m'has de ficar un punt més quan corregeixes açò
 class PointsSerializer(serializers.ModelSerializer):
     # categories = UserPostCategoriesSerializer(many=True)
@@ -59,11 +48,13 @@ class PointsSerializer(serializers.ModelSerializer):
         
 class serializerStationsPoints(serializers.ModelSerializer):
 
-    points = PointsSerializer(many=True)
-
+    points = PointsSerializer(many=True, required=False)
+    slug = SlugField(required=False)
+    img= ImageField(required=False)
     class Meta:
         model = Station
         fields = [
+            'id',
             'slug',
             'name',
             'direction',

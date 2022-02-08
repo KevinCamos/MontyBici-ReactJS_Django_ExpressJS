@@ -8,7 +8,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
-
+import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -130,7 +130,7 @@ USE_L10N = True
 
 USE_TZ = True
 
-DATE_INPUT_FORMATS=('%Y-%m-%d %H:%M:%S')
+DATE_INPUT_FORMATS = ('%Y-%m-%d %H:%M:%S')
 # TIME_INPUT_FORMATS=[
 
 
@@ -169,3 +169,16 @@ CORS_ALLOWED_ORIGINS = [
 
     "http://localhost:3000",
 ]
+
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'mysite/static')
+]
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+MEDIA_URL = '/media/'

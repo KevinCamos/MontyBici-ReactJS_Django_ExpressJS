@@ -1,36 +1,41 @@
 import * as React from "react";
 import PropTypes from "prop-types";
-import Box from "@mui/material/Box";
-import Divider from "@mui/material/Divider";
-import Drawer from "@mui/material/Drawer";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import MailIcon from "@mui/icons-material/Mail";
-import Toolbar from "@mui/material/Toolbar";
+import { Box, Toolbar, Avatar, IconButton, Divider, Drawer, List, ListItem, ListItemIcon, ListItemText } from "@mui/material";
+import { MoveToInbox, Mail } from "@mui/icons-material";
 import { Outlet } from "react-router-dom";
+import useUser from "../../../hooks/useUser";
+
 const drawerWidth = 240;
 
 function ResponsiveDrawer(props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  const { user } = useUser();
+
+  // if (!user.username) {
+  //   return null
+  // }
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
 
+
   const drawer = (
     <div>
+      {/* {user.username && <span>{user.username.toUpperCase()}</span>}
+      <IconButton sx={{ p: 0 }}>
+        <Avatar alt={user.username.toUpperCase()} title={user.username} src={`https://avatars.dicebear.com/api/avataaars/${user.username}.svg`} />
+      </IconButton> */}
+
       <Toolbar />
       <Divider />
       <List>
-        {["InboxIcon", "Points", "Bike"].map((text, index) => (
+        {["Stations", "Points", "Bike"].map((text, index) => (
           <ListItem button key={text}>
             <ListItemIcon>
               {console.log(index)}
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+              {index % 2 === 0 ? <MoveToInbox /> : <Mail />}
             </ListItemIcon>
             <ListItemText primary={text} />
           </ListItem>
@@ -40,8 +45,7 @@ function ResponsiveDrawer(props) {
     </div>
   );
 
-  const container =
-    window !== undefined ? () => window().document.body : undefined;
+  const container = window !== undefined ? () => window().document.body : undefined;
 
   return (
     <>
@@ -85,7 +89,7 @@ function ResponsiveDrawer(props) {
           </Drawer>
         </Box>
       </Box>
-      <Outlet />;
+      <Outlet />
     </>
   );
 }

@@ -39,7 +39,7 @@ const useUser = () => {
         .then((data) => {
           saveUser(data.data.user, true)
           navigate("/admin-panel")
-                })
+        })
         .catch((error) => {
           deleteUserOrError(error);
         });
@@ -87,18 +87,22 @@ const useUser = () => {
 
   const checkAdmin = useCallback(
     () => {
-      setIsJWTAdminLoading(true)
-      userServices.checkAdmin()
-        .then((data) => {
-          setIsAdmin(true)
-          saveUser(data.data.user, true)
-          setIsJWTAdminLoading(false)
-        })
-        .catch((error) => {
-          setIsJWTAdminLoading(false)
-          deleteUserOrError()
-          setIsAdmin(false)
-        });
+      // if (sessionStorage.token) {
+        console.log("eh")
+        setIsJWTAdminLoading(true)
+        userServices.checkAdmin()
+          .then((data) => {
+            setIsAdmin(true)
+            console.timeLog("eh")
+            saveUser(data.data.user, true)
+            setIsJWTAdminLoading(false)
+          })
+          .catch((error) => {
+            setIsJWTAdminLoading(false)
+            deleteUserOrError()
+            setIsAdmin(false)
+          });
+      // }
     },
     [setJWT, setUser]
   );
@@ -112,7 +116,7 @@ const useUser = () => {
   },
     [setJWT, setUser, navigate]
   );
-  return { login, loginAdmin, signup, isLogged,  user, logout, state, isJWTLoading, isJWTAdminLoading, isRegisters, checkAdmin,isAdmin,isCheckingAdmin, setIsCheckingAdmin };
+  return { login, loginAdmin, signup, isLogged, user, logout, state, isJWTLoading, isJWTAdminLoading, isRegisters, checkAdmin, isAdmin, isCheckingAdmin, setIsCheckingAdmin };
 }
 
 

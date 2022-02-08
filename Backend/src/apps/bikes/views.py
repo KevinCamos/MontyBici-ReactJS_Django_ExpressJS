@@ -3,7 +3,7 @@ from django.shortcuts import render
 from rest_framework import status, viewsets, serializers, generics
 from rest_framework.exceptions import NotFound
 # AUTENTICATIONS
-from rest_framework.permissions import  IsAuthenticated, IsAdminUser
+from rest_framework.permissions import IsAuthenticated
 
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -26,7 +26,6 @@ class RegisterAPIView(APIView):
     serializer_class = RegisterSerializer
 
     def post(self, request):
-
         self_uuid = self.request.user.profile.pk
         data = request.data.get('id_point', {})
 
@@ -35,7 +34,6 @@ class RegisterAPIView(APIView):
             user=self_uuid, point_return__isnull=True)
         if registered.count() != 0:
             raise serializers.ValidationError('Debe devolver antes la bici.')
-
         try:
             point = Point.objects.get(pk=data)
         except Point.DoesNotExist:
@@ -51,7 +49,6 @@ class RegisterAPIView(APIView):
             'user': request.user.profile,
             'bike': point.bike,
             'request': request,
-
         }
 
         serializer = self.serializer_class(
@@ -93,6 +90,7 @@ class RegisterAPIView(APIView):
         point.SaveBike(registered.bike)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
+
 class ObtainMyRegisterAPIView(generics.ListAPIView):
     permission_classes = (IsAuthenticated,)
 
@@ -106,7 +104,6 @@ class ObtainMyRegisterAPIView(generics.ListAPIView):
         queryset = queryset.filter(user=user_uuid)
         # self.serializer_class(queryset, fields=('user'))
         return queryset
-
 
 
 # class ObtainMyRegisterAPIView(APIView):

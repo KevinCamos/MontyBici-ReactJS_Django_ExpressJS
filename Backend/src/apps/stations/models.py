@@ -11,8 +11,7 @@ class Station(models.Model):
     name = models.CharField(db_index=True, max_length=30, unique=True)
     direction = models.CharField(max_length=100)
     location = models.CharField(max_length=30)
-    img = models.CharField(max_length=200, blank=True)
-
+    img = models.ImageField(upload_to='stations/img/', null=True, blank=True)
     def __str__(self):
         return str(self.name)
 
