@@ -23,14 +23,14 @@ class RegistrationSerializer(serializers.ModelSerializer):
     # The client should not be able to send a token along with a registration
     # request. Making `token` read-only handles that for us.
     token = serializers.CharField(max_length=255, read_only=True)
-    
+
     profile = ProfileRegisterSerializer(many=False, required=False)
 
     class Meta:
         model = User
         # List all of the fields that could possibly be included in a request
         # or response, including fields specified explicitly above.
-        fields = ['email', 'username', 'password', 'token','profile']
+        fields = ['email', 'username', 'password', 'token', 'profile']
 
     def create(self, validated_data):
         # Use the `create_user` method we wrote earlier to create a new user.
@@ -41,6 +41,7 @@ class LoginSerializer(serializers.Serializer):
     email = serializers.CharField(max_length=255)
     username = serializers.CharField(max_length=255, read_only=True)
     password = serializers.CharField(max_length=128, write_only=True)
+    is_staff = serializers.BooleanField( required=False)
     token = serializers.CharField(max_length=255, read_only=True)
     profile = ProfileSerializer(many=False, required=False)
 
@@ -50,11 +51,9 @@ class LoginSerializer(serializers.Serializer):
         # user in, this means validating that they've provided an email
         # and password and that this combination matches one of the users in
         # our database.
-        
+
         email = data.get('email', None)
         password = data.get('password', None)
-
-        
 
         # As mentioned above, an email is required. Raise an exception if an
         # email is not provided.
@@ -76,15 +75,12 @@ class LoginSerializer(serializers.Serializer):
         # model, we set `USERNAME_FIELD` as `email`.
         user = authenticate(username=email, password=password)
 
-    
-
         # If no user was found matching this email/password combination then
         # `authenticate` will return `None`. Raise an exception in this case.
         if user is None:
             raise serializers.ValidationError(
                 'A user with this email and password was not found.'
             )
-
 
         # Django provides a flag on our `User` model called `is_active`. The
         # purpose of this flag to tell us whether the user has been banned
@@ -105,18 +101,32 @@ class LoginSerializer(serializers.Serializer):
         # This is the data that is passed to the `create` and `update` methods
         # that we will see later on.
         # users = serialize(user)
+        if data.get('is_staff', None):
+            if user.is_staff:
+                print("eh")
+                return {
+                    'email': user.email,
+                    'username': user.username,
+                    'token': user.token,
+                    'profile': user.profile,
+                    'is_staff': user.is_staff
+                }
+            else:
+                print("Acceso Denegado")
+                raise serializers.ValidationError('Acceso Denegado.')
         return {
             'email': user.email,
             'username': user.username,
             'token': user.token,
-            'profile':user.profile
+            'profile': user.profile,
+            
         }
 
 
 class UserSerializer(serializers.ModelSerializer):
     """Handles serialization and deserialization of User objects."""
 
-    # Passwords must be at least 8 characters, but no more than 128 
+    # Passwords must be at least 8 characters, but no more than 128
     # characters. These values are the default provided by Django. We could
     # change them, but that would create extra work while introducing no real
     # benefit, so let's just stick with the defaults.
@@ -131,7 +141,7 @@ class UserSerializer(serializers.ModelSerializer):
     # so we set `write_only=True`.
     # profile = ProfileSerializer(write_only=True)
     profile = ProfileSerializer(many=False, required=False)
-    
+
     # We want to get the `bio` and `image` fields from the related Profile
     # model.
     bio = serializers.CharField(source='profile.bio', read_only=True)
@@ -140,20 +150,18 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = (
-            'email', 'username', 'password', 'token', 'profile', 'bio', 
+            'email', 'username', 'password', 'token', 'profile', 'bio',
             'image',
         )
-        
 
         # The `read_only_fields` option is an alternative for explicitly
         # specifying the field with `read_only=True` like we did for password
         # above. The reason we want to use `read_only_fields` here is because
         # we don't need to specify anything else about the field. For the
-        # password field, we needed to specify the `min_length` and 
+        # password field, we needed to specify the `min_length` and
         # `max_length` properties too, but that isn't the case for the token
         # field.
         read_only_fields = ('token',)
-
 
     def update(self, instance, validated_data):
         """Performs an update on a User."""
@@ -191,7 +199,7 @@ class UserSerializer(serializers.ModelSerializer):
             # We're doing the same thing as above, but this time we're making
             # changes to the Profile model.
             setattr(instance.profile, key, value)
-            
+
         # Save the profile just like we saved the user.
         instance.profile.save()
 

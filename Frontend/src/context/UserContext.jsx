@@ -16,9 +16,9 @@ export function UserContextProvider({ children }) {
           setJWT(dataUser.token);
           setUser(dataUser);
           setIsJWTLoading(false);
-          if(dataUser.profile.registers){
+          if (dataUser.profile.registers) {
             setIsRegisters(true)
-          }else{
+          } else {
             setIsRegisters(false)
           }
 
@@ -27,6 +27,8 @@ export function UserContextProvider({ children }) {
           sessionStorage.removeItem("token");
           setJWT(null);
           setIsJWTLoading(false);
+          setIsRegisters(false)
+          setUser(null)
           error.log(error);
         });
     } else {
@@ -36,9 +38,10 @@ export function UserContextProvider({ children }) {
 
   const [isRegisters, setIsRegisters] = useState(false);
   const [jwt, setJWT] = useState(() => checkUser());
+  // const [jwtAdmin, setJWTAdmin] = useState(null);
   const [user, setUser] = useState(null);
 
-  return <Context.Provider value={{ jwt, setJWT, user, setUser, isJWTLoading, setIsJWTLoading,isRegisters, setIsRegisters }}>{children}</Context.Provider>;
+  return <Context.Provider value={{ jwt, setJWT,/* jwtAdmin, setJWTAdmin, */ user, setUser, isJWTLoading, setIsJWTLoading, isRegisters, setIsRegisters }}>{children}</Context.Provider>;
 }
 
 export default Context;

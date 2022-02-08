@@ -2,11 +2,14 @@ import React, { Suspense } from "react";
 import { StationsContextProvider } from "./context/StationsContext";
 import { UserContextProvider } from "./context/UserContext";
 import GuardUser from "./services/Guards/GuardsUser";
+import GuardAdmin from "./services/Guards/GuardsAdmin";
+
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Loading from "./components/Templates-Suspense/Loading";
 
 export default function MyRouter() {
   const Header = React.lazy(() => import("./components/Header/Header"));
+  const Drawer = React.lazy(() => import("./components/Admin/Drawer/Drawer"));
   const Login = React.lazy(() => import("./pages/Login/Login"));
   const Register = React.lazy(() => import("./pages/Register/Register"));
   const StationPage = React.lazy(() => import("./pages/Stations/StationPage"));
@@ -17,7 +20,7 @@ export default function MyRouter() {
 
   return (
     <>
-      <Suspense fallback={<Loading/>}>
+      <Suspense fallback={<Loading />}>
         <UserContextProvider>
           <StationsContextProvider>
             <BrowserRouter>
@@ -27,7 +30,7 @@ export default function MyRouter() {
                     <Route index element={<StationPage />} />
                   </Route>
                   <Route path="/login" element={<Login />} />
-                  <Route path="/admin" element={<Login admin={true}/>} />
+                  <Route path="/admin" element={<Login admin={true} />} />
                   <Route path="/register" element={<Register />} />
                   <Route path="/stations" element={<GuardUser />}>
                     <Route index element={<StationPage />} />
@@ -37,6 +40,13 @@ export default function MyRouter() {
                     <Route index element={<Dashboard />} />
                   </Route>
                   <Route path="*" element={<NotFound />} />
+                </Route>
+
+                <Route path="/admin-panel" element={<Drawer/>}>
+                  <Route path="/admin-panel"  element={<GuardAdmin  />}/>
+                  <Route index element={<StationPage />} />
+
+
                 </Route>
               </Routes>
             </BrowserRouter>

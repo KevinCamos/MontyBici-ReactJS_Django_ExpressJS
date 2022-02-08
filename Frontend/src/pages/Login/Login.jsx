@@ -7,6 +7,7 @@ import useUser from "../../hooks/useUser";
 import Loading from "../../components/Templates-Suspense/Loading";
 
 const Login = ({ admin = false }) => {
+  let messageError= admin? "¿Tus credenciales son correctas para entrar?":"¿Has escrito bien tu email y password?";
   console.log(admin)
   const {
     register,
@@ -68,7 +69,7 @@ const Login = ({ admin = false }) => {
                     {...register("password", { required: true, max: 16, min: 8, maxLength: 16 })}
                   />
                   {errors.password && <div className="error">El password es requerido</div>}
-                  {state.error && <span className="error">¿Has escrito bien tu email y password?</span>}
+                  {state.error && <span className="error">{messageError}</span>}
                 </Grid>
               </Grid>
               <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>

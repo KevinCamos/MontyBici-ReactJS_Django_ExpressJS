@@ -10,21 +10,23 @@ const useUser = () => {
   const navigate = useNavigate();
 
   const [state, setState] = useState({ loading: false, error: false, errorPassword: false });
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [isJWTAdminLoading, setIsJWTAdminLoading] = useState(true);
+  const [isCheckingAdmin, setIsCheckingAdmin] = useState(false);
+
   const { jwt, setJWT, user, setUser, isJWTLoading, isRegisters } = useContext(UserContext);
 
   const login = useCallback(
     (data) => {
       setState({ loading: true, error: false })
-      console.log({ user: data });
       userServices
         .login({ user: data })
         .then((data) => {
           saveUser(data.data.user)
+          navigate("/stations")
         })
         .catch((error) => {
-          setState({ loading: false, error: true })
-          sessionStorage.removeItem("token");
-          console.error(error);
+          deleteUserOrError(error);
         });
     },
     [setJWT, setUser]
@@ -32,16 +34,14 @@ const useUser = () => {
   const loginAdmin = useCallback(
     (data) => {
       setState({ loading: true, error: false })
-      console.log({ user: data });
-      userServices
-        .loginAdmin({ user: data })
+      data.is_staff = true
+      userServices.login({ user: data })
         .then((data) => {
           saveUser(data.data.user, true)
-        })
+          navigate("/admin-panel")
+                })
         .catch((error) => {
-          setState({ loading: false, error: true })
-          sessionStorage.removeItem("token");
-          console.error(error);
+          deleteUserOrError(error);
         });
     },
     [setJWT, setUser]
@@ -55,43 +55,64 @@ const useUser = () => {
         setState({ loading: true, error: false, errorPassword: false })
 
         console.log({ user: data });
-        userServices
-          .register({ user: data })
+        userServices.register({ user: data })
           .then((data) => {
             saveUser(data.data.user)
+            navigate("/stations")
           })
           .catch((error) => {
-            setState({ loading: false, error: true, errorPassword: false })
-            sessionStorage.removeItem("token");
-            console.log(error);
+            deleteUserOrError(error);
           });
       }
     },
     [setJWT, setUser, setState]
   );
 
+  const deleteUserOrError = (error) => {
+    setState({ loading: false, error: true, errorPassword: false })
+    setUser(null)
+    setJWT(null)
+    sessionStorage.removeItem("token");
+    console.log(error);
+  }
+
+
   const saveUser = (user, admin = false) => {
     console.log(admin)
     sessionStorage.setItem("token", user.token);
     setJWT(sessionStorage.token);
     setUser(user);
-    admin ? navigate("/admin/home") : navigate("/stations");
-
   }
 
-  const isLogged = Boolean(jwt) && Boolean(user);
-  const logout = useCallback(() => {
 
-    sessionStorage.removeItem("token");
-    setJWT(null);
-    setUser(null);
+  const checkAdmin = useCallback(
+    () => {
+      setIsJWTAdminLoading(true)
+      userServices.checkAdmin()
+        .then((data) => {
+          setIsAdmin(true)
+          saveUser(data.data.user, true)
+          setIsJWTAdminLoading(false)
+        })
+        .catch((error) => {
+          setIsJWTAdminLoading(false)
+          deleteUserOrError()
+          setIsAdmin(false)
+        });
+    },
+    [setJWT, setUser]
+  );
+
+  const isLogged = Boolean(jwt) && Boolean(user);
+
+  const logout = useCallback(() => {
+    deleteUserOrError()
     navigate("/login");
 
   },
     [setJWT, setUser, navigate]
   );
-
-  return { login,loginAdmin, signup, isLogged, user, logout, state, isJWTLoading, isRegisters };
+  return { login, loginAdmin, signup, isLogged,  user, logout, state, isJWTLoading, isJWTAdminLoading, isRegisters, checkAdmin,isAdmin,isCheckingAdmin, setIsCheckingAdmin };
 }
 
 

@@ -13,7 +13,7 @@
 from django.conf.urls import include, url
 from django.urls import reverse
 from .views import (
-    LoginAPIView, RegistrationAPIView, UserRetrieveUpdateAPIView, UserViewSet
+    LoginAPIView,RegistrationAPIView, UserRetrieveUpdateAPIView,UserRetrieveAPIView, UserViewSet
 )
 
 app_name = 'authentication'
@@ -32,6 +32,7 @@ user_detail = UserViewSet.as_view({
 
 urlpatterns = [
     url(r'^user/?$', UserRetrieveUpdateAPIView.as_view()),
+    url(r'^user-staff/?$', UserRetrieveAPIView.as_view()),
     url(r'^users/?$', RegistrationAPIView.as_view()),
     url(r'^users/login/?$', LoginAPIView.as_view()),
 

@@ -9,11 +9,12 @@ const userServices ={
   register(data) {
     return Api().post('auth/users', data);
   },
-  loginAdmin(data) {
-    return Api().post('auth/users/login-admin', data);
-  },
+
   checkUser() {
     return Api().get('auth/user');
+  },
+  checkAdmin() {
+    return Api().get('auth/user-staff');
   },
   // checkUserAdmin() {
   //   return Api().get('auth/user');
@@ -22,4 +23,6 @@ const userServices ={
 }
 
 export default userServices;
+
+
 

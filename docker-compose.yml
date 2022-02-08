@@ -3,8 +3,8 @@ version: "3"
 services:
   monty_react:
     container_name: monty_react
-    # build: ./Frontend/
-    image: node:17-alpine3.14
+    build: ./Frontend/
+    # image: node:17-alpine3.14
     volumes:
       - ./Frontend/:/app
     ports:
@@ -14,13 +14,13 @@ services:
     restart: on-failure
     # depends_on:
     #   - monty_django
-    working_dir: /app
-    command: bash -c "echo 'holaaaaaa'"
+    # working_dir: /app
+    # command: bash -c "echo 'holaaaaaa'"
 
   monty_django:
     container_name: monty_django
     build: ./Backend/
-    command: "python3 manage.py runserver "
+    command: "python3 manage.py runserver 0.0.0.0:8000"
     depends_on:
       - mysql_db
 

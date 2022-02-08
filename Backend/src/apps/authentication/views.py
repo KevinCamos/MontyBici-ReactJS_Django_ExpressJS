@@ -1,11 +1,16 @@
 from rest_framework import status
-from rest_framework.generics import RetrieveUpdateAPIView
+from rest_framework.generics import RetrieveUpdateAPIView, RetrieveAPIView
 from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser, IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import viewsets
 from .models import User
 from .renderers import UserJSONRenderer
+
+from src.apps.core.permissions import IsStaff
+
+
+
 from .serializers import (
     LoginSerializer, RegistrationSerializer, UserSerializer
 )
@@ -46,7 +51,7 @@ class LoginAPIView(APIView):
 
     def post(self, request):
         user = request.data.get('user', {})
-
+        print(user)
         # Notice here that we do not call `serializer.save()` like we did for
         # the registration endpoint. This is because we don't actually have
         # anything to save. Instead, the `validate` method on our serializer
@@ -99,5 +104,21 @@ class UserRetrieveUpdateAPIView(RetrieveUpdateAPIView):
         print('*********** data ************')
         print(serializer.data)
 
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+        
+class UserRetrieveAPIView(RetrieveAPIView):
+    permission_classes = (IsAuthenticated,IsStaff,)
+    renderer_classes = (UserJSONRenderer,)
+    serializer_class = UserSerializer
+
+    
+    def retrieve(self, request, *args, **kwargs):
+        self.permission_classes = [IsStaff,]
+        # There is nothing to validate or save here. Instead, we just want the
+        # serializer to handle turning our `User` object into something that
+        # can be JSONified and sent to the client.
+        serializer = self.serializer_class(request.user)
         return Response(serializer.data, status=status.HTTP_200_OK)
  

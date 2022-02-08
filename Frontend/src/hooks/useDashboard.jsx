@@ -22,16 +22,16 @@ const useDashboard = () => {
             bikeServices.returnMyRegisters()
                 .then((data) => {
                     var registers = data.data.results
-
+                    console.log(registers)
                     setCountRegister(data.data.count)
-                    if(data.data.count>0){
-                    setRegisters(registers)
-
-                    //Creando datos para la tabla
-                    createTable(registers)
-                    maxTimeJourney(registers)
-                    lastJourneyFunction(registers)
-                    favStation(registers)
+                    if (data.data.count > 0) {
+                        setRegisters(registers)
+                        
+                        //Creando datos para la tabla
+                        createTable(registers)
+                        maxTimeJourney(registers)
+                        lastJourneyFunction(registers)
+                        favStation(registers)
 
                     }
                     setIsLoading(false);
@@ -48,10 +48,10 @@ const useDashboard = () => {
     const favStation = (registers) => {
         let favGet = mapToProp(registers, 'point_get')
         let favReturn = mapToProp(registers, 'point_return')
-        let maxGetKey= maxKey(favGet)
-        let maxReturnKey= maxKey(favReturn)
-        setFavStationGetter({ "key":maxGetKey, "value": favGet[maxGetKey]})
-        setFavStationReturn({ "key":maxReturnKey, "value": favReturn[maxReturnKey]})
+        let maxGetKey = maxKey(favGet)
+        let maxReturnKey = maxKey(favReturn)
+        setFavStationGetter({ "key": maxGetKey, "value": favGet[maxGetKey] })
+        setFavStationReturn({ "key": maxReturnKey, "value": favReturn[maxReturnKey] })
 
     }
 
@@ -59,8 +59,8 @@ const useDashboard = () => {
         let maxValue = 0, maxKey = "";
         for (var key in value) {
             if (value[key] > maxValue) {
-                maxValue=value[key]
-                 maxKey = key
+                maxValue = value[key]
+                maxKey = key
             }
         }
         return maxKey;
@@ -70,9 +70,7 @@ const useDashboard = () => {
     const mapToProp = (registers, prop) => {
 
         //Este if es para evitar si hay un registro abierto 
-        if( !registers[registers.length-1][prop]){
-            registers.pop()
-        }
+        if (!registers[registers.length - 1][prop]) registers.pop()
         return registers
             .reduce((res, item) => Object
                 .assign(res, {

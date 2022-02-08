@@ -1,13 +1,13 @@
 import React from "react";
 import { Outlet, Navigate } from "react-router-dom";
 import useUser from "../../hooks/useUser";
-// Basada en esta idea https://blog.netcetera.com/how-to-create-guarded-routes-for-your-react-app-d2fe7c7b6122
+import Loading from "../../components/Templates-Suspense/Loading";
+
 const GuardUser = () => {
   const { isLogged, isJWTLoading } = useUser();
-
   if (!isJWTLoading) {
     return !isLogged ? <Navigate to="/login" /> : <Outlet />;
-  } 
-    return null;
+  }
+  return <Loading />;
 };
 export default GuardUser;
