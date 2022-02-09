@@ -8,6 +8,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Loading from "./components/Templates-Suspense/Loading";
 
 export default function MyRouter() {
+  //USERS
   const Header = React.lazy(() => import("./components/Header/Header"));
   const Drawer = React.lazy(() => import("./components/Admin/Drawer/Drawer"));
   const Login = React.lazy(() => import("./pages/Login/Login"));
@@ -18,8 +19,8 @@ export default function MyRouter() {
   const NotFound = React.lazy(() => import("./pages/NotFound/NotFound"));
 
   // ADMIN
-
   const AdminStation = React.lazy(() => import("./pages/Admin/AdminStation/AdminStation"));
+  const FormStation = React.lazy(() => import("./pages/Admin/FormStation/FormStation"));
 
 
 
@@ -51,7 +52,7 @@ export default function MyRouter() {
                   <Route path="/admin-panel" element={<GuardAdmin />}>
                     <Route index element={<AdminStation />} />
                     <Route path="/admin-panel/stations/" element={<AdminStation />} />
-                    <Route path="/admin-panel/stations/create" element={<AdminStation />} />
+                    <Route path="/admin-panel/stations/create" element={<FormStation />} />
                     {/* <Route path="/admin-panel/stations/update:slug" element={<DetailsPage />} /> */}
 
                   </Route>

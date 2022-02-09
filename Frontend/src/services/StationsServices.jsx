@@ -7,6 +7,9 @@ const stationsServices = {
   getOneStation(slug) {
     return Api().get(`stations/station/${slug}`);
   },
+  saveStation(data) {
+    return Api().post(`stations/station-admin`,data);
+  },
 };
 
 export default stationsServices;

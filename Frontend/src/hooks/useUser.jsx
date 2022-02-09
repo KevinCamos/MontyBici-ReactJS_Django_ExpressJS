@@ -19,8 +19,7 @@ const useUser = () => {
   const login = useCallback(
     (data) => {
       setState({ loading: true, error: false })
-      userServices
-        .login({ user: data })
+      userServices.login({ user: data })
         .then((data) => {
           saveUser(data.data.user)
           navigate("/stations")
