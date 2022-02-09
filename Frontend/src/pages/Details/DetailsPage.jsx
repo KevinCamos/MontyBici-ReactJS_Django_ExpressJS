@@ -49,7 +49,7 @@ const DetailsPage = () => {
                 <CardMedia
                   component="img"
                   height="100%"
-                  image="https://media.istockphoto.com/photos/bicing-bicycle-rental-station-in-barcelona-street-row-of-red-and-picture-id956031534"
+                  image={oneStation.img? oneStation.img:"https://media.istockphoto.com/photos/bicing-bicycle-rental-station-in-barcelona-street-row-of-red-and-picture-id956031534"}
                   alt="green iguana"
                 />
               </CardActionArea>

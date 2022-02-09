@@ -16,7 +16,12 @@ export default function MyRouter() {
   const DetailsPage = React.lazy(() => import("./pages/Details/DetailsPage"));
   const Dashboard = React.lazy(() => import("./pages/Dashboard/Dashboard"));
   const NotFound = React.lazy(() => import("./pages/NotFound/NotFound"));
-  // const Loading = React.lazy(() => import("./components/Templates-Suspense/Loading"));
+
+  // ADMIN
+
+  const AdminStation = React.lazy(() => import("./pages/Admin/AdminStation/AdminStation"));
+
+
 
   return (
     <>
@@ -42,10 +47,14 @@ export default function MyRouter() {
                   <Route path="*" element={<NotFound />} />
                 </Route>
 
-                <Route path="/admin-panel" element={<Drawer/>}>
-                  <Route path="/admin-panel"  element={<GuardAdmin/>}>
-                    <Route index element={<StationPage />} />
-                    </Route>
+                <Route path="/admin-panel" element={<Drawer />}>
+                  <Route path="/admin-panel" element={<GuardAdmin />}>
+                    <Route index element={<AdminStation />} />
+                    <Route path="/admin-panel/stations/" element={<AdminStation />} />
+                    <Route path="/admin-panel/stations/create" element={<AdminStation />} />
+                    {/* <Route path="/admin-panel/stations/update:slug" element={<DetailsPage />} /> */}
+
+                  </Route>
                 </Route>
               </Routes>
             </BrowserRouter>

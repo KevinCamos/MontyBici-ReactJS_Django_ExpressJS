@@ -11,6 +11,9 @@ const theme = createTheme({
     secondary: {
       main: green
     },
+    action:{
+      main: "#BE93D4" //Purple
+    }
 
   },
   components: {

@@ -43,13 +43,13 @@ class CreateStationAPIView(APIView):
 
     def post(self, request):
         self.permission_classes = [IsStaff, ]
-        img=request.FILES['fileName']
+        img = request.FILES['fileName']
         x = request.data.get('station', {})
         print(x)
         station = json.loads(x)
 
         print(station["name"])
-        station["img"]=img
+        station["img"] = img
         serializer_station = self.serializer_stations(data=station,)
         serializer_station.is_valid(raise_exception=True)
         serializer_station.save()
@@ -61,7 +61,8 @@ class CreateStationAPIView(APIView):
             for x in range(points):
 
                 if type(bikes) == int and bikes > x:
-                    serializer_bike = self.serializer_bike(data={"active": True})
+                    serializer_bike = self.serializer_bike(
+                        data={"active": True})
                     serializer_bike.is_valid()
                     serializer_bike.save()
                     data = {
@@ -75,7 +76,7 @@ class CreateStationAPIView(APIView):
                 serializer_point = self.serializer_points(data=data,)
                 serializer_point.is_valid(raise_exception=True)
                 serializer_point.save()
-        
+
         # response = {
         #     "station": serializer_station.data
         # }

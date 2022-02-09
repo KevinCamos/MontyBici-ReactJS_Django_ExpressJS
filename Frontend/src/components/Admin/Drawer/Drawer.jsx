@@ -23,15 +23,15 @@ function ResponsiveDrawer(props) {
 
   const drawer = (
     <div>
-      {/* {user.username && <span>{user.username.toUpperCase()}</span>}
-      <IconButton sx={{ p: 0 }}>
-        <Avatar alt={user.username.toUpperCase()} title={user.username} src={`https://avatars.dicebear.com/api/avataaars/${user.username}.svg`} />
-      </IconButton> */}
-
+      {user && <><span>{user.username.toUpperCase()}</span>
+        <IconButton sx={{ p: 0 }}>
+          <Avatar alt={user.username.toUpperCase()} title={user.username} src={`https://avatars.dicebear.com/api/avataaars/${user.username}.svg`} />
+        </IconButton></>
+      }
       <Toolbar />
       <Divider />
       <List>
-        {["Stations", "Points", "Bike"].map((text, index) => (
+        {["Stations", "Points", "Bike", "Logout"].map((text, index) => (
           <ListItem button key={text}>
             <ListItemIcon>
               {console.log(index)}
@@ -70,8 +70,8 @@ function ResponsiveDrawer(props) {
                 boxSizing: "border-box",
                 width: drawerWidth
               }
-            }}
-          >
+            }}>
+
             {drawer}
           </Drawer>
           <Drawer
@@ -88,8 +88,8 @@ function ResponsiveDrawer(props) {
             {drawer}
           </Drawer>
         </Box>
+        <Outlet />
       </Box>
-      <Outlet />
     </>
   );
 }
