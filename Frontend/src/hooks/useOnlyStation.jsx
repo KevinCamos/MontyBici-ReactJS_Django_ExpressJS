@@ -8,9 +8,8 @@ const useOnlyStation = ({ slug }) => {
   const { isRegisters } = useContext(UserContext);
 
   const { stations, setStations } = useContext(StationsContext);
-  const [stateSlug] = useState(slug);
 
-  var stationFromCache = stations.find((station) => station.slug === stateSlug);
+  var stationFromCache = stations.find((station) => station.slug === slug);
   const [oneStation, setOneStation] = useState(stationFromCache);
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
@@ -18,13 +17,15 @@ const useOnlyStation = ({ slug }) => {
 
   useEffect(
     function () {
-
-      if (!oneStation) {
+      // Al "if" se le ha añadido el slug, para así poder 
+      // ir al servidor si no hay estación y en caso de haber
+      // un slug, así podemos reutilizar el hook y evitar 
+      // una petición fallida al servidor para el "create"
+      // de una estación
+      if (!oneStation && slug) {
         setIsLoading(true);
-        stationsServices
-          .getOneStation(slug)
+        stationsServices.getOneStation(slug)
           .then((stations) => {
-
             if (stations.data.count === 1) {
               setOneStation(stations.data.results[0]);
               setStations([stations.data.results[0]])
@@ -34,7 +35,7 @@ const useOnlyStation = ({ slug }) => {
             }
             setIsLoading(false);
           })
-          .catch((error) => {
+          .catch(() => {
             setIsLoading(false);
             setIsError(true);
           });
@@ -46,6 +47,6 @@ const useOnlyStation = ({ slug }) => {
     [slug, oneStation, isLoading, isError]
   );
 
-  return { oneStation, isLoading, isError,isRegisters };
+  return { oneStation, isLoading, isError, isRegisters };
 }
 export default useOnlyStation

@@ -3,22 +3,25 @@ import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper
 import useStation from "../../../hooks/useStation";
 import { useNavigate } from "react-router-dom";
 import Modal from "../../../components/Admin/Modal/Modal"
+import useAdminStation from "../../../hooks/Admin/useAdminStation";
 
 export default function AdminStation() {
     const [open, setOpen] = React.useState(false);
     const [oneStation, setOneStation] = React.useState(null);
+    const { deleteStation, loading, error } = useAdminStation()
+
     const handleOpen = (station) => {
         setOneStation(station)
         setOpen(true)
     };
     const handleClose = () => setOpen(false);
-  
+
     const { stations } = useStation();
     const navigate = useNavigate();
 
     return (
         <>
-        <Modal open={open}  handleClose={handleClose} station={oneStation}/>
+            <Modal open={open} handleClose={handleClose} station={oneStation} />
             <TableContainer component={Paper} >
 
                 <Table sx={{ minWidth: 650 }} aria-label="caption table">
@@ -37,7 +40,7 @@ export default function AdminStation() {
                                 <TableCell component="th" align="left">{station.name}</TableCell>
                                 <TableCell align="center"><Button variant="contained" onClick={() => { handleOpen(station) }}>Leer Estación</Button></TableCell>
                                 <TableCell align="center"><Button variant="contained" onClick={() => { navigate(`/admin-panel/stations/update/${station.slug}`) }} color="action">Modificar Estación</Button></TableCell>
-                                <TableCell align="center"><Button variant="contained" onClick={() => { navigate(`/admin-panel/stations/delete/${station.slug}`) }} color="error">Eliminar Estación</Button></TableCell>
+                                <TableCell align="center"><Button variant="contained" onClick={() => { deleteStation(station.slug) }} color="error">Eliminar Estación</Button></TableCell>
                             </TableRow>
                         ))}
                     </TableBody>

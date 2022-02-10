@@ -48,11 +48,10 @@ class CreateStationAPIView(APIView):
         x = request.data.get('station', {})
         station = json.loads(x)
 
-        if request.FILES['img'] :
-            print("eh")
+        try:
             station["img"] = request.FILES['img']
-
-
+        except Exception:
+            print("No hay imagen")
 
         serializer_station = self.serializer_stations(data=station,)
         serializer_station.is_valid(raise_exception=True)
@@ -78,7 +77,49 @@ class CreateStationAPIView(APIView):
                 serializer_point.is_valid(raise_exception=True)
                 serializer_point.save()
 
-        # response = {
-        #     "station": serializer_station.data
-        # }
         return Response(serializer_station.data, status=status.HTTP_201_CREATED)
+
+    def put(self, request, slug):
+        self.permission_classes = [IsStaff, ]
+        x = request.data.get('station', {})
+        station = json.loads(x)
+
+        try:
+            station["img"] = request.FILES['img']
+        except Exception:
+            print("No hay imagen")
+
+        try:
+            serializer_instance = Station.objects.get(slug=slug)
+        except Station.DoesNotExist:
+            return Response('Esta estación no existe.', status=404)
+
+        print(serializer_instance)
+        serializer = self.serializer_stations(
+            serializer_instance, data=station, partial=True)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+
+        print(serializer.data)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def delete(self, request, slug):
+        self.permission_classes = [IsStaff, ]
+        try:
+            station = Station.objects.get(slug=slug)
+        except Station.DoesNotExist:
+            return Response('A station with this slug does not exist.', status=404)
+        print("station")
+        print("station")
+        print(station)
+        print("station")
+        print("station")
+
+        station.delete()
+        return Response(None, status=status.HTTP_204_NO_CONTENT)
+# class UpdateStationAPIView(APIView):
+#     permission_classes = (IsAuthenticated,)
+#     permission_classes = [IsStaff, ]
+#     serializer_stations = serializerStationsPoints
+#     # lookup_field = 'slug'
+#     # lookup_url_kwarg = 'slug'

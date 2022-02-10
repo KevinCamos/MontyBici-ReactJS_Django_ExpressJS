@@ -53,6 +53,8 @@ export default function MyRouter() {
                     <Route index element={<AdminStation />} />
                     <Route path="/admin-panel/stations/" element={<AdminStation />} />
                     <Route path="/admin-panel/stations/create" element={<FormStation />} />
+                    <Route path="/admin-panel/stations/update/:slug" element={<FormStation />} />
+
                     {/* <Route path="/admin-panel/stations/update:slug" element={<DetailsPage />} /> */}
 
                   </Route>

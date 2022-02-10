@@ -3,7 +3,7 @@ import { Helmet } from "react-helmet";
 import { useParams } from "react-router-dom";
 import TabBike from "../../components/TabBike/TabBike";
 import TabPoint from "../../components/TabPoint/TabPoint";
-import { CardActionArea,  Card, CardContent, CardMedia, Typography, Box, } from "@mui/material";
+import { CardActionArea, Card, CardContent, CardMedia, Typography, Box, } from "@mui/material";
 import useOnlyStation from "../../hooks/useOnlyStation";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "../Themes/themeCard";
@@ -49,7 +49,7 @@ const DetailsPage = () => {
                 <CardMedia
                   component="img"
                   height="100%"
-                  image={oneStation.img? oneStation.img:"https://media.istockphoto.com/photos/bicing-bicycle-rental-station-in-barcelona-street-row-of-red-and-picture-id956031534"}
+                  image={oneStation.img ? oneStation.img : "https://media.istockphoto.com/photos/bicing-bicycle-rental-station-in-barcelona-street-row-of-red-and-picture-id956031534"}
                   alt="green iguana"
                 />
               </CardActionArea>

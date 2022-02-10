@@ -11,5 +11,6 @@ urlpatterns = [
     url(r'^station/(?P<slug>[-\w]+)/?$', GetOneStationAPIView.as_view(), name='stations'),
     url(r'^station/?$', GetAllStationListAPIView.as_view(), name='stations'),
     url(r'^station-admin/?$', CreateStationAPIView.as_view(), name='stations'),
+    url(r'^station-admin/(?P<slug>[-\w]+)/?$', CreateStationAPIView.as_view(), name='stations'),
 
 ]

@@ -61,5 +61,12 @@ class serializerStationsPoints(serializers.ModelSerializer):
             'location',
             'img',
             'points'
-
         ]
+    def update(self, instance, validated_data):
+ 
+        instance.name = validated_data.get('name', instance.name)
+        instance.direction = validated_data.get('direction', instance.direction)
+        instance.location = validated_data.get('location', instance.location)
+        instance.img = validated_data.get('img', instance.img)
+        instance.save()
+        return instance
