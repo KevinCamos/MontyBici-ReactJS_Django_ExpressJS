@@ -20,7 +20,7 @@ class Point(models.Model):
     station = models.ForeignKey(
         Station, on_delete=models.CASCADE,   related_name='points',)
     bike = models.OneToOneField(
-        Bike,  on_delete=models.SET_NULL, unique=True, blank=True, null=True)
+        Bike,  on_delete=models.SET_NULL, unique=True, blank=True, null=True, related_name='points',)
 
     active = models.BooleanField(unique=False, default=True)
 

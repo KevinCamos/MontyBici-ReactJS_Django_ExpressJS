@@ -83,10 +83,23 @@ const useAdminStation = () => {
 
   const dropFilterStation = (slug) => {
     console.log(slug)
-    let index = stations.findIndex((station) => station.slug === slug);
+    let index = stations.findIndex(function(element) { 
+      console.log(element.slug, slug)
+      return element.slug == slug
+         
+      
+    })
+    ;
     console.log(index)
 
     let updateStation = [...stations]
+    console.log(stations)
+    if(index ==-1){
+      alert("No s'ha trovat el slug")
+      return 
+    }
+    console.log(stations[index])
+    console.log(index)
 
     updateStation.splice(index, 1);
     console.log(updateStation)

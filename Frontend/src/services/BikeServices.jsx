@@ -7,7 +7,6 @@ const bikeServices ={
     console.log(data)
     return Api().post('bikes/register/', data);
   },
-  
   returnBike(data) {
     console.log(data)
     return Api().put('bikes/register/', data);
@@ -16,7 +15,9 @@ const bikeServices ={
     console.log(data)
     return Api().get('bikes/myregisters/', data);
   },
-
+  getBikesPointsStations() {
+    return Api().get('bikes/getbikes/');
+  },
 }
 
 export default bikeServices;

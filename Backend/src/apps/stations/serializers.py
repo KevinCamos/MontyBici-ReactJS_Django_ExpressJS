@@ -5,6 +5,12 @@ from .models import Station, Point
 from src.apps.bikes.models import Bike
 
 
+
+
+
+
+
+
 class CreatePointsSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -70,3 +76,29 @@ class serializerStationsPoints(serializers.ModelSerializer):
         instance.img = validated_data.get('img', instance.img)
         instance.save()
         return instance
+
+
+
+
+
+###Serializadores para traer a la inversa, las bicis y sus estaciones si tienen
+
+
+class serializerStations(serializers.ModelSerializer):
+    class Meta:
+        model = Station
+        fields = [
+            'slug',
+            'name',
+            'img',
+        ]
+class GetBikeSerializer(serializers.ModelSerializer):
+    points = MyPointsSerializer(many=False, required=False)
+    class Meta:
+        model = Bike
+        fields = (
+            'id',
+            'active',
+            'points'
+        )
+        

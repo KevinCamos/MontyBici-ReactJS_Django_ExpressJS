@@ -18,10 +18,9 @@ const useOnlyStation = ({ slug }) => {
   useEffect(
     function () {
       // Al "if" se le ha añadido el slug, para así poder 
-      // ir al servidor si no hay estación y en caso de haber
-      // un slug, así podemos reutilizar el hook y evitar 
-      // una petición fallida al servidor para el "create"
-      // de una estación
+      // ir al servidor si no hay estación.Así podemos 
+      // reutilizar el hook y evitar  una petición fallida
+      // al servidor para el "create"de una estación
       if (!oneStation && slug) {
         setIsLoading(true);
         stationsServices.getOneStation(slug)

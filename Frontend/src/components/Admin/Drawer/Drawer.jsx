@@ -2,7 +2,7 @@ import * as React from "react";
 import PropTypes from "prop-types";
 import { Box, Toolbar, Avatar, IconButton, Divider, Drawer, List, ListItem, ListItemIcon, ListItemText } from "@mui/material";
 import { MoveToInbox, Mail } from "@mui/icons-material";
-import { Outlet } from "react-router-dom";
+import { Outlet, Link } from "react-router-dom";
 import useUser from "../../../hooks/useUser";
 
 const drawerWidth = 240;
@@ -12,13 +12,7 @@ function ResponsiveDrawer(props) {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const { user } = useUser();
 
-  // if (!user.username) {
-  //   return null
-  // }
 
-  const handleDrawerToggle = () => {
-    setMobileOpen(!mobileOpen);
-  };
 
 
   const drawer = (
@@ -31,21 +25,23 @@ function ResponsiveDrawer(props) {
       <Toolbar />
       <Divider />
       <List>
-        {["Stations", "Points", "Bike", "Logout"].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>
-              {console.log(index)}
-              {index % 2 === 0 ? <MoveToInbox /> : <Mail />}
-            </ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
+        {["Stations", "Points", "Bikes", "Logout"].map((text, index) => (
+          <Link to={"/admin-panel/" + text.toLowerCase()} style={{ textDecoration: 'none', color: "white" }}  key={text}>
+            <ListItem button >
+
+              <ListItemIcon>
+                {index % 2 === 0 ? <MoveToInbox /> : <Mail />}
+              </ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItem>
+          </Link>
         ))}
       </List>
       <Divider />
     </div>
   );
 
-  const container = window !== undefined ? () => window().document.body : undefined;
+  // const container = window !== undefined ? () => window().document.body : undefined;
 
   return (
     <>
@@ -53,10 +49,9 @@ function ResponsiveDrawer(props) {
         <Box
           component="nav"
           sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
-          aria-label="mailbox folders"
-        >
+          aria-label="mailbox folders">
           {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
-          <Drawer
+          {/* <Drawer
             container={container}
             variant="temporary"
             open={mobileOpen}
@@ -73,7 +68,7 @@ function ResponsiveDrawer(props) {
             }}>
 
             {drawer}
-          </Drawer>
+          </Drawer> */}
           <Drawer
             variant="permanent"
             sx={{

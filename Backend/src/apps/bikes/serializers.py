@@ -1,10 +1,8 @@
 from rest_framework import serializers
 from .models import Bike,Register_Bike
-from datetime import datetime
 
 from src.apps.profiles.serializers import ProfileSerializer
 from src.apps.stations.serializers import MyPointsSerializer
-from src.apps.stations.models import Station,Point
 
 class BikeSerializer(serializers.ModelSerializer):
     class Meta:
@@ -13,8 +11,6 @@ class BikeSerializer(serializers.ModelSerializer):
             'id',
             'active',
         )
-
-
 class RegisterSerializer(serializers.ModelSerializer):
     user = ProfileSerializer(required=False)
     bike = BikeSerializer(required=False)
@@ -69,20 +65,6 @@ class DynamicFieldsModelSerializer(serializers.ModelSerializer):
             existing = set(self.fields)
             for field_name in existing - allowed:
                 self.fields.pop(field_name)
-
-# class MyRegisterSerializer(DynamicFieldsModelSerializer):
-  
-#     class Meta:
-#         model = Register_Bike
-#         fields = '__all__'
-
-    
-#     def to_representation(self, instance):
-#         register = list(self.objects.filter().values())
-#         return{
-#             "register": register,
-#         }
-
 
 
 

@@ -1,15 +1,15 @@
 from django.shortcuts import render
-from rest_framework.exceptions import NotFound
+# from rest_framework.exceptions import NotFound
 from rest_framework.views import APIView
+from rest_framework import status, generics
 
-from rest_framework import status, serializers, generics
-from rest_framework.permissions import (
-    IsAuthenticatedOrReadOnly, IsAuthenticated, IsAdminUser,)
+from rest_framework.permissions import (IsAuthenticatedOrReadOnly, IsAuthenticated,)
+from src.apps.core.permissions import IsStaff
+
 from rest_framework.response import Response
-from .models import Point, Station
+from .models import  Station
 from .serializers import serializerStationsPoints, CreatePointsSerializer, BikeSerializer
 
-from src.apps.core.permissions import IsStaff
 import json
 
 # # Esta función saca toda los puntos de bici, y de cada punto su estación, aunque todas las estaciones son la misma
@@ -20,7 +20,6 @@ class GetOneStationAPIView(generics.ListAPIView):
     lookup_url_kwarg = 'slug'
     permission_classes = (IsAuthenticatedOrReadOnly,)
     queryset = Station.objects.all()
-    # renderer_classes = (PointJSONRenderer)
     serializer_class = serializerStationsPoints
 
     def filter_queryset(self, queryset):
@@ -29,7 +28,6 @@ class GetOneStationAPIView(generics.ListAPIView):
 
 
 class GetAllStationListAPIView(generics.ListAPIView):
-    # permission_classes = (IsAuthenticated,)
     queryset = Station.objects.all()
     serializer_class = serializerStationsPoints
 
@@ -42,7 +40,6 @@ class CreateStationAPIView(APIView):
     serializer_bike = BikeSerializer
 
     def post(self, request):
-        self.permission_classes = [IsStaff, ]
         points = int(request.data.get('points', {}))
         bikes = int(request.data.get('bikes', {}))
         x = request.data.get('station', {})
@@ -80,7 +77,6 @@ class CreateStationAPIView(APIView):
         return Response(serializer_station.data, status=status.HTTP_201_CREATED)
 
     def put(self, request, slug):
-        self.permission_classes = [IsStaff, ]
         x = request.data.get('station', {})
         station = json.loads(x)
 
@@ -104,7 +100,6 @@ class CreateStationAPIView(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def delete(self, request, slug):
-        self.permission_classes = [IsStaff, ]
         try:
             station = Station.objects.get(slug=slug)
         except Station.DoesNotExist:
@@ -117,9 +112,3 @@ class CreateStationAPIView(APIView):
 
         station.delete()
         return Response(None, status=status.HTTP_204_NO_CONTENT)
-# class UpdateStationAPIView(APIView):
-#     permission_classes = (IsAuthenticated,)
-#     permission_classes = [IsStaff, ]
-#     serializer_stations = serializerStationsPoints
-#     # lookup_field = 'slug'
-#     # lookup_url_kwarg = 'slug'

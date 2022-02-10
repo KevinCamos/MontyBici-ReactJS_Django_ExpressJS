@@ -9,16 +9,19 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 # SERIALIZERS
-from .serializers import BikeSerializer, RegisterSerializer, MyRegisterSerializer
-
+from .serializers import  RegisterSerializer, MyRegisterSerializer
+from src.apps.stations.serializers import GetBikeSerializer
 # MODELS
 from .models import Bike, Register_Bike
 from src.apps.stations.models import Point
+from src.apps.core.permissions import IsStaff
 
 
-class BikeViewSet(viewsets.ModelViewSet):
+class BikeListAPIView(generics.ListAPIView):
+    permission_classes = (IsAuthenticated,)
+    permission_classes = [IsStaff, ]    
     queryset = Bike.objects.all()
-    serializer_class = BikeSerializer
+    serializer_class = GetBikeSerializer
 
 
 class RegisterAPIView(APIView):
