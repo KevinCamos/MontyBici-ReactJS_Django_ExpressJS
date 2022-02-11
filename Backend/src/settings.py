@@ -83,21 +83,20 @@ TEMPLATES = [
 WSGI_APPLICATION = 'src.wsgi.application'
 
 
-# Database
-# https://dev.to/sm0ke/how-to-use-mysql-with-django-for-beginners-2ni0
+# 
+# htDatabasetps://dev.to/sm0ke/how-to-use-mysql-with-django-for-beginners-2ni0
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',  # <-- UPDATED line
-        'NAME': 'MontyBici',                 # <-- UPDATED line
-        'USER': 'root',                     # <-- UPDATED line
-        'PASSWORD': 'root',              # <-- UPDATED line
+        'NAME': os.environ.get('MYSQL_DATABASE'),       # <-- UPDATED line
+        'USER': os.environ.get('MYSQL_ROOT_PASSWORD'),  # <-- UPDATED line
+        'PASSWORD': os.environ.get('MYSQL_USER_PASSWORD'),              # <-- UPDATED line
         # 'HOST': 'localhost',                # <-- UPDATED line
         'HOST': 'mysql_db',                # <-- UPDATED line
         'PORT': '3306',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators

@@ -24,10 +24,13 @@ services:
     command: "python3 manage.py runserver 0.0.0.0:8000"
     links:
       - mysql_db
-  
+    environment:
+      - MYSQL_ROOT_PASSWORD
+      - MYSQL_DATABASE
+      - MYSQL_USER_PASSWORD
     # working_dir: /
     volumes:
-      - ./Backend/:/code
+      - ./Ba-kend/:/code
     ports:
       - "8000:8000"
     networks:
@@ -47,8 +50,10 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD
       - MYSQL_DATABASE
+      - MYSQL_USER_PASSWORD
       - MYSQL_ALLOW_EMPTY_PASSWORD
       - MYSQL_RANDOM_ROOT_PASSWORD
+
   adminer:
     image: adminer
     networks:
