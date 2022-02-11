@@ -24,7 +24,7 @@ services:
     container_name: monty_django
     build: ./Backend/
     command: "python3 manage.py runserver 0.0.0.0:8000"
-    depends_on:
+    links:
       - mysql_db
   
     # working_dir: /

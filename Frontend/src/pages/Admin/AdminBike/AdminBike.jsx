@@ -8,7 +8,7 @@ export default function AdminBike() {
     const { bikes, isLoading, updateBike } = useAdminBike()
     return (
         <>
-            {isLoading && <Loading />}
+            {isLoading&& <Loading />}
             <Helmet>
                 <title>Factoy MontyBikes</title>
             </Helmet>

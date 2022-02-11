@@ -8,15 +8,16 @@ import { useSnackbar } from 'notistack';
 
 export default function useAdminPoint() {
   const [points, setPoints] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoadingPoint, setIsLoadingPoint] = useState(true);
   const { enqueueSnackbar } = useSnackbar();
 
   useEffect(
     function () {
+      setIsLoadingPoint(true)
       pointServices.getPointsStations().then((data) => {
         console.log(data.data.results)
         setPoints(data.data.results);
-        setIsLoading(false)
+        setIsLoadingPoint(false)
       });
     },
     []
@@ -24,20 +25,20 @@ export default function useAdminPoint() {
 
   const updatePoint = useCallback(
     (id_point, active, points) => {
-      setIsLoading(true)
+      setIsLoadingPoint(true)
       let data = { "id_point": id_point, "active": active }
       pointServices
         .updatePoint(data)
         .then((data) => {
           updateArrayPoint(id_point, data.data.id, points)
           enqueueSnackbar('Bicicleta modificada con éxito.', { variant: 'success' });
-          setIsLoading(false)
+          setIsLoadingPoint(false)
 
         })
         .catch((error) => {
           console.log(error)
           enqueueSnackbar('Ha habido algún problema y no se ha hecho ninguna modifición.', { variant: 'error' });
-          setIsLoading(false)
+          setIsLoadingPoint(false)
 
         });
     },
@@ -61,5 +62,5 @@ export default function useAdminPoint() {
 
 
 
-  return {  points,setPoints, isLoading, updatePoint };
+  return {  points,setPoints,  isLoadingPoint, updatePoint };
 }

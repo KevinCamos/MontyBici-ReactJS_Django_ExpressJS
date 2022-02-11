@@ -1,30 +1,24 @@
 import * as React from 'react';
 import { Helmet } from "react-helmet";
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Switch, Box, Grid } from '@mui/material';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Switch, Box, Grid, Select, MenuItem } from '@mui/material';
 import useAdminPoint from "../../../hooks/Admin/useAdminPoint";
 import useAdminBike from "../../../hooks/Admin/useAdminBike";
 import Loading from "../../../components/Templates-Suspense/Loading"
 
 export default function AdminPoint() {
-    const { points, setPoints, isLoading, updatePoint} = useAdminPoint()
-    const { updateBike, pointIndex,setPointIndex} = useAdminBike({ isPageAdminBike: false })
+    const { points, setPoints, isLoadingPoint, updatePoint } = useAdminPoint()
+    const { updateBike, pointIndex, setPointIndex, isLoading } = useAdminBike({ isPageAdminBike: false })
 
-    if(pointIndex!=-1){
+    if (pointIndex != -1) {
         setPointIndex(-1)
-        console.log(pointIndex)
-        console.log(points)
         let updatePoints = [...points]
-        console.log(updatePoints[pointIndex].bike.active )
-
         updatePoints[pointIndex].bike.active = !updatePoints[pointIndex].bike.active;
-        console.log(updatePoints)
-        console.log(updatePoints[pointIndex].bike.active )
-
         setPoints(updatePoints)
     }
+    console.log(isLoadingPoint, isLoading)
     return (
         <>
-            {isLoading && <Loading />}
+            {(isLoadingPoint || isLoading) && <Loading />}
             <Helmet>
                 <title>Factoy MontyPoints</title>
             </Helmet>
@@ -62,13 +56,30 @@ export default function AdminPoint() {
                                             : <Switch value={!point.active ?? " "} onClick={(e) => updatePoint(point.id, !point.active, points)} />
                                         } </TableCell>
                                         <TableCell align="center">{point.bike ? point.bike.id : <b>-</b>}</TableCell>
-                                        {!point.bike? <TableCell align="center"><b>-</b></TableCell>: 
-                                        <TableCell align="center"> {point.bike.active ?
-                                            <Switch value={point.bike.active ?? " "} defaultChecked onClick={(e) => updateBike(point.bike.id, !point.bike.active, points)}
-                                            />
-                                            : <Switch value={!point.bike.active ?? " "} onClick={(e) => updateBike(point.bike.id, !point.bike.active, points)} />
-                                        } </TableCell> }
-                                        <TableCell align="center">{point ? point.id : <b>-</b>}</TableCell>
+                                        {!point.bike ? <TableCell align="center"><b>-</b></TableCell> :
+                                            <TableCell align="center"> {point.bike.active ?
+                                                <Switch value={point.bike.active ?? " "} defaultChecked onClick={(e) => updateBike(point.bike.id, !point.bike.active, points)}
+                                                />
+                                                : <Switch value={!point.bike.active ?? " "} onClick={(e) => updateBike(point.bike.id, !point.bike.active, points)} />
+                                            } </TableCell>}
+                                        <TableCell align="center">
+
+                                            <Select
+                                                value={point.bike? point.bike.id: null}
+                                                onChange={e=> console.log(e)}
+                                                displayEmpty
+                                                inputProps={{ 'aria-label': 'Añade una bici' }}
+                                            >
+                                                <MenuItem value={null}>
+                                                    <em>-</em>
+                                                </MenuItem>
+                                                <MenuItem value={10}>Ten</MenuItem>
+                                                <MenuItem value={20}>Twenty</MenuItem>
+                                                <MenuItem value={30}>Thirty</MenuItem>
+                                            </Select>
+
+
+                                        </TableCell>
                                     </TableRow>
                                 ))}
                             </TableBody>

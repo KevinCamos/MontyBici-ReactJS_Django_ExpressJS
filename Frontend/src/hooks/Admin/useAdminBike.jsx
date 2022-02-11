@@ -9,11 +9,14 @@ import { useSnackbar } from 'notistack';
 export default function useAdminBike(isPageAdminBike = { isPageAdminBike: true }) {
 
   const [bikes, setBikes] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   const { enqueueSnackbar } = useSnackbar();
 
   const [pointIndex, setPointIndex] = useState(-1);
+
+
+
 
 
 
@@ -24,6 +27,7 @@ export default function useAdminBike(isPageAdminBike = { isPageAdminBike: true }
       console.log(isPageAdminBike)
       console.log(isPageAdminBike.isPageAdminBike)
       if (isPage) {
+        setIsLoading(true)
         bikeServices.getBikesPointsStations().then((data) => {
           console.log(data.data.results)
           setBikes(data.data.results);
