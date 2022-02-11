@@ -92,7 +92,8 @@ DATABASES = {
         'NAME': 'MontyBici',                 # <-- UPDATED line
         'USER': 'root',                     # <-- UPDATED line
         'PASSWORD': 'root',              # <-- UPDATED line
-        'HOST': 'localhost',                # <-- UPDATED line
+        # 'HOST': 'localhost',                # <-- UPDATED line
+        'HOST': 'mysql_db',                # <-- UPDATED line
         'PORT': '3306',
     }
 }

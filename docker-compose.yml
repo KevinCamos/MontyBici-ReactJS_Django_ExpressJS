@@ -12,50 +12,51 @@ services:
 
     ports:
       - "3000:3000"
-    # networks:
-    #   - monty_network
+    networks:
+      - monty_network
     restart: on-failure
     # depends_on:
     #   - monty_django
     # working_dir: /app
     # command: bash -c "echo 'holaaaaaa'"
 
-#   monty_django:
-#     container_name: monty_django
-#     build: ./Backend/
-#     command: "python3 manage.py runserver 0.0.0.0:8000"
-#     depends_on:
-#       - mysql_db
+  monty_django:
+    container_name: monty_django
+    build: ./Backend/
+    command: "python3 manage.py runserver 0.0.0.0:8000"
+    depends_on:
+      - mysql_db
+  
+    # working_dir: /
+    volumes:
+      - ./Backend/:/code
+    ports:
+      - "8000:8000"
+    networks:
+      - monty_network
 
-#     working_dir: /
-#     volumes:
-#       - ./Backend/:/code
-#     ports:
-#       - "8000:8000"
-#     networks:
-#       - monty_network
 
+  mysql_db:
+    container_name: mysql_db
 
-#   mysql_db:
-#     container_name: monty_mysql
-
-#     image: mysql:5.6
-#     command: --default-authentication-plugin=mysql_native_password
-#     restart: always
-#     volumes:
-#       - ./mysql-dump:/docker-entrypoint-initdb.d
-#     env_file:
-#       - .env
-#     environment:
-#       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-#       MYSQL_DATABASE: ${MYSQL_DATABASE}
-#       MYSQL_ALLOW_EMPTY_PASSWORD: ${MYSQL_ALLOW_EMPTY_PASSWORD}
-#       MYSQL_RANDOM_ROOT_PASSWORD: ${MYSQL_RANDOM_ROOT_PASSWORD}
-
-#   adminer:
-#     image: adminer
-#     restart: always
-#     ports:
-#       - 8080:8080
-# networks:
-#   monty_network:
+    image: mysql:5.6
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    volumes:
+      - ./mysql-dump:/docker-entrypoint-initdb.d
+    networks:
+      - monty_network
+    environment:
+      - MYSQL_ROOT_PASSWORD
+      - MYSQL_DATABASE
+      - MYSQL_ALLOW_EMPTY_PASSWORD
+      - MYSQL_RANDOM_ROOT_PASSWORD
+  adminer:
+    image: adminer
+    networks:
+      - monty_network
+    restart: always
+    ports:
+      - 8080:8080
+networks:
+  monty_network:
