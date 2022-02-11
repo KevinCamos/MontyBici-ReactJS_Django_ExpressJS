@@ -33,15 +33,7 @@ class UpdpateBikeAPIView(APIView):
     def put(self, request):
         id_bike = request.data.get('id_bike', {})
         active = request.data.get('active', {})
-        print(id_bike, active)
-        print(id_bike, active)
-        print(request.data)
-        print(request.data)
-        print(request.data)
-        print(request)
-        print(request)
-        print(id_bike, active)
-        print(id_bike, active)
+ 
         if (type(active) != bool):
             raise NotFound(active)
         try:

@@ -2,13 +2,14 @@ from django.shortcuts import render
 # from rest_framework.exceptions import NotFound
 from rest_framework.views import APIView
 from rest_framework import status, generics
+from rest_framework.exceptions import NotFound
 
 from rest_framework.permissions import (IsAuthenticatedOrReadOnly, IsAuthenticated,)
 from src.apps.core.permissions import IsStaff
 
 from rest_framework.response import Response
-from .models import  Station
-from .serializers import serializerStationsPoints, CreatePointsSerializer, BikeSerializer
+from .models import  Station, Point
+from .serializers import serializerStationsPoints, AllPointsSerializer, BikeSerializer
 
 import json
 
@@ -36,7 +37,7 @@ class CreateStationAPIView(APIView):
     permission_classes = (IsAuthenticated,)
     permission_classes = [IsStaff, ]
     serializer_stations = serializerStationsPoints
-    serializer_points = CreatePointsSerializer
+    serializer_points = AllPointsSerializer
     serializer_bike = BikeSerializer
 
     def post(self, request):
@@ -104,11 +105,43 @@ class CreateStationAPIView(APIView):
             station = Station.objects.get(slug=slug)
         except Station.DoesNotExist:
             return Response('A station with this slug does not exist.', status=404)
-        print("station")
-        print("station")
-        print(station)
-        print("station")
-        print("station")
 
         station.delete()
         return Response(None, status=status.HTTP_204_NO_CONTENT)
+
+
+
+class BikeListAPIView(generics.ListAPIView):
+    permission_classes = (IsAuthenticated,)
+    permission_classes = [IsStaff, ]
+    queryset = Point.objects.all().order_by('station', 'pk')
+    serializer_class = AllPointsSerializer
+
+##UPDATE POINT
+
+class UpdpatePointAPIView(APIView):
+    permission_classes = (IsAuthenticated,)
+    permission_classes = [IsStaff, ]
+
+    serializer_class = AllPointsSerializer
+
+    def put(self, request):
+        id_point = request.data.get('id_point', {})
+        active = request.data.get('active', {})
+        print(id_point, active)
+        print(id_point, active)
+        print(request.data)
+        print(id_point, active)
+        print(id_point, active)
+        if (type(active) != bool):
+            raise NotFound(active)
+        try:
+            point = Point.objects.get(pk=id_point)
+        except Point.DoesNotExist:
+            raise NotFound('Esta bici no existe.')
+        serializer = self.serializer_class(
+            instance=point,   data={"active": active}, partial=True)
+        serializer.is_valid(raise_exception=True)
+
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)

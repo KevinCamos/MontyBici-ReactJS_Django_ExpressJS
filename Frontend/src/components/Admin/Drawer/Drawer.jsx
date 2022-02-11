@@ -25,7 +25,7 @@ function ResponsiveDrawer(props) {
       <Toolbar />
       <Divider />
       <List>
-        {["Stations"/* , "Points" */, "Bikes"/* , "Logout" */].map((text, index) => (
+        {["Stations", "Points", "Bikes"/* , "Logout" */].map((text, index) => (
           <Link to={"/admin-panel/" + text.toLowerCase()} style={{ textDecoration: 'none', color: "white" }}  key={text}>
             <ListItem button >
 

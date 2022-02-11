@@ -10,14 +10,6 @@ from src.apps.bikes.models import Bike
 
 
 
-
-class CreatePointsSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Point
-        fields = ["id","station","bike"]
-
-
 #Estos dos serializadores se utilizan para serializar las estaciones de los registros
 class StationSerializer(serializers.ModelSerializer):
     class Meta:
@@ -106,6 +98,29 @@ class GetBikeSerializer(serializers.ModelSerializer):
     def update(self, instance, validated_data):
  
         instance.active = validated_data.get('active', instance.active)
+        instance.save()
+        return instance
+        
+
+
+
+
+
+
+
+
+class AllPointsSerializer(serializers.ModelSerializer):
+    station = StationSerializer(many=False)
+    # bike = BikeSerializer(many=False)
+
+    class Meta:
+        model = Point
+        fields = ["id","active","station","bike"]
+
+    def update(self, instance, validated_data):
+ 
+        instance.active = validated_data.get('active', instance.active)
+        # instance.active = validated_data.get('bike', instance.bike)
         instance.save()
         return instance
         

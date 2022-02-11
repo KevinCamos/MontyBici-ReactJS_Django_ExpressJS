@@ -1,9 +1,5 @@
-import { useCallback, useState, useContext, useEffect } from "react";
+import { useCallback, useState, useEffect } from "react";
 import bikeServices from "../../services/BikeServices";
-import UserContext from "../../context/UserContext";
-import StationsContext from "../../context/StationsContext";
-import { useNavigate } from "react-router-dom";
-
 
 
 
@@ -12,7 +8,7 @@ import { useSnackbar } from 'notistack';
 
 export default function useAdminBike(admin = { admin: false }) {
   const [bikes, setBikes] = useState([]);
-  const [errorBike, setErrorBike] = useState(null);
+  // const [errorBike, setErrorBike] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
   const { enqueueSnackbar } = useSnackbar();
@@ -70,5 +66,5 @@ export default function useAdminBike(admin = { admin: false }) {
 
 
 
-  return { errorBike, bikes, isLoading, updateBike };
+  return {  bikes, isLoading, updateBike };
 }

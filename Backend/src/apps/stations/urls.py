@@ -2,7 +2,7 @@ from django.conf.urls import include, url
 from rest_framework.routers import DefaultRouter
 
 
-from .views import GetAllStationListAPIView,GetOneStationAPIView,CreateStationAPIView
+from .views import GetAllStationListAPIView,GetOneStationAPIView,CreateStationAPIView,UpdpatePointAPIView,BikeListAPIView
 
 router = DefaultRouter()
 
@@ -12,5 +12,7 @@ urlpatterns = [
     url(r'^station/?$', GetAllStationListAPIView.as_view(), name='stations'),
     url(r'^station-admin/?$', CreateStationAPIView.as_view(), name='stations'),
     url(r'^station-admin/(?P<slug>[-\w]+)/?$', CreateStationAPIView.as_view(), name='stations'),
+    url(r'^updatepoint/$', UpdpatePointAPIView.as_view()),
+    url(r'^getpoints/$', BikeListAPIView.as_view()),
 
 ]
