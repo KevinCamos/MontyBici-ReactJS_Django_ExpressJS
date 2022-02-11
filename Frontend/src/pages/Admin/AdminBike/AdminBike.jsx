@@ -5,7 +5,7 @@ import useAdminBike from "../../../hooks/Admin/useAdminBike";
 import Loading from "../../../components/Templates-Suspense/Loading"
 
 export default function AdminBike() {
-    const { bikes, isLoading, updateBike } = useAdminBike({ admin: true })
+    const { bikes, isLoading, updateBike } = useAdminBike()
     return (
         <>
             {isLoading && <Loading />}
@@ -46,6 +46,8 @@ export default function AdminBike() {
                                             : <Switch value={!bike.active ?? " "} onClick={(e) => updateBike(bike.id, !bike.active, bikes)} />
                                         } </TableCell>
                                     </TableRow>
+
+
                                 ))}
                             </TableBody>
                         </Table>

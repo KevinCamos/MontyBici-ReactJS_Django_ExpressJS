@@ -111,6 +111,7 @@ class GetBikeSerializer(serializers.ModelSerializer):
 
 class AllPointsSerializer(serializers.ModelSerializer):
     station = StationSerializer(many=False)
+    bike = BikeSerializer(many=False)
     # bike = BikeSerializer(many=False)
 
     class Meta:

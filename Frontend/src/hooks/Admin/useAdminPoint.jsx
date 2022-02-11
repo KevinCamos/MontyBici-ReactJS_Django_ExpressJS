@@ -6,7 +6,7 @@ import pointServices from "../../services/PointServices";
 import { useSnackbar } from 'notistack';
 
 
-export default function useAdminPoint(admin = { admin: false }) {
+export default function useAdminPoint() {
   const [points, setPoints] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const { enqueueSnackbar } = useSnackbar();
@@ -61,5 +61,5 @@ export default function useAdminPoint(admin = { admin: false }) {
 
 
 
-  return {  points, isLoading, updatePoint };
+  return {  points,setPoints, isLoading, updatePoint };
 }
