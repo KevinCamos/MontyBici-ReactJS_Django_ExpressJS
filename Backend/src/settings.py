@@ -88,12 +88,12 @@ WSGI_APPLICATION = 'src.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',  # <-- UPDATED line
-        'NAME': 'MontyBici',                 # <-- UPDATED line
-        'USER': 'root',                     # <-- UPDATED line
-        'PASSWORD': 'root',              # <-- UPDATED line
-        # 'HOST': 'localhost',                # <-- UPDATED line
-        'HOST': 'mysql_db',                # <-- UPDATED line
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'MontyBici',                 
+        'USER': 'root',                 
+        'PASSWORD': 'root',             
+        'HOST': 'localhost',            
+        # 'HOST': 'mysql_db',      #<- Nombre del contenedor de docker de mysql     
         'PORT': '3306',
     }
 }

@@ -58,8 +58,8 @@ export default function BasicModal({ open, handleClose, station }) {
                         <CardMedia
                             component="img"
                             height="200"
-                            image={station.img? station.img:"https://uk.schreder.com/sites/default/files/2019-06/railwaystations-metros-porto-portugal-schreder-dexo-dexo-neos-porto-sao-bento-gare-img_0942.jpg"}
-                            alt={`Station ${station.username}`}
+                            image={station.img? station.img:"https://imagenesparaperfildewasap.com/wp-content/uploads/no-hay-foto-3.png"}
+                            alt={`Station ${station.name}`}
                         />
 
                         <Typography id="modal-modal-title" variant="h6" component="h2">

@@ -1,7 +1,7 @@
 
 import Api from './Api'
-  
-const bikeServices ={
+
+const bikeServices = {
 
   obtainBike(data) {
     console.log(data)
@@ -17,6 +17,9 @@ const bikeServices ={
   },
   getBikesPointsStations() {
     return Api().get('bikes/getbikes/');
+  },
+  updateBike(data) {
+    return Api().put('bikes/updatebike/', data);
   },
 }
 

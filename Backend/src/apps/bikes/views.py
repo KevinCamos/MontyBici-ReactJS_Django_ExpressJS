@@ -9,7 +9,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 # SERIALIZERS
-from .serializers import  RegisterSerializer, MyRegisterSerializer
+from .serializers import RegisterSerializer, MyRegisterSerializer
 from src.apps.stations.serializers import GetBikeSerializer
 # MODELS
 from .models import Bike, Register_Bike
@@ -19,9 +19,41 @@ from src.apps.core.permissions import IsStaff
 
 class BikeListAPIView(generics.ListAPIView):
     permission_classes = (IsAuthenticated,)
-    permission_classes = [IsStaff, ]    
-    queryset = Bike.objects.all()
+    permission_classes = [IsStaff, ]
+    queryset = Bike.objects.all().order_by('points', 'points__station')
     serializer_class = GetBikeSerializer
+
+
+class UpdpateBikeAPIView(APIView):
+    permission_classes = (IsAuthenticated,)
+    permission_classes = [IsStaff, ]
+
+    serializer_class = GetBikeSerializer
+
+    def put(self, request):
+        id_bike = request.data.get('id_bike', {})
+        active = request.data.get('active', {})
+        print(id_bike, active)
+        print(id_bike, active)
+        print(request.data)
+        print(request.data)
+        print(request.data)
+        print(request)
+        print(request)
+        print(id_bike, active)
+        print(id_bike, active)
+        if (type(active) != bool):
+            raise NotFound(active)
+        try:
+            bike = Bike.objects.get(pk=id_bike)
+        except Point.DoesNotExist:
+            raise NotFound('Esta bici no existe.')
+        serializer = self.serializer_class(
+            instance=bike,   data={"active": active}, partial=True)
+        serializer.is_valid(raise_exception=True)
+
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
 class RegisterAPIView(APIView):

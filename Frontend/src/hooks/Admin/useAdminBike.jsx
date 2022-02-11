@@ -5,52 +5,70 @@ import StationsContext from "../../context/StationsContext";
 import { useNavigate } from "react-router-dom";
 
 
+
+
 import { useSnackbar } from 'notistack';
 
 
-export default function useBike(admin = { admin: false }) {
+export default function useAdminBike(admin = { admin: false }) {
   const [bikes, setBikes] = useState([]);
   const [errorBike, setErrorBike] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
+  const { enqueueSnackbar } = useSnackbar();
 
-  
 
-  
+
+
   useEffect(
     function () {
       bikeServices.getBikesPointsStations().then((data) => {
         console.log(data.data.results)
         setBikes(data.data.results);
+        setIsLoading(false)
       });
     },
     []
   );
-  
-  // const updateBikeIsActive = useCallback(
 
-  //   (id_bike) => {
-  //     // setIsLoading(true)
+  const updateBike = useCallback(
+    (id_bike, active, bikes) => {
+      setIsLoading(true)
+      let data = { "id_bike": id_bike, "active": active }
+      bikeServices
+        .updateBike(data)
+        .then((data) => {
+          updateArrayBike(id_bike, data.data.id, bikes)
+          enqueueSnackbar('Bicicleta modificada con éxito.', { variant: 'success' });
+          setIsLoading(false)
 
-  //     console.log({ id_bike: id_bike });
-  //     bikeServices
-  //       .updateBikeIsActive({ id_bike: id_bike })
-  //       .then((data) => {
-  //      console.log(data)
-  //       })
-  //       .catch((error) => {
-  //       console.log(error)
-  //       // setErrorBike(true)
+        })
+        .catch((error) => {
+          console.log(error)
+          enqueueSnackbar('Ha habido algún problema y no se ha hecho ninguna modifición.', { variant: 'error' });
+          setIsLoading(false)
 
-
-  //       });
-  //   },
-  //   []
-  // );
-
-
-
+        });
+    },
+    []
+  );
 
 
-  return { errorBike,bikes, isLoading };
+  const updateArrayBike = useCallback((id_bike, active, bikes) => {
+    let index = bikes.findIndex(function (bike) {
+      console.log(bike.id, id_bike)
+      return bike.id === id_bike
+    })
+    console.log(index)
+    let updatebike = [...bikes]
+    updatebike[index].active = active;
+    setBikes(updatebike)
+
+  },
+    []
+  );
+
+
+
+  return { errorBike, bikes, isLoading, updateBike };
 }
