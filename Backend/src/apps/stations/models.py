@@ -49,6 +49,9 @@ class Point(models.Model):
         else:
             return self
 
+
+
+
         # """Follow `profile` if we're not already following `profile`."""
         # self.follows.add(profile)
     def RemoveBike(self):
@@ -69,6 +72,3 @@ class Point(models.Model):
 
         except Point.DoesNotExist:
             raise NotFound('Este punto de estación no existe.')
-
-        # """Follow `profile` if we're not already following `profile`."""
-        # self.follows.add(profile)

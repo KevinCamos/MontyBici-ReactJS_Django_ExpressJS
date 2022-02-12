@@ -11,9 +11,12 @@ from rest_framework.views import APIView
 # SERIALIZERS
 from .serializers import RegisterSerializer, MyRegisterSerializer
 from src.apps.stations.serializers import GetBikeSerializer
+
 # MODELS
 from .models import Bike, Register_Bike
 from src.apps.stations.models import Point
+
+# PERMSISSIONS
 from src.apps.core.permissions import IsStaff
 
 
@@ -23,6 +26,11 @@ class BikeListAPIView(generics.ListAPIView):
     queryset = Bike.objects.all().order_by('points', 'points__station')
     serializer_class = GetBikeSerializer
 
+class BikeListNoPointsAPIView(generics.ListAPIView):
+    permission_classes = (IsAuthenticated,)
+    permission_classes = [IsStaff, ]
+    queryset = Bike.objects.filter(points=None)
+    serializer_class = GetBikeSerializer
 
 class UpdpateBikeAPIView(APIView):
     permission_classes = (IsAuthenticated,)

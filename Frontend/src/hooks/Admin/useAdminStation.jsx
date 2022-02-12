@@ -66,6 +66,8 @@ const useAdminStation = () => {
 
           console.log(data)
           dropFilterStation(slug, stations)
+          setLoading(false)
+
         })
         .catch((error) => {
           showError(error, ", ya que hay registros que dependen de esta estación")

@@ -9,7 +9,8 @@ from src.apps.core.permissions import IsStaff
 
 from rest_framework.response import Response
 from .models import  Station, Point
-from .serializers import serializerStationsPoints, AllPointsSerializer, BikeSerializer
+from .serializers import serializerStationsPoints, AllPointsSerializer, BikeSerializer,CreatePointsSerializer
+from src.apps.bikes.models import  Bike
 
 import json
 
@@ -29,7 +30,7 @@ class GetOneStationAPIView(generics.ListAPIView):
 
 
 class GetAllStationListAPIView(generics.ListAPIView):
-    queryset = Station.objects.all()
+    queryset = Station.objects.all().order_by("name")
     serializer_class = serializerStationsPoints
 
 
@@ -37,7 +38,7 @@ class CreateStationAPIView(APIView):
     permission_classes = (IsAuthenticated,)
     permission_classes = [IsStaff, ]
     serializer_stations = serializerStationsPoints
-    serializer_points = AllPointsSerializer
+    serializer_points = CreatePointsSerializer
     serializer_bike = BikeSerializer
 
     def post(self, request):
@@ -128,11 +129,7 @@ class UpdpatePointAPIView(APIView):
     def put(self, request):
         id_point = request.data.get('id_point', {})
         active = request.data.get('active', {})
-        print(id_point, active)
-        print(id_point, active)
-        print(request.data)
-        print(id_point, active)
-        print(id_point, active)
+
         if (type(active) != bool):
             raise NotFound(active)
         try:
@@ -145,3 +142,54 @@ class UpdpatePointAPIView(APIView):
 
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+
+
+
+
+# ADMIN Modificiar Bici del point
+
+class UpdpateBikePointAPIView(APIView):
+    permission_classes = (IsAuthenticated,)
+    permission_classes = [IsStaff, ]
+
+    serializer_class = CreatePointsSerializer
+
+
+    def put(self, request):
+        id_point = request.data.get('id_point', {})
+        id_bike = request.data.get('id_bike', {})
+
+        # Existeix el punt on volem ficar la bici?
+        try:
+            putPoint = Point.objects.get(pk=id_point)
+        except Point.DoesNotExist:
+            raise NotFound('El punto al que quieres añadir una bici no existe.')
+   
+        # Algun punt ja té eixa bici?
+        print(Point.objects.filter(bike=id_bike).exists())
+        if Point.objects.filter(bike=id_bike).exists():
+            otherPoint= Point.objects.get(bike=id_bike)
+            bike=otherPoint.bike
+            print(otherPoint)
+            print("bike")
+
+            otherPoint.RemoveBike() ###CREAR MÉTODO
+            print(otherPoint)
+
+        # Sino... la bici existeix?
+        else:
+            print("Else")
+            try:
+                bike = Bike.objects.get(pk=id_point)
+            except Point.DoesNotExist:
+                raise NotFound('Esta bici no existe.')
+        serializer = self.serializer_class(
+            instance=putPoint,   data={"bike": bike.pk}, partial=True)
+
+        serializer.is_valid(raise_exception=True)
+
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+

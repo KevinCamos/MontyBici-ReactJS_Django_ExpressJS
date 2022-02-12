@@ -5,25 +5,19 @@ from .models import Station, Point
 from src.apps.bikes.models import Bike
 
 
-
-
-
-
-
-#Estos dos serializadores se utilizan para serializar las estaciones de los registros
+# Estos dos serializadores se utilizan para serializar las estaciones de los registros
 class StationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Station
-        fields =[ 'name']
-        
+        fields = ['name']
+
+
 class MyPointsSerializer(serializers.ModelSerializer):
     station = StationSerializer(many=False)
 
     class Meta:
         model = Point
-        fields = ["id","station"]
-
-
+        fields = ["id", "station"]
 
 
 class BikeSerializer(serializers.ModelSerializer):
@@ -34,21 +28,24 @@ class BikeSerializer(serializers.ModelSerializer):
             'active',
         )
 
-### YOLANDA, m'has de ficar un punt més quan corregeixes açò
+# YOLANDA, m'has de ficar un punt més quan corregeixes açò
+
+
 class PointsSerializer(serializers.ModelSerializer):
     # categories = UserPostCategoriesSerializer(many=True)
     bike = BikeSerializer(many=False)
 
     class Meta:
         model = Point
-        fields = ["id","bike", "active"]
+        fields = ["id", "bike", "active"]
 
-        
+
 class serializerStationsPoints(serializers.ModelSerializer):
 
     points = PointsSerializer(many=True, required=False)
     slug = SlugField(required=False)
-    img= ImageField(required=False)
+    img = ImageField(required=False)
+
     class Meta:
         model = Station
         fields = [
@@ -60,20 +57,19 @@ class serializerStationsPoints(serializers.ModelSerializer):
             'img',
             'points'
         ]
+
     def update(self, instance, validated_data):
- 
+
         instance.name = validated_data.get('name', instance.name)
-        instance.direction = validated_data.get('direction', instance.direction)
+        instance.direction = validated_data.get(
+            'direction', instance.direction)
         instance.location = validated_data.get('location', instance.location)
         instance.img = validated_data.get('img', instance.img)
         instance.save()
         return instance
 
 
-
-
-
-###Serializadores para traer a la inversa, las bicis y sus estaciones si tienen
+# Serializadores para traer a la inversa, las bicis y sus estaciones si tienen
 
 
 class serializerStations(serializers.ModelSerializer):
@@ -84,8 +80,11 @@ class serializerStations(serializers.ModelSerializer):
             'name',
             'img',
         ]
+
+
 class GetBikeSerializer(serializers.ModelSerializer):
     points = MyPointsSerializer(many=False, required=False)
+
     class Meta:
         model = Bike
         fields = (
@@ -94,34 +93,41 @@ class GetBikeSerializer(serializers.ModelSerializer):
             'points'
         )
 
-    
     def update(self, instance, validated_data):
- 
+
         instance.active = validated_data.get('active', instance.active)
         instance.save()
         return instance
-        
 
 
-
-
-
-
-
-
-class AllPointsSerializer(serializers.ModelSerializer):
-    station = StationSerializer(many=False)
-    bike = BikeSerializer(many=False)
+class CreatePointsSerializer(serializers.ModelSerializer):
+    # station = StationSerializer(many=False)
+    # bike = BikeSerializer(many=False)
     # bike = BikeSerializer(many=False)
 
     class Meta:
         model = Point
-        fields = ["id","active","station","bike"]
+        fields = ["id", "active", "station", "bike"]
 
     def update(self, instance, validated_data):
- 
-        instance.active = validated_data.get('active', instance.active)
-        # instance.active = validated_data.get('bike', instance.bike)
+
+        instance.bike = validated_data.get('bike', instance.bike)
+
         instance.save()
         return instance
-        
+
+class AllPointsSerializer(serializers.ModelSerializer):
+    station = StationSerializer(many=False)
+    bike = BikeSerializer(many=False)
+
+    class Meta:
+        model = Point
+        fields = ["id", "active", "station", "bike"]
+
+    def update(self, instance, validated_data):
+
+        instance.active = validated_data.get('active', instance.active)
+        # instance.bike = validated_data.get('bike', instance.bike)
+
+        instance.save()
+        return instance
