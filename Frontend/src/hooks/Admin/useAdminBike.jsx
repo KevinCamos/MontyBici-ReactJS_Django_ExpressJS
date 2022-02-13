@@ -6,10 +6,10 @@ import bikeServices from "../../services/BikeServices";
 import { useSnackbar } from 'notistack';
 
 
-export default function useAdminBike(isPageAdminBike = { isPageAdminBike: true }) {
+export default function useAdminBike(page = { isPageAdminBike: true }) {
 
   const [bikes, setBikes] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const { enqueueSnackbar } = useSnackbar();
 
@@ -22,11 +22,11 @@ export default function useAdminBike(isPageAdminBike = { isPageAdminBike: true }
 
   useEffect(
     function () {
-      let isPage = isPageAdminBike.isPageAdminBike
+      let isPage = page.isPageAdminBike
       console.log(isPage)
-      console.log(isPageAdminBike)
-      console.log(isPageAdminBike.isPageAdminBike)
-      if (isPage) {
+      console.log(page)
+      console.log(page.isPageAdminBike)
+      if (bikes.length===0) {
         setIsLoading(true)
         bikeServices.getBikesPointsStations().then((data) => {
           console.log(data.data.results)
@@ -39,14 +39,18 @@ export default function useAdminBike(isPageAdminBike = { isPageAdminBike: true }
   );
 
   const updateBike = useCallback(
-    (id_bike, active, array) => {
+    (id_bike, active, arrayBikes, arrayPoints = []) => {
       setIsLoading(true)
+      alert(active)
       let data = { "id_bike": id_bike, "active": active }
+      // console.log(data)
+      // AudioWorklet(active)
       bikeServices
         .updateBike(data)
         .then((data) => {
-          if (isPageAdminBike.isPageAdminBike) updateArrayBike(id_bike, data.data.id, array)
-          else indexUpdateArrayPoints(id_bike, data.data.id, array)
+          console.log(data)
+           updateArrayBike(id_bike, arrayBikes)
+           if (!page.isPageAdminBike) indexUpdateArrayPoints(id_bike, arrayPoints)
           enqueueSnackbar('Bicicleta modificada con éxito.', { variant: 'success' });
           setIsLoading(false)
         })
@@ -60,20 +64,21 @@ export default function useAdminBike(isPageAdminBike = { isPageAdminBike: true }
   );
 
 
-  const updateArrayBike = useCallback((id_bike, active, bikes) => {
+  const updateArrayBike = useCallback((id_bike, bikes) => {
+    console.log(bikes)
     let index = bikes.findIndex((bike) => {
       return bike.id === id_bike
     })
     console.log(index)
     let updatebike = [...bikes]
-    updatebike[index].active = active;
+    updatebike[index].active = !updatebike[index].active;
     setBikes(updatebike)
   },
     []
   );
 
 
-  const indexUpdateArrayPoints = useCallback((id_bike, active, points) => {
+  const indexUpdateArrayPoints = useCallback((id_bike, points) => {
     console.log("EEEI", id_bike)
     console.log(points)
     // let index = bikes.findIndex(function (bike) {

@@ -101,9 +101,6 @@ class GetBikeSerializer(serializers.ModelSerializer):
 
 
 class CreatePointsSerializer(serializers.ModelSerializer):
-    # station = StationSerializer(many=False)
-    # bike = BikeSerializer(many=False)
-    # bike = BikeSerializer(many=False)
 
     class Meta:
         model = Point
@@ -127,7 +124,6 @@ class AllPointsSerializer(serializers.ModelSerializer):
     def update(self, instance, validated_data):
 
         instance.active = validated_data.get('active', instance.active)
-        # instance.bike = validated_data.get('bike', instance.bike)
 
         instance.save()
         return instance
