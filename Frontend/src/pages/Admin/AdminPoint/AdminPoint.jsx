@@ -7,8 +7,8 @@ import Loading from "../../../components/Templates-Suspense/Loading"
 
 export default function AdminPoint() {
     const { points, setPoints, isLoadingPoint, updatePoint } = useAdminPoint()
-    const { updateBike, pointIndex, setPointIndex, isLoading } = useAdminBike({ isPageAdminBike: false })
-
+    const { bikes, updateBike, pointIndex, setPointIndex, isLoading } = useAdminBike()
+console.log(bikes)
     if (pointIndex != -1) {
         setPointIndex(-1)
         let updatePoints = [...points]
