@@ -4,13 +4,14 @@ from rest_framework.views import APIView
 from rest_framework import status, generics
 from rest_framework.exceptions import NotFound
 
-from rest_framework.permissions import (IsAuthenticatedOrReadOnly, IsAuthenticated,)
+from rest_framework.permissions import (
+    IsAuthenticatedOrReadOnly, IsAuthenticated,)
 from src.apps.core.permissions import IsStaff
 
 from rest_framework.response import Response
-from .models import  Station, Point
-from .serializers import serializerStationsPoints, AllPointsSerializer, BikeSerializer,CreatePointsSerializer
-from src.apps.bikes.models import  Bike
+from .models import Station, Point
+from .serializers import serializerStationsPoints, AllPointsSerializer, BikeSerializer, CreatePointsSerializer
+from src.apps.bikes.models import Bike
 
 import json
 
@@ -111,14 +112,14 @@ class CreateStationAPIView(APIView):
         return Response(None, status=status.HTTP_204_NO_CONTENT)
 
 
-
 class BikeListAPIView(generics.ListAPIView):
     permission_classes = (IsAuthenticated,)
     permission_classes = [IsStaff, ]
     queryset = Point.objects.all().order_by('station', 'pk')
     serializer_class = AllPointsSerializer
 
-##UPDATE POINT
+# UPDATE POINT
+
 
 class UpdpatePointAPIView(APIView):
     permission_classes = (IsAuthenticated,)
@@ -144,9 +145,6 @@ class UpdpatePointAPIView(APIView):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
-
-
-
 # ADMIN Modificiar Bici del point
 
 class UpdpateBikePointAPIView(APIView):
@@ -154,7 +152,7 @@ class UpdpateBikePointAPIView(APIView):
     permission_classes = [IsStaff, ]
 
     serializer_class = CreatePointsSerializer
-
+    serializer_class_All_Point = AllPointsSerializer
 
     def put(self, request):
         id_point = request.data.get('id_point', {})
@@ -164,32 +162,41 @@ class UpdpateBikePointAPIView(APIView):
         try:
             putPoint = Point.objects.get(pk=id_point)
         except Point.DoesNotExist:
-            raise NotFound('El punto al que quieres añadir una bici no existe.')
-   
-        # Algun punt ja té eixa bici?
-        print(Point.objects.filter(bike=id_bike).exists())
-        if Point.objects.filter(bike=id_bike).exists():
-            otherPoint= Point.objects.get(bike=id_bike)
-            bike=otherPoint.bike
-            print(otherPoint)
-            print("bike")
+            raise NotFound(
+                'El punto al que quieres añadir una bici no existe.')
 
-            otherPoint.RemoveBike() ###CREAR MÉTODO
-            print(otherPoint)
-
-        # Sino... la bici existeix?
+            # Volem eliminar la bici del punt i ja?
+        if id_bike == False:
+            data = {"bike": None}
         else:
-            print("Else")
-            try:
-                bike = Bike.objects.get(pk=id_point)
-            except Point.DoesNotExist:
-                raise NotFound('Esta bici no existe.')
+            # Algun punt ja té eixa bici?
+            print(Point.objects.filter(bike=id_bike).exists())
+            if Point.objects.filter(bike=id_bike).exists():
+                otherPoint = Point.objects.get(bike=id_bike)
+                bike = otherPoint.bike
+                print(otherPoint)
+                print("bike")
+
+                otherPoint.RemoveBike()
+                print(otherPoint)
+
+            # Sino... la bici existeix?
+            else:
+                print("Else")
+                try:
+                    bike = Bike.objects.get(pk=id_bike)
+                except Point.DoesNotExist:
+                    raise NotFound('Esta bici no existe.')
+
+            data = {"bike": bike.pk}
+
+        # Utilizamos este serializer para hacer la modificación de datos
         serializer = self.serializer_class(
-            instance=putPoint,   data={"bike": bike.pk}, partial=True)
-
+            instance=putPoint,   data=data, partial=True)
         serializer.is_valid(raise_exception=True)
-
         serializer.save()
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
 
-
+        # Y por último, utilizamos este para mostrar los datos de forma anidados.
+        serializer_all_data = self.serializer_class_All_Point(
+            instance=putPoint)
+        return Response(serializer_all_data.data, status=status.HTTP_201_CREATED)

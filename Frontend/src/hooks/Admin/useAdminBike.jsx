@@ -97,5 +97,5 @@ export default function useAdminBike(page = { isPageAdminBike: true }) {
   );
 
 
-  return { bikes, isLoading, updateBike, pointIndex,setPointIndex};
+  return { bikes,setBikes, isLoading, updateBike, pointIndex,setPointIndex};
 }

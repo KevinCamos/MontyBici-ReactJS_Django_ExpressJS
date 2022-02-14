@@ -9,7 +9,11 @@ const pointServices = {
   updatePoint(data) {
     return Api().put('stations/updatepoint/', data);
   },
+  updatePointsBike(data) {
+    return Api().put('stations/updatepointsbike/', data);
+  },
 }
+
 
 export default pointServices;
 

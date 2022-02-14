@@ -101,6 +101,7 @@ class GetBikeSerializer(serializers.ModelSerializer):
 
 
 class CreatePointsSerializer(serializers.ModelSerializer):
+    # bike = BikeSerializer(many=False, write_only=True, allow_null=True)
 
     class Meta:
         model = Point
@@ -127,3 +128,5 @@ class AllPointsSerializer(serializers.ModelSerializer):
 
         instance.save()
         return instance
+
+

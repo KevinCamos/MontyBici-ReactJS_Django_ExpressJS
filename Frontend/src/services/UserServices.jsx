@@ -16,9 +16,7 @@ const userServices ={
   checkAdmin() {
     return Api().get('auth/user-staff');
   },
-  // checkUserAdmin() {
-  //   return Api().get('auth/user');
-  // },
+
 
 }
 
