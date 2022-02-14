@@ -101,16 +101,15 @@ class GetBikeSerializer(serializers.ModelSerializer):
 
 
 class CreatePointsSerializer(serializers.ModelSerializer):
-    # bike = BikeSerializer(many=False, write_only=True, allow_null=True)
+    # station = StationSerializer(many=False)
+    # bike = BikeSerializer(many=False)
 
     class Meta:
         model = Point
         fields = ["id", "active", "station", "bike"]
-
     def update(self, instance, validated_data):
 
         instance.bike = validated_data.get('bike', instance.bike)
-
         instance.save()
         return instance
 

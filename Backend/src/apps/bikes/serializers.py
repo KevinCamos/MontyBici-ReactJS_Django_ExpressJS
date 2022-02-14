@@ -1,8 +1,9 @@
 from rest_framework import serializers
-from .models import Bike,Register_Bike
+from .models import Bike, Register_Bike
 
 from src.apps.profiles.serializers import ProfileSerializer
 from src.apps.stations.serializers import MyPointsSerializer
+
 
 class BikeSerializer(serializers.ModelSerializer):
     class Meta:
@@ -11,12 +12,15 @@ class BikeSerializer(serializers.ModelSerializer):
             'id',
             'active',
         )
+
+
 class RegisterSerializer(serializers.ModelSerializer):
     user = ProfileSerializer(required=False)
     bike = BikeSerializer(required=False)
 
     data_get = serializers.SerializerMethodField(method_name='get_data_get')
-    data_return = serializers.SerializerMethodField(method_name='get_data_return')
+    data_return = serializers.SerializerMethodField(
+        method_name='get_data_return')
 
     class Meta:
         model = Register_Bike
@@ -37,6 +41,7 @@ class RegisterSerializer(serializers.ModelSerializer):
         return Register_Bike.objects.create(
             user=user, bike=bike, **validated_data
         )
+
     def get_data_get(self, instance):
         return instance.data_get.ctime()
 
@@ -44,14 +49,13 @@ class RegisterSerializer(serializers.ModelSerializer):
         return instance.data_return.ctime()
 
     def update(self, instance, validated_data):
- 
-        instance.point_return = validated_data.get('point_return', instance.point_return)
+
+        instance.point_return = validated_data.get(
+            'point_return', instance.point_return)
         instance.save()
         return instance
 
 
-
-  
 class DynamicFieldsModelSerializer(serializers.ModelSerializer):
 
     def __init__(self, *args, **kwargs):
@@ -67,8 +71,6 @@ class DynamicFieldsModelSerializer(serializers.ModelSerializer):
                 self.fields.pop(field_name)
 
 
-
-        
 class MyRegisterSerializer(serializers.ModelSerializer):
     point_get = MyPointsSerializer(many=False, required=False)
     point_return = MyPointsSerializer(many=False, required=False)
@@ -83,4 +85,4 @@ class MyRegisterSerializer(serializers.ModelSerializer):
             'data_get',
             'point_return',
             'data_return',
-          )
+        )
