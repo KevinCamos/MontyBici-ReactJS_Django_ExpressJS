@@ -9,8 +9,8 @@ import { useSnackbar } from 'notistack';
 
 export default function useAdminBike(page = { isPageAdminBike: true }) {
 
-  // const [bikes, setBikes] = useState([]);
-  const { bikes, setBikes, points, setPoints } = useContext(AdminContext)
+  const [bikes, setBikes] = useState([]);
+  // const { bikes, setBikes, points, setPoints } = useContext(AdminContext)
   const [isLoading, setIsLoading] = useState(false);
 
   const { enqueueSnackbar } = useSnackbar();

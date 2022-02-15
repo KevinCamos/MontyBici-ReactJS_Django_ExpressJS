@@ -5,12 +5,12 @@ import pointServices from "../../services/PointServices";
 
 import { useSnackbar } from 'notistack';
 
-import AdminContext from '../../context/Admin/AdminContext'
+// import AdminContext from '../../context/Admin/AdminContext'
 
 export default function useAdminPoint() {
-  const { bikes, setBikes, points, setPoints } = useContext(AdminContext)
+  // const { bikes, setBikes, points, setPoints } = useContext(AdminContext)
 
-  // const [points, setPoints] = useState([]);
+  const [points, setPoints] = useState([]);
   const [isLoadingPoint, setIsLoadingPoint] = useState(true);
   const { enqueueSnackbar } = useSnackbar();
   const [isBikeUpdate, setIsBikeUpdate] = useState(false);
@@ -83,7 +83,7 @@ export default function useAdminPoint() {
       pointServices
         .updatePointsBike(data)
         .then((data) => {
-          updateArrayPointsBike(data.data, bike_id,  point_id)
+          updateArrayPointsBike(data.data, bike_id, points, point_id)
           enqueueSnackbar('Bicicleta cambiada de sitio.', { variant: 'success' });
           setIsLoadingPoint(false)
 
@@ -98,7 +98,7 @@ export default function useAdminPoint() {
     []
   );
 
-  const updateArrayPointsBike = useCallback((newPoint, bike_id,  point_id) => {
+  const updateArrayPointsBike = useCallback((newPoint, bike_id, points, point_id) => {
     let updatepoint = [...points]
     if (bike_id) {
       let indexRemove = points.findIndex(function (point) {

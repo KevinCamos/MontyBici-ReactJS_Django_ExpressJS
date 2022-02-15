@@ -32,7 +32,7 @@ const TabPoint = ({ points }) => {
 
       {points.map((point, index) => (
         <TabPanel value={value} index={index} key={"tabPanel" + index}>
-          {point.bike ? point.bike.active ? response["disabled"] : response["secondary"] : <ReturnBike id_point={point.id} />}
+          {point.active ? (point.bike ? response["secondary"]: <ReturnBike id_point={point.id}/>) :response["disabled"]}
         </TabPanel>
       ))}
     </Box>

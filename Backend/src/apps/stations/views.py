@@ -167,7 +167,7 @@ class UpdpateBikePointAPIView(APIView):
 
             # Volem eliminar la bici del punt i ja?
         if id_bike == False:
-            data = {"bike": None}
+            context = {"bike": None}
         else:
             # Algun punt ja té eixa bici?
             print(Point.objects.filter(bike=id_bike).exists())
@@ -188,14 +188,15 @@ class UpdpateBikePointAPIView(APIView):
                 except Point.DoesNotExist:
                     raise NotFound('Esta bici no existe.')
 
-            data = {}
             context = {"bike": bike}
         # Utilizamos este serializer para hacer la modificación de datos
+        data = {}
+
         serializer = self.serializer_class(
             instance=putPoint,   data=data, context=context, partial=True)
         serializer.is_valid(raise_exception=True)
         serializer.save()
-
+        
         # Y por último, utilizamos este para mostrar los datos de forma anidados.
         # serializer_all_data = self.serializer_class_All_Point(
         #     instance=putPoint)

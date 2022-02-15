@@ -1,6 +1,6 @@
 import react, { useContext, useEffect, useState, useCallback } from "react";
 import stationsServices from "../../services/StationsServices";
-import StationsContext from "../../context/StationsContext";
+// import StationsContext from "../../context/StationsContext";
 
 import { useNavigate } from "react-router-dom";
 
@@ -9,8 +9,9 @@ import { useSnackbar } from 'notistack';
 
 const useAdminStation = () => {
   const navigate = useNavigate();
+  const [stations, setStations] = useState([]);
 
-  const { stations, setStations } = useContext(StationsContext);
+  // const { stations, setStations } = useContext(StationsContext);
   const [isLoading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 

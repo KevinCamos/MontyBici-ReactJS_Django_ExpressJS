@@ -23,7 +23,7 @@ const BasicTabs = ({ points }) => {
         <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
           {points.map((point, index) => (
             <Tab
-              label={point.bike ? (point.bike.active ? "Libre" : "Inhabilitada") : "-  "}
+              label={point.bike ? (point.bike.active ? "Libre" : "Inhabilitada") : "Empty"}
               icon={<PedalBikeIcon fontSize="large" color={statusBike(point.bike)} />}
               {...a11yProps(index)}
               key={"tab" + index}

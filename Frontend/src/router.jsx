@@ -1,7 +1,7 @@
 import React, { Suspense } from "react";
 import { StationsContextProvider } from "./context/StationsContext";
 import { UserContextProvider } from "./context/UserContext";
-import { AdminContextProvider } from "./context/Admin/AdminContext";
+// import { AdminContextProvider } from "./context/Admin/AdminContext";
 import GuardUser from "./services/Guards/GuardsUser";
 import GuardAdmin from "./services/Guards/GuardsAdmin";
 
@@ -32,7 +32,7 @@ export default function MyRouter() {
     <>
       <Suspense fallback={<Loading />}>
         <UserContextProvider>
-          <AdminContextProvider>
+          {/* <AdminContextProvider> */}
             <StationsContextProvider>
               <BrowserRouter>
                 <Routes>
@@ -69,7 +69,7 @@ export default function MyRouter() {
                 </Routes>
               </BrowserRouter>
             </StationsContextProvider>
-          </AdminContextProvider>
+          {/* </AdminContextProvider> */}
         </UserContextProvider>
       </Suspense>
     </>
