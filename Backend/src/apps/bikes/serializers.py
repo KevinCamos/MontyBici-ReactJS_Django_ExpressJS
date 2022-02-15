@@ -81,6 +81,7 @@ class MyRegisterSerializer(serializers.ModelSerializer):
         fields = (
             # 'user',
             # 'bike',
+            'id',
             'point_get',
             'data_get',
             'point_return',

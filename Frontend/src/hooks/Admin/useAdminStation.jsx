@@ -1,6 +1,6 @@
 import react, { useContext, useEffect, useState, useCallback } from "react";
 import stationsServices from "../../services/StationsServices";
-// import StationsContext from "../../context/StationsContext";
+import StationsContext from "../../context/StationsContext";
 
 import { useNavigate } from "react-router-dom";
 
@@ -9,9 +9,9 @@ import { useSnackbar } from 'notistack';
 
 const useAdminStation = () => {
   const navigate = useNavigate();
-  const [stations, setStations] = useState([]);
+  // const [stations, setStations] = useState([]);
 
-  // const { stations, setStations } = useContext(StationsContext);
+  const { stations, setStations } = useContext(StationsContext);
   const [isLoading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
@@ -21,6 +21,10 @@ const useAdminStation = () => {
 
   const [selectedImage, setSelectedImage] = useState();
   const [imageUrl, setImageUrl] = useState(null);
+
+
+  const [open, setOpen] = useState(false);
+  const [oneStation, setOneStation] = useState(null);
 
   const { enqueueSnackbar } = useSnackbar();
 
@@ -132,6 +136,6 @@ const useAdminStation = () => {
     }
     return form_data
   }
-  return { saveStation, updateStation, deleteStation, totalPoints, totalBikes, setTotalBikes, selectedImage, setSelectedImage, imageUrl, setImageUrl, isLoading, error };
+  return { saveStation, updateStation, deleteStation, totalPoints, totalBikes, setTotalBikes, selectedImage, setSelectedImage, imageUrl, setImageUrl, isLoading, error,open, setOpen, oneStation, setOneStation};
 }
 export default useAdminStation

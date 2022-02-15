@@ -5,12 +5,12 @@ import pointServices from "../../services/PointServices";
 
 import { useSnackbar } from 'notistack';
 
-// import AdminContext from '../../context/Admin/AdminContext'
+import AdminContext from '../../context/Admin/AdminContext'
 
 export default function useAdminPoint() {
-  // const { bikes, setBikes, points, setPoints } = useContext(AdminContext)
+  const { bikes, setBikes, points, setPoints } = useContext(AdminContext)
 
-  const [points, setPoints] = useState([]);
+  // const [points, setPoints] = useState([]);
   const [isLoadingPoint, setIsLoadingPoint] = useState(true);
   const { enqueueSnackbar } = useSnackbar();
   const [isBikeUpdate, setIsBikeUpdate] = useState(false);

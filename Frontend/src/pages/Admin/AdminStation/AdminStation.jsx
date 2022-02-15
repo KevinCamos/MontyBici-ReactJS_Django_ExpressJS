@@ -4,14 +4,13 @@ import { Helmet } from "react-helmet";
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button } from '@mui/material';
 import useStation from "../../../hooks/useStation";
 import { useNavigate } from "react-router-dom";
-import Modal from "../../../components/Admin/Modal/Modal"
+import ReadStationModal from "../../../components/Admin/ReadStationModal/ReadStationModal"
 import useAdminStation from "../../../hooks/Admin/useAdminStation";
 import Loading from "../../../components/Templates-Suspense/Loading"
 
 export default function AdminStation() {
-    const [open, setOpen] = React.useState(false);
-    const [oneStation, setOneStation] = React.useState(null);
-    const { deleteStation, isLoading, error } = useAdminStation()
+
+    const { deleteStation, isLoading, error,open, setOpen, oneStation, setOneStation} = useAdminStation()
 
     const handleOpen = (station) => {
         setOneStation(station)
@@ -31,7 +30,7 @@ export default function AdminStation() {
     }
     return (
         <>
-            <Modal open={open} handleClose={handleClose} station={oneStation} />
+            <ReadStationModal open={open} handleClose={handleClose} station={oneStation} />
             <TableContainer component={Paper} >
 
                 <Table sx={{ minWidth: 650 }} aria-label="caption table">

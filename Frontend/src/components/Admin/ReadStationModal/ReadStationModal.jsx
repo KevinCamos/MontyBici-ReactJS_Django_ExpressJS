@@ -19,7 +19,7 @@ const style = {
     p: 4,
 };
 
-export default function BasicModal({ open, handleClose, station }) {
+export default function ReadStationModal({ open, handleClose, station }) {
     const totalPointsUnactive = (points) => {
         let count = 0;
         points.map(function (point) {

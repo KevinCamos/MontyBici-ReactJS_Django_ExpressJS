@@ -123,7 +123,9 @@ const useDashboard = () => {
         let data_get = date_getter.toLocaleString();
         let station_return = register.point_return ? register.point_return.station.name : "-";
         let data_return = register.point_return ? date_return.toLocaleString() : "-";
-        return { station_get, data_get, station_return, data_return, time };
+        let notification = register.id
+        console.log(register)
+        return { station_get, data_get, station_return, data_return, time, notification};
     }
 
     const handleChangePage = (event, newPage) => {

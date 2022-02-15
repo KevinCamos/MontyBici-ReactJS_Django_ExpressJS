@@ -1,14 +1,17 @@
-import * as React from 'react';
+import  React , {useContext}from 'react';
 import { Helmet } from "react-helmet";
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Switch, Box, Grid, Select, MenuItem, FormControl, InputLabel } from '@mui/material';
 import useAdminPoint from "../../../hooks/Admin/useAdminPoint";
 import useAdminBike from "../../../hooks/Admin/useAdminBike";
 import Loading from "../../../components/Templates-Suspense/Loading"
+import AdminContext from '../../../context/Admin/AdminContext'
 
 export default function AdminPoint() {
-    const { points, setPoints, isLoadingPoint, updatePoint, updatePointsBike, isBikeUpdate, setIsBikeUpdate, updateBikePoint } = useAdminPoint()
-    const { bikes, setBikes, updateBike, pointIndex, setPointIndex, isLoading } = useAdminBike({ isPageAdminBike: false })
-    if (pointIndex != -1) {
+    const {  isLoadingPoint, updatePoint, updatePointsBike, isBikeUpdate, setIsBikeUpdate, updateBikePoint } = useAdminPoint()
+    const {  updateBike, pointIndex, setPointIndex, isLoading } = useAdminBike({ isPageAdminBike: false })
+    const { bikes, setBikes, points, setPoints } = useContext(AdminContext)
+
+    if (pointIndex !== -1) {
         let updatePoints = [...points]
         updatePoints[pointIndex].bike.active = !updatePoints[pointIndex].bike.active;
         setPointIndex(-1)
