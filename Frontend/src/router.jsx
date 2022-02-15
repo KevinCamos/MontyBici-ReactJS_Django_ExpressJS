@@ -1,7 +1,9 @@
 import React, { Suspense } from "react";
 import { StationsContextProvider } from "./context/StationsContext";
 import { UserContextProvider } from "./context/UserContext";
+import { NotificationsContextProvider } from "./context/NotificationsContext";
 import { AdminContextProvider } from "./context/Admin/AdminContext";
+
 import GuardUser from "./services/Guards/GuardsUser";
 import GuardAdmin from "./services/Guards/GuardsAdmin";
 
@@ -34,40 +36,42 @@ export default function MyRouter() {
         <UserContextProvider>
           <AdminContextProvider>
             <StationsContextProvider>
-              <BrowserRouter>
-                <Routes>
-                  <Route path="/" element={<Header />}>
-                    <Route path="/" element={<GuardUser />}>
-                      <Route index element={<StationPage />} />
+              <NotificationsContextProvider>
+                <BrowserRouter>
+                  <Routes>
+                    <Route path="/" element={<Header />}>
+                      <Route path="/" element={<GuardUser />}>
+                        <Route index element={<StationPage />} />
+                      </Route>
+                      <Route path="/login" element={<Login />} />
+                      <Route path="/admin" element={<Login admin={true} />} />
+                      <Route path="/register" element={<Register />} />
+                      <Route path="/stations" element={<GuardUser />}>
+                        <Route index element={<StationPage />} />
+                        <Route path="/stations/:slug" element={<DetailsPage />} />
+                      </Route>
+                      <Route path="/dashboard" element={<GuardUser />}>
+                        <Route index element={<Dashboard />} />
+                      </Route>
+                      <Route path="*" element={<NotFound />} />
                     </Route>
-                    <Route path="/login" element={<Login />} />
-                    <Route path="/admin" element={<Login admin={true} />} />
-                    <Route path="/register" element={<Register />} />
-                    <Route path="/stations" element={<GuardUser />}>
-                      <Route index element={<StationPage />} />
-                      <Route path="/stations/:slug" element={<DetailsPage />} />
-                    </Route>
-                    <Route path="/dashboard" element={<GuardUser />}>
-                      <Route index element={<Dashboard />} />
-                    </Route>
-                    <Route path="*" element={<NotFound />} />
-                  </Route>
 
-                  <Route path="/admin-panel" element={<Drawer />}>
-                    <Route path="/admin-panel" element={<GuardAdmin />}>
-                      <Route index element={<AdminStation />} />
-                      <Route path="/admin-panel/stations/" element={<AdminStation />} />
-                      <Route path="/admin-panel/stations/create" element={<FormStation />} />
-                      <Route path="/admin-panel/stations/update/:slug" element={<FormStation />} />
-                      <Route path="/admin-panel/bikes" element={<AdminBike />} />
-                      <Route path="/admin-panel/points" element={<AdminPoint />} />
+                    <Route path="/admin-panel" element={<Drawer />}>
+                      <Route path="/admin-panel" element={<GuardAdmin />}>
+                        <Route index element={<AdminStation />} />
+                        <Route path="/admin-panel/stations/" element={<AdminStation />} />
+                        <Route path="/admin-panel/stations/create" element={<FormStation />} />
+                        <Route path="/admin-panel/stations/update/:slug" element={<FormStation />} />
+                        <Route path="/admin-panel/bikes" element={<AdminBike />} />
+                        <Route path="/admin-panel/points" element={<AdminPoint />} />
 
-                      {/* <Route path="/admin-panel/stations/update:slug" element={<DetailsPage />} /> */}
+                        {/* <Route path="/admin-panel/stations/update:slug" element={<DetailsPage />} /> */}
 
+                      </Route>
                     </Route>
-                  </Route>
-                </Routes>
-              </BrowserRouter>
+                  </Routes>
+                </BrowserRouter>
+              </NotificationsContextProvider>
             </StationsContextProvider>
           </AdminContextProvider>
         </UserContextProvider>

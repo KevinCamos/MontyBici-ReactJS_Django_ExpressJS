@@ -9,11 +9,7 @@ import Loading from "../../components/Templates-Suspense/Loading";
 const Login = ({ admin = false }) => {
   let messageError= admin? "¿Tus credenciales son correctas para entrar?":"¿Has escrito bien tu email y password?";
   console.log(admin)
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
+  const { register, handleSubmit, formState: { errors }, } = useForm();
   const { login,loginAdmin, state } = useUser();
   console.log(errors);
 

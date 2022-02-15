@@ -9,6 +9,8 @@ import FormHelperText from '@mui/material/FormHelperText';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import TextareaAutosize from '@mui/material/TextareaAutosize';
+import useNotifications from "../../hooks/useNotifications";
+import { useForm } from "react-hook-form";
 
 const style = {
     position: 'absolute',
@@ -23,50 +25,60 @@ const style = {
 };
 
 export default function NotificationModal({ open, handleClose, id }) {
-    const [age, setAge] = React.useState('');
+    const { reasons, isLoading } = useNotifications();
+    console.log(reasons)
+    const { register, handleSubmit, formState: { errors } } = useForm();
+    const onSubmit = data => console.log(data);
+    console.log(errors);
+    const [valueReason, setValueReason] = React.useState(0)
 
     //   const [open, setOpen] = React.useState(false);
-
     const handleChange = (event) => {
-        setAge(event.target.value);
+        console.log(event.target.value)
+
+        setValueReason(event.target.value);
     };
+
     return (
         <div>
             <Modal
                 open={open}
                 onClose={handleClose}
                 aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
-            >
-                <Box sx={style}>
+                aria-describedby="modal-modal-description">
+                <Box sx={style} onSubmit={handleSubmit(onSubmit)} >
                     <Typography id="modal-modal-title" variant="h6" component="h2">
                         Selecciona la incidencia
                     </Typography>
-                    <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                        <FormControl required fullWidth>
-                            <InputLabel id="demo-simple-select-required-label">Age</InputLabel>
-                            <Select
-                                labelId="demo-simple-select-required-label"
-                                id="demo-simple-select-required"
-                                value={age}
-                                label="Age *"
-                                onChange={handleChange}
-                            >
-                                <MenuItem value="">
-                                    <em>None</em>
+                    <FormControl required fullWidth>
+                        <InputLabel id="demo-simple-select-required-label">Age</InputLabel>
+                        <Select
+                            labelId="demo-simple-select-required-label"
+                            id="demo-simple-select-required"
+                            label="Age *"
+                            value={valueReason}
+                            {...register("reasons", { required: true })}
+                            onChange={handleChange}>
+                            {reasons.map((reason, index) => (
+                                <MenuItem value={parseInt(reason.id)} key={reason.id}>
+                                    {reason.reason}
                                 </MenuItem>
-                                <MenuItem value={10}>Ten</MenuItem>
-                                <MenuItem value={20}>Twenty</MenuItem>
-                                <MenuItem value={30}>Thirty</MenuItem>
-                            </Select>
-                            <FormHelperText>Required</FormHelperText>
-                            <TextareaAutosize
-                                aria-label="minimum height"
-                                minRows={3}
-                                placeholder="Minimum 3 rows"
-                            />
-                        </FormControl>
-                    </Typography>
+                            ))}
+
+                        </Select>
+
+
+                        <FormHelperText>Required</FormHelperText>
+                        <TextareaAutosize
+                            aria-label="minimum height"
+                            minRows={3}
+                            placeholder="Minimum 3 rows"
+                            {...register("message", { required: true, maxLength: 200 })}
+                        />
+                        <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
+                            Enviar Incidencia
+                        </Button>
+                    </FormControl>
                 </Box>
             </Modal>
         </div>

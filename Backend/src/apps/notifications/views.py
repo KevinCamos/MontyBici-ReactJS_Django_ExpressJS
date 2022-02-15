@@ -1,6 +1,6 @@
 from django.shortcuts import render
 
-from rest_framework import status, serializers
+from rest_framework import status, serializers,generics
 from rest_framework.exceptions import NotFound
 # AUTENTICATIONS
 from rest_framework.permissions import IsAuthenticated
@@ -9,7 +9,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 # SERIALIZERS
-from .serializers import NotificationSerializer
+from .serializers import NotificationSerializer,ReasonsSerializer
 
 # MODELS
 from src.apps.bikes.models import Register_Bike
@@ -17,6 +17,13 @@ from .models import Reason, Notification
 
 # PERMSISSIONS
 from src.apps.core.permissions import IsStaff, IsNotStaff
+
+class getReasons(generics.ListAPIView):
+    permission_classes = (IsAuthenticated,)
+    queryset = Reason.objects.filter()
+    serializer_class = ReasonsSerializer
+
+
 
 
 class RegisterAPIView(APIView):
