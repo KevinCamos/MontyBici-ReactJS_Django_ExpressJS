@@ -1,15 +1,17 @@
-import { useCallback, useState, useEffect } from "react";
+import { useCallback, useState, useEffect, useContext } from "react";
 import bikeServices from "../../services/BikeServices";
 
 
+import AdminContext from '../../context/Admin/AdminContext'
 
 import { useSnackbar } from 'notistack';
 
 
 export default function useAdminBike(page = { isPageAdminBike: true }) {
 
-  const [bikes, setBikes] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  // const [bikes, setBikes] = useState([]);
+  const { bikes, setBikes, points, setPoints } = useContext(AdminContext)
+  const [isLoading, setIsLoading] = useState(false);
 
   const { enqueueSnackbar } = useSnackbar();
 
@@ -26,7 +28,7 @@ export default function useAdminBike(page = { isPageAdminBike: true }) {
       console.log(isPage)
       console.log(page)
       console.log(page.isPageAdminBike)
-      if (bikes.length===0) {
+      if (bikes.length === 0) {
         setIsLoading(true)
         bikeServices.getBikesPointsStations().then((data) => {
           console.log(data.data.results)
@@ -41,7 +43,6 @@ export default function useAdminBike(page = { isPageAdminBike: true }) {
   const updateBike = useCallback(
     (id_bike, active, arrayBikes, arrayPoints = []) => {
       setIsLoading(true)
-      alert(active)
       let data = { "id_bike": id_bike, "active": active }
       // console.log(data)
       // AudioWorklet(active)
@@ -49,8 +50,8 @@ export default function useAdminBike(page = { isPageAdminBike: true }) {
         .updateBike(data)
         .then((data) => {
           console.log(data)
-           updateArrayBike(id_bike, arrayBikes)
-           if (!page.isPageAdminBike) indexUpdateArrayPoints(id_bike, arrayPoints)
+          updateArrayBike(id_bike, arrayBikes)
+          if (!page.isPageAdminBike) indexUpdateArrayPoints(id_bike, arrayPoints)
           enqueueSnackbar('Bicicleta modificada con éxito.', { variant: 'success' });
           setIsLoading(false)
         })
@@ -97,5 +98,5 @@ export default function useAdminBike(page = { isPageAdminBike: true }) {
   );
 
 
-  return { bikes,setBikes, isLoading, updateBike, pointIndex,setPointIndex};
+  return { bikes, setBikes, isLoading, updateBike, pointIndex, setPointIndex };
 }

@@ -26,11 +26,13 @@ class BikeListAPIView(generics.ListAPIView):
     queryset = Bike.objects.all().order_by('points', 'points__station')
     serializer_class = GetBikeSerializer
 
+
 class BikeListNoPointsAPIView(generics.ListAPIView):
     permission_classes = (IsAuthenticated,)
     permission_classes = [IsStaff, ]
     queryset = Bike.objects.filter(points=None)
     serializer_class = GetBikeSerializer
+
 
 class UpdpateBikeAPIView(APIView):
     permission_classes = (IsAuthenticated,)
@@ -41,7 +43,7 @@ class UpdpateBikeAPIView(APIView):
     def put(self, request):
         id_bike = request.data.get('id_bike', {})
         active = request.data.get('active', {})
- 
+
         if (type(active) != bool):
             raise NotFound(active)
         try:

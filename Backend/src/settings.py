@@ -35,17 +35,15 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-
     'corsheaders',
-    # 'django_extensions',
     'rest_framework',
 
     'src.apps.bikes',
     'src.apps.stations',
+    'src.apps.notifications',
     'src.apps.core',
-
-    'src.apps.authentication',
     'src.apps.profiles',
+    'src.apps.authentication',
 
 
 ]
@@ -123,7 +121,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Madrid'
 
 USE_I18N = True
 

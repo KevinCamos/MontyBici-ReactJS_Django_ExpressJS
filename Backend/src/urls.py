@@ -24,6 +24,7 @@ urlpatterns = [
     path('api/stations/', include('src.apps.stations.urls')), 
     path('api/auth/', include('src.apps.authentication.urls')), 
     path('api/profile/', include('src.apps.profiles.urls')), 
+    path('api/notifications/', include('src.apps.notifications.urls')), 
 
 ]
 

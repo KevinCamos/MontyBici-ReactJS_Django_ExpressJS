@@ -19,7 +19,7 @@ export default function AdminPoint() {
         setIsBikeUpdate(false)
         let updateBikes = bikes.map(function (bike) {
             if (updateBikePoint.bike.id === bike.id) {
-                if (updateBikePoint.points)bike.points = { "id": updateBikePoint.points }
+                if (updateBikePoint.points) bike.points = { "id": updateBikePoint.points }
                 else bike.points = null
             }
             return bike
@@ -63,28 +63,26 @@ export default function AdminPoint() {
                                     <TableRow key={point.id}>
                                         <TableCell component="th" align="left">{point.id}</TableCell>
                                         <TableCell align="center">{point.station ? point.station.name : <b>-</b>}</TableCell>
-                                        <TableCell align="center"> {point.active 
-                                            ? <Switch defaultValue={point ? point : false} value={point.active ?? " "} defaultChecked onClick={(e) => updatePoint(point.id, !point.active, points)}/>
-                                            : <Switch defaultValue={point ? point : false}  value={!point.active ?? " "} onClick={(e) => updatePoint(point.id, !point.active, points)} />
+                                        <TableCell align="center"> {point.active
+                                            ? <Switch defaultValue={point ? point : false} value={point.active ?? " "} defaultChecked onClick={(e) => updatePoint(point.id, !point.active, points)} />
+                                            : <Switch defaultValue={point ? point : false} value={!point.active ?? " "} onClick={(e) => updatePoint(point.id, !point.active, points)} />
                                         } </TableCell>
                                         <TableCell align="center">{point.bike ? point.bike.id : <b>-</b>}</TableCell>
                                         {!point.bike ? <TableCell align="center"><b>-</b></TableCell> :
-                                            <TableCell align="center"> {point.bike.active 
-                                                ?<Switch  defaultValue={point ? point : false} value={point.bike.active ?? " "} defaultChecked onClick={(e) => updateBike(point.bike.id, !point.bike.active, points)}/>
-                                                : <Switch defaultValue={point ? point : false}  value={!point.bike.active ?? " "} onClick={(e) => updateBike(point.bike.id, !point.bike.active, points)} />
+                                            <TableCell align="center"> {point.bike.active
+                                                ? <Switch defaultValue={point ? point : false} value={point.bike.active ?? " "} defaultChecked onClick={(e) => updateBike(point.bike.id, !point.bike.active, bikes)} />
+                                                : <Switch defaultValue={point ? point : false} value={!point.bike.active ?? " "} onClick={(e) => updateBike(point.bike.id, !point.bike.active, bikes)} />
                                             } </TableCell>}
                                         <TableCell align="center">
                                             <FormControl fullWidth>
                                                 <InputLabel id="points">MontyPoints</InputLabel>
                                                 <Select
-                                                    onChange={e => updatePointsBike(point.id, e.target.value, points,point.id)}
+                                                    onChange={e => updatePointsBike(point.id, e.target.value, points, point.id)}
 
                                                     inputProps={{ 'aria-label': 'Añade una bici' }}
                                                     defaultValue={point.bike ? point.bike.id : false}
                                                     displayEmpty
-                                                    value={point.bike ? point.bike.id : false}
-
-                                                >
+                                                    value={point.bike ? point.bike.id : false}>
 
 
                                                     <MenuItem value={false} ><em>-</em></MenuItem>
