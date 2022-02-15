@@ -151,8 +151,8 @@ class UpdpateBikePointAPIView(APIView):
     permission_classes = (IsAuthenticated,)
     permission_classes = [IsStaff, ]
 
-    serializer_class = CreatePointsSerializer
-    serializer_class_All_Point = AllPointsSerializer
+    serializer_class = AllPointsSerializer
+    # serializer_class_All_Point = AllPointsSerializer
 
     def put(self, request):
         id_point = request.data.get('id_point', {})
@@ -188,15 +188,15 @@ class UpdpateBikePointAPIView(APIView):
                 except Point.DoesNotExist:
                     raise NotFound('Esta bici no existe.')
 
-            data = {"bike": bike.pk}
-
+            data = {}
+            context = {"bike": bike}
         # Utilizamos este serializer para hacer la modificación de datos
         serializer = self.serializer_class(
-            instance=putPoint,   data=data, partial=True)
+            instance=putPoint,   data=data, context=context, partial=True)
         serializer.is_valid(raise_exception=True)
         serializer.save()
 
         # Y por último, utilizamos este para mostrar los datos de forma anidados.
-        serializer_all_data = self.serializer_class_All_Point(
-            instance=putPoint)
-        return Response(serializer_all_data.data, status=status.HTTP_201_CREATED)
+        # serializer_all_data = self.serializer_class_All_Point(
+        #     instance=putPoint)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)

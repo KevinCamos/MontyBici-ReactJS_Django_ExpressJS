@@ -122,8 +122,10 @@ class AllPointsSerializer(serializers.ModelSerializer):
         fields = ["id", "active", "station", "bike"]
 
     def update(self, instance, validated_data):
-
-        instance.active = validated_data.get('active', instance.active)
+        if self.context:
+            instance.bike = self.context['bike']
+        else: 
+            instance.active = validated_data.get('active', instance.active)
 
         instance.save()
         return instance

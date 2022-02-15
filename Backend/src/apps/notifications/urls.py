@@ -7,7 +7,5 @@ router = DefaultRouter()
 
 urlpatterns = [
     url(r'^notification/$', RegisterAPIView.as_view()),
- 
-
-
+    url(r'^notification/(?P<pk>[-\w]+)/?$', RegisterAPIView.as_view()),
 ]

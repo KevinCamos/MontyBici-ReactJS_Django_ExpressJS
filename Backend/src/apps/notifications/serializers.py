@@ -39,9 +39,11 @@ class NotificationSerializer(serializers.ModelSerializer):
     def get_updated_at(self, instance):
         return instance.updated_at.ctime()
 
-    # def update(self, instance, validated_data):
+    def update(self, instance, validated_data):
+        instance.checked = validated_data.get(
+            'checked', instance.checked)
+        instance.admin_check = validated_data.get(
+            'admin_check', instance.admin_check)
+        instance.save()
 
-    #     instance.point_return = validated_data.get(
-    #         'point_return', instance.point_return)
-    #     instance.save()
-    #     return instance
+        return instance

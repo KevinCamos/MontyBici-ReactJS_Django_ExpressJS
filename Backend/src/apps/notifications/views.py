@@ -16,7 +16,7 @@ from src.apps.bikes.models import Register_Bike
 from .models import Reason, Notification
 
 # PERMSISSIONS
-from src.apps.core.permissions import IsStaff,IsNotStaff
+from src.apps.core.permissions import IsStaff, IsNotStaff
 
 
 class RegisterAPIView(APIView):
@@ -33,33 +33,53 @@ class RegisterAPIView(APIView):
             print(id_register, "id register")
             registered = Register_Bike.objects.filter(
                 pk=id_register, user=self_uuid)
-                
-            if registered.count() != 0:
+            print(self_uuid)
+            print(registered)
+
+            if registered.count() == 0:
                 raise serializers.ValidationError(
                     'Esta ID de registro no concuerda con el usuario, un usuario solo puede referenciar un registro propio.')
-        
         else:
             id_register = None
-
         try:
             print(id_reason, "id reason")
-
             reason = Reason.objects.get(pk=id_reason)
         except Reason.DoesNotExist:
             raise NotFound('Esta razón no existe.')
 
-
         data = {
             'notif_user': self_uuid,
             'reason': reason.pk,
-            'register':id_register,
-            "message":message
-
+            'register': id_register,
+            "message": message
         }
 
         serializer = self.serializer_class(
             data=data
         )
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+    def put(self, request, pk):
+        self.permission_classes = [IsStaff, ]
+        self_uuid = self.request.user.profile.pk
+        id_notification = pk
+        print(id_notification)
+        checked = request.data.get('checked', {})
+        if checked == None:
+            raise serializers.ValidationError(
+                'Debes enviar si quieres marcar o desmarcar la notificación como vista.')
+        try:
+            notification = Notification.objects.get(pk=id_notification)
+        except Notification.DoesNotExist:
+            raise NotFound('Esta razón no existe.')
+
+        data = {'checked': checked,'admin_check': self_uuid}
+        context = {'admin_check': self_uuid}
+
+        serializer = self.serializer_class(
+            instance=notification,  data=data, context=context, partial=True)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)

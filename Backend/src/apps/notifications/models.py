@@ -16,7 +16,7 @@ class Notification(TimestampedModel):
 
     reason = models.ForeignKey(Reason, on_delete=models.DO_NOTHING)
     message = models.TextField(blank=True,  validators=[MinLengthValidator(4)])
-    admin_check = models.ForeignKey('profiles.Profile', on_delete=models.DO_NOTHING,related_name='admin_check')
+    admin_check = models.ForeignKey('profiles.Profile',default=None, null=True, on_delete=models.DO_NOTHING,related_name='admin_check')
     checked = models.BooleanField(default=False)
 
     # Quan s'hatja de calcular el temps entre les dos dates => https://stackoverflow.com/questions/41229963/how-to-calculate-diff-between-two-dates-in-django
