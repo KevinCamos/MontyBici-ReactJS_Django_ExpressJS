@@ -11,8 +11,8 @@ const notificationService = {
   sendNotification(data) {
     return Api().post('notifications/notification/', data);
   },
-  checkNotification(data) {
-    return Api().put('notifications/notification/', data);
+  checkNotification(data, id) {
+    return Api().put('notifications/notification/'+id, data);
   },
 }
 

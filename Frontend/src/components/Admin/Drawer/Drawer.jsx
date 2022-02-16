@@ -1,18 +1,22 @@
-import * as React from "react";
+import React, { useState, useContext } from "react";
 import PropTypes from "prop-types";
 import { Box, Toolbar, Avatar, IconButton, Divider, Drawer, List, ListItem, ListItemIcon, ListItemText } from "@mui/material";
 import { MoveToInbox, Mail } from "@mui/icons-material";
 import { Outlet, Link } from "react-router-dom";
 import useUser from "../../../hooks/useUser";
+import AdminContext from "../../../context/Admin/AdminContext";
 
 const drawerWidth = 240;
 
 function ResponsiveDrawer(props) {
   const { window } = props;
-  const [mobileOpen, setMobileOpen] = React.useState(false);
+  // const [mobileOpen, setMobileOpen] = useState(false);
   const { user } = useUser();
+  const { totalNotifications,isLogged,setIsLogged } = useContext(AdminContext);
+  if (!isLogged) setIsLogged(true)
 
 
+  console.log(totalNotifications)
 
 
   const drawer = (
@@ -25,14 +29,14 @@ function ResponsiveDrawer(props) {
       <Toolbar />
       <Divider />
       <List>
-        {["Stations", "Points", "Bikes","Notifications"].map((text, index) => (
-          <Link to={"/admin-panel/" + text.toLowerCase()} style={{ textDecoration: 'none', color: "white" }}  key={text}>
+        {[ "Notifications","Stations", "Points", "Bikes"].map((text, index) => (
+          <Link to={"/admin-panel/" + text.toLowerCase()} style={{ textDecoration: 'none', color: "white" }} key={text}>
             <ListItem button >
 
               <ListItemIcon>
                 {index % 2 === 0 ? <MoveToInbox /> : <Mail />}
               </ListItemIcon>
-              <ListItemText primary={text} />
+              <ListItemText primary={text==="Notifications"?`${totalNotifications} Notifications` :text} />
             </ListItem>
           </Link>
         ))}
