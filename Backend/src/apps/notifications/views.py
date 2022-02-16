@@ -19,7 +19,12 @@ from .models import Reason, Notification
 from src.apps.core.permissions import IsStaff, IsNotStaff
 
 
+from django.core.mail import send_mail
+
+
+
 class getReasons(generics.ListAPIView):
+ 
     permission_classes = (IsAuthenticated,)
     queryset = Reason.objects.filter()
     serializer_class = ReasonsSerializer
@@ -32,6 +37,12 @@ class RegisterAPIView(APIView):
     serializer_class = NotificationSerializer
 
     def get(self, request):
+                
+        # send_mail(  'Subject here',
+        #     'Here is the message.',
+        #     'kevincamossoto@gmail.com',
+        #     ['kevincamossoto@gmail.com'],
+        # fail_silently=False,)
         self.permission_classes = [IsStaff, ]
         queryset = Notification.objects.filter(checked=False)
         serializer =NestedNotificationSerializer(queryset, many=True)

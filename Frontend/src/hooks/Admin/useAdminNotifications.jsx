@@ -18,8 +18,8 @@ const useAdminNotifications = () => {
                     enqueueSnackbar(view, { variant: 'success' })
                     console.log(totalNotifications)
                     
-                    if (checked) setTotalNotifications(totalNotifications - 1)
-                    else setTotalNotifications(totalNotifications + 1)
+                    if (checked) setTotalNotifications(totalNotifications-1)
+                    else setTotalNotifications(totalNotifications+1)
                     console.log(data);
                 })
                 .catch((error) => {
@@ -28,7 +28,7 @@ const useAdminNotifications = () => {
                     console.log(error);
                 });
         },
-        []
+        [totalNotifications]
     );
 
 

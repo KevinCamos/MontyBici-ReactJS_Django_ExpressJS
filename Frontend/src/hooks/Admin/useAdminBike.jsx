@@ -10,8 +10,7 @@ import { useSnackbar } from 'notistack';
 export default function useAdminBike(page = { isPageAdminBike: true }) {
 
   // const [bikes, setBikes] = useState([]);
-  const { bikes, setBikes, points, setPoints } = useContext(AdminContext)
-  const [isLoading, setIsLoading] = useState(false);
+  const { bikes, setBikes, points, setPoints,isBikeLoading, setIsBikeLoading } = useContext(AdminContext)
 
   const { enqueueSnackbar } = useSnackbar();
 
@@ -21,28 +20,9 @@ export default function useAdminBike(page = { isPageAdminBike: true }) {
 
 
 
-
-  useEffect(
-    function () {
-      let isPage = page.isPageAdminBike
-      console.log(isPage)
-      console.log(page)
-      console.log(page.isPageAdminBike)
-      if (bikes.length === 0) {
-        setIsLoading(true)
-        bikeServices.getBikesPointsStations().then((data) => {
-          console.log(data.data.results)
-          setBikes(data.data.results);
-          setIsLoading(false)
-        });
-      }
-    },
-    []
-  );
-
   const updateBike = useCallback(
     (id_bike, active, arrayBikes, arrayPoints = []) => {
-      setIsLoading(true)
+      setIsBikeLoading(true)
       let data = { "id_bike": id_bike, "active": active }
       // console.log(data)
       // AudioWorklet(active)
@@ -53,12 +33,12 @@ export default function useAdminBike(page = { isPageAdminBike: true }) {
           updateArrayBike(id_bike, arrayBikes)
           if (!page.isPageAdminBike) indexUpdateArrayPoints(id_bike, arrayPoints)
           enqueueSnackbar('Bicicleta modificada con éxito.', { variant: 'success' });
-          setIsLoading(false)
+          setIsBikeLoading(false)
         })
         .catch((error) => {
           console.log(error)
           enqueueSnackbar('Ha habido algún problema y no se ha hecho ninguna modifición.', { variant: 'error' });
-          setIsLoading(false)
+          setIsBikeLoading(false)
         });
     },
     []
@@ -98,5 +78,5 @@ export default function useAdminBike(page = { isPageAdminBike: true }) {
   );
 
 
-  return { bikes, setBikes, isLoading, updateBike, pointIndex, setPointIndex };
+  return { bikes, setBikes, isLoading: isBikeLoading, updateBike, pointIndex, setPointIndex };
 }

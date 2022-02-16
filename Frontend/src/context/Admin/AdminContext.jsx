@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import notificationsService from "../../services/NotificationService";
-
+// import pointServices from "../../services/PointServices";
+import bikeServices from "../../services/BikeServices";
 const Context = React.createContext({});
 
 export function AdminContextProvider({ children }) {
@@ -10,33 +11,53 @@ export function AdminContextProvider({ children }) {
   const [totalNotifications, setTotalNotifications] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [isLogged, setIsLogged] = useState(false);
+  const [isBikeLoading, setIsBikeLoading] = useState(false);
 
   useEffect(
-     function () {
-       if(isLogged===true){
-      setIsLoading(true);
-      notificationsService.getNotifications()
-        .then((data) => {
-          console.log("EHHHHHHH3")
-          setTotalNotifications(data.data.length)
-          setNotifications(data.data)
-          console.log(data)
+    function () {
+      if (isLogged === true) {
+        setIsLoading(true);
+        notificationsService.getNotifications()
+          .then((data) => {
+            setTotalNotifications(data.data.length)
+            setNotifications(data.data)
+            console.log(data)
 
-          setIsLoading(false);
-        }).catch((error) => {
-          console.log("EHHHHRROR")
-          console.log(error)
+            setIsLoading(false);
+          }).catch((error) => {
+            console.log(error)
 
-          setIsLoading(false);
+            setIsLoading(false);
 
-        });
-}
+          });
+      }
     },
     [isLogged]
   )
-  return <Context.Provider value={{ bikes, setBikes, points, setPoints,
-   totalNotifications, setTotalNotifications, notifications, setNotifications, 
-   isLoading, setIsLoading,isLogged,setIsLogged }}>
+
+
+
+  useEffect(
+    function () {
+    
+      if (isLogged === true) {
+        setIsBikeLoading(true)
+        bikeServices.getBikesPointsStations().then((data) => {
+          console.log(data.data.results)
+          setBikes(data.data.results);
+          setIsBikeLoading(false)
+        });
+      }
+    },
+    []
+  );
+
+
+  return <Context.Provider value={{
+    bikes, setBikes, points, setPoints,
+    totalNotifications, setTotalNotifications, notifications, setNotifications,
+    isLoading, setIsLoading, isLogged, setIsLogged,isBikeLoading, setIsBikeLoading
+  }}>
     {children}
   </Context.Provider>;
 }

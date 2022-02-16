@@ -8,10 +8,23 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
+import environ
 import os
+# https://django-environ.readthedocs.io/en/latest/getting-started.html#installation
+env = environ.Env(
+    # set casting, default value
+    DEBUG=(bool, False)
+)
+
+
+
+# print("_----------",os.environ.get(AWS_ACCESS_KEY_ID))
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# Take environment variables from .env file
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
+# env.read_env(env.str('ENV_PATH', '.env'))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
@@ -37,7 +50,7 @@ INSTALLED_APPS = [
 
     'corsheaders',
     'rest_framework',
-
+    'anymail',
     'src.apps.bikes',
     'src.apps.stations',
     'src.apps.notifications',
@@ -96,7 +109,16 @@ DATABASES = {
     }
 }
 
+# https://github.com/anymail/django-anymail
+ANYMAIL = {
+    # (exact settings here depend on your ESP...)
+    "MAILGUN_API_KEY": env('MAILGUN_API_KEY'),
+    "MAILGUN_SENDER_DOMAIN": env('MAILGUN_SENDER_DOMAIN'),  # your Mailgun domain, if needed
+}
 
+EMAIL_BACKEND = "anymail.backends.mailgun.EmailBackend"  # or sendgrid.EmailBackend, or...
+DEFAULT_FROM_EMAIL =  env('MAILGUN_SENDER_DOMAIN')  # if you don't already have this in settings
+SERVER_EMAIL =  env('SERVER_EMAIL')  # ditto (default from-email for Django errors)
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
 

@@ -8,7 +8,7 @@ import AdminContext from '../../../context/Admin/AdminContext'
 
 export default function AdminPoint() {
     const { isLoadingPoint, updatePoint, updatePointsBike, isBikeUpdate, setIsBikeUpdate, updateBikePoint } = useAdminPoint()
-    const { updateBike, pointIndex, setPointIndex, isLoading } = useAdminBike({ isPageAdminBike: false })
+    const { updateBike, pointIndex, setPointIndex, isLoading: isBikeLoading } = useAdminBike({ isPageAdminBike: false })
     const { bikes, setBikes, points, setPoints } = useContext(AdminContext)
 
     if (pointIndex !== -1) {
@@ -34,7 +34,7 @@ export default function AdminPoint() {
 
     return (
         <>
-            {(isLoadingPoint || isLoading) && <Loading />}
+            {(isLoadingPoint || isBikeLoading) && <Loading />}
             <Helmet>
                 <title>Factoy MontyPoints</title>
             </Helmet>

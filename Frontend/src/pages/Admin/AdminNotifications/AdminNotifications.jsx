@@ -22,7 +22,6 @@ export default function ControlledAccordions() {
   return (
     <div>
       <br></br>
-
       {notifications.map((notification, index) => (
         <div key={`panel${index}`}>
           {/* <br/> */}

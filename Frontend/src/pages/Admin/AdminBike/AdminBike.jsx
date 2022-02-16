@@ -5,10 +5,10 @@ import useAdminBike from "../../../hooks/Admin/useAdminBike";
 import Loading from "../../../components/Templates-Suspense/Loading"
 
 export default function AdminBike() {
-    const { bikes, isLoading, updateBike } = useAdminBike()
+    const { bikes, isLoading: isBikeLoading, updateBike } = useAdminBike()
     return (
         <>
-            {isLoading && <Loading />}
+            {isBikeLoading && <Loading />}
             <Helmet>
                 <title>Factoy MontyBikes</title>
             </Helmet>
@@ -35,7 +35,7 @@ export default function AdminBike() {
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {bikes.map((bike) => (
+                                {bikes.sort((a, b) => a.id - b.id).map((bike) => (
                                     <TableRow key={bike.id}>
                                         <TableCell component="th" align="left">{bike.id}</TableCell>
                                         <TableCell align="center">{bike.points ? (bike.points.station ? bike.points.station.name : <b>-</b>) : <b>-</b>}</TableCell>
