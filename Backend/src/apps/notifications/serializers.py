@@ -1,5 +1,7 @@
 from rest_framework import serializers
 from .models import Notification, Reason
+from src.apps.profiles.serializers import ProfileRegisterSerializer
+from src.apps.bikes.serializers import MyRegisterSerializer
 
 
 class ReasonsSerializer(serializers.ModelSerializer):
@@ -11,12 +13,29 @@ class ReasonsSerializer(serializers.ModelSerializer):
         )
 
 
+class NestedNotificationSerializer(serializers.ModelSerializer):
+    notif_user= ProfileRegisterSerializer(many=False)
+    register= MyRegisterSerializer(many=False)
+    reason = ReasonsSerializer(many=False)
+    class Meta:
+        model = Notification
+        fields = (
+            'id',
+            'notif_user',
+            'register',
+            'reason',
+            'message',
+            'created_at',
+            'checked'
+        )
+
+
 class NotificationSerializer(serializers.ModelSerializer):
     created_at = serializers.SerializerMethodField(
         method_name='get_created_at')
     updated_at = serializers.SerializerMethodField(
         method_name='get_updated_at')
-    message = serializers.CharField(required=False)
+    message = serializers.CharField(required=True)
 
     class Meta:
         model = Notification
@@ -33,10 +52,6 @@ class NotificationSerializer(serializers.ModelSerializer):
         )
 
     def create(self, validated_data):
-
-        # notif_user = self.context['notif_user']
-        # reason = self.context['reason']
-        # reason = self.context['reason']
         return Notification.objects.create(
             **validated_data
         )

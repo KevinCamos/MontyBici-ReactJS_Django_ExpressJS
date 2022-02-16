@@ -21,12 +21,13 @@ export default function MyRouter() {
   const Dashboard = React.lazy(() => import("./pages/Dashboard/Dashboard"));
   const NotFound = React.lazy(() => import("./pages/NotFound/NotFound"));
 
-  // ADMIN
+  // ADMIN AdminNotifications
   const AdminStation = React.lazy(() => import("./pages/Admin/AdminStation/AdminStation"));
   const FormStation = React.lazy(() => import("./pages/Admin/FormStation/FormStation"));
 
   const AdminBike = React.lazy(() => import("./pages/Admin/AdminBike/AdminBike"));
   const AdminPoint = React.lazy(() => import("./pages/Admin/AdminPoint/AdminPoint"));
+  const AdminNotifications = React.lazy(() => import("./pages/Admin/AdminNotifications/AdminNotifications"));
 
 
 
@@ -64,8 +65,7 @@ export default function MyRouter() {
                         <Route path="/admin-panel/stations/update/:slug" element={<FormStation />} />
                         <Route path="/admin-panel/bikes" element={<AdminBike />} />
                         <Route path="/admin-panel/points" element={<AdminPoint />} />
-
-                        {/* <Route path="/admin-panel/stations/update:slug" element={<DetailsPage />} /> */}
+                        <Route path="/admin-panel/notifications" element={<AdminNotifications />} />
 
                       </Route>
                     </Route>

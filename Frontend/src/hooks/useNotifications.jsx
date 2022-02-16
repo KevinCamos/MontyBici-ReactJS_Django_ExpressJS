@@ -3,14 +3,13 @@ import notificationsService from "../services/NotificationService";
 import NotificationsContext from "../context/NotificationsContext";
 import { useSnackbar } from 'notistack';
 
-const useNotifications = (id=null) => {
+const useNotifications = () => {
 
     const { reasons, setReasons, open, setOpen } = useContext(NotificationsContext);
     const [isLoading, setIsLoading] = useState(false);
     const [valueReason, setValueReason] = useState(1)
     const { enqueueSnackbar } = useSnackbar();
 
-    console.log(id)
     useEffect(
         async function () {
             setIsLoading(true);
@@ -29,7 +28,7 @@ const useNotifications = (id=null) => {
     )
     const sendNotification = useCallback(
         (data) => {
-            data.id_register= id
+            // data.id_register= id
             console.log(data)
             notificationsService.sendNotification(data)
                 .then((data) => {

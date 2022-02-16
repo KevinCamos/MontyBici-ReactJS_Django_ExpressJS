@@ -25,15 +25,22 @@ const style = {
     p: 4,
 };
 
-export default function NotificationModal({  handleClose, id }) {
-    const { reasons, open,  isLoading, valueReason, setValueReason, sendNotification, enqueueSnackbar} = useNotifications(id);
+export default function NotificationModal({ handleClose, id }) {
+    const { reasons, open, isLoading, valueReason, setValueReason, sendNotification, enqueueSnackbar } = useNotifications();
+    console.log(id)
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const onSubmit = data => console.log(data);
     console.log(errors);
     // if (errors.message) {
     //     enqueueSnackbar('Ha habido algún error enviando el mensaje.', { variant: 'error' })
     //     errors.message = null
     // }
+
+    const onSubmit = (data) => {
+         data.id_register=id
+         sendNotification(data)
+        
+        };
+
     const handleChange = (event) => {
         console.log(event.target.value)
         setValueReason(event.target.value);
@@ -46,7 +53,7 @@ export default function NotificationModal({  handleClose, id }) {
                 onClose={handleClose}
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description">
-                <Box component="form" sx={style} onSubmit={handleSubmit(sendNotification)} >
+                <Box component="form" sx={style} onSubmit={handleSubmit(onSubmit)} >
                     <Typography id="modal-modal-title" variant="h6" component="h2">
                         Selecciona la incidencia
                     </Typography>

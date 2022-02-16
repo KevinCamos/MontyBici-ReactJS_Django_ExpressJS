@@ -1,18 +1,19 @@
-
 import Api from './Api'
 
 const notificationService = {
 
-  getReasons(data) {
-    console.log(data)
+  getReasons() {
     return Api().get('notifications/reasons/');
   },
+  getNotifications() {
+    return Api().get('notifications/notification/');
+  },
   sendNotification(data) {
-    console.log(data)
     return Api().post('notifications/notification/', data);
   },
- 
+  checkNotification(data) {
+    return Api().put('notifications/notification/', data);
+  },
 }
 
 export default notificationService;
-

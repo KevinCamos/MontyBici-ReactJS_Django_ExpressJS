@@ -1,7 +1,7 @@
 # apis/urls.py
 from django.conf.urls import url
-from .views import RegisterAPIView, getReasons
 from rest_framework.routers import DefaultRouter
+from .views import RegisterAPIView, getReasons
 
 router = DefaultRouter()
 

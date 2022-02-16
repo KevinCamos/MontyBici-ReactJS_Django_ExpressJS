@@ -1,6 +1,6 @@
 from django.shortcuts import render
 
-from rest_framework import status, serializers,generics
+from rest_framework import status, serializers, generics
 from rest_framework.exceptions import NotFound
 # AUTENTICATIONS
 from rest_framework.permissions import IsAuthenticated
@@ -9,7 +9,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 # SERIALIZERS
-from .serializers import NotificationSerializer,ReasonsSerializer
+from .serializers import NotificationSerializer, ReasonsSerializer, NestedNotificationSerializer
 
 # MODELS
 from src.apps.bikes.models import Register_Bike
@@ -17,6 +17,7 @@ from .models import Reason, Notification
 
 # PERMSISSIONS
 from src.apps.core.permissions import IsStaff, IsNotStaff
+
 
 class getReasons(generics.ListAPIView):
     permission_classes = (IsAuthenticated,)
@@ -29,13 +30,19 @@ class getReasons(generics.ListAPIView):
 class RegisterAPIView(APIView):
     permission_classes = (IsAuthenticated,)
     serializer_class = NotificationSerializer
-    # permission_classes = [IsStaff, ]
+
+    def get(self, request):
+        self.permission_classes = [IsStaff, ]
+        queryset = Notification.objects.filter(checked=False)
+        serializer =NestedNotificationSerializer(queryset, many=True)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     def post(self, request):
         self_uuid = self.request.user.profile.pk
         id_register = request.data.get('id_register', {})
         id_reason = request.data.get('id_reason', {})
         message = request.data.get('message', {})
+        print(request.data)
         if id_register:
             print(id_register, "id register")
             registered = Register_Bike.objects.filter(
@@ -82,7 +89,7 @@ class RegisterAPIView(APIView):
         except Notification.DoesNotExist:
             raise NotFound('Esta razón no existe.')
 
-        data = {'checked': checked,'admin_check': self_uuid}
+        data = {'checked': checked, 'admin_check': self_uuid}
         context = {'admin_check': self_uuid}
 
         serializer = self.serializer_class(
