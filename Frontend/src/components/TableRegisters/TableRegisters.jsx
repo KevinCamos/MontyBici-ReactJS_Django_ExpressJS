@@ -3,9 +3,12 @@ import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper
 
 import TablePagination from '@mui/material/TablePagination';
 import NotificationModal from '../NotificationModal/NotificationModal'
+import useNotifications from "../../hooks/useNotifications";
+
 // https://mui.com/components/tabs/
 const TableRegisters = ({ rows, handleChangePage, handleChangeRowsPerPage, page, rowsPerPage }) => {
-  const [open, setOpen] = React.useState(false);
+  const { open, setOpen} = useNotifications();
+
   const [idRegister, setIdRegister] = React.useState(false);
 
   const handleOpen = (id) => {

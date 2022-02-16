@@ -3,13 +3,11 @@ import bikeServices from "../services/BikeServices";
 import UserContext from "../context/UserContext";
 import StationsContext from "../context/StationsContext";
 import { useNavigate } from "react-router-dom";
-
-
 import { useSnackbar } from 'notistack';
-
 
 export default function useBike() {
   const navigate = useNavigate();
+
   const { enqueueSnackbar } = useSnackbar();
   const { stations, setStations } = useContext(StationsContext)
   const { user, setUser, isRegisters, setIsRegisters } = useContext(UserContext);
@@ -20,7 +18,7 @@ export default function useBike() {
   };
   const [value, setValue] = useState(0);
 
-  
+
   const obtainBike = useCallback(
 
     (id_point) => {
@@ -124,7 +122,7 @@ export default function useBike() {
 
 
 
- 
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };

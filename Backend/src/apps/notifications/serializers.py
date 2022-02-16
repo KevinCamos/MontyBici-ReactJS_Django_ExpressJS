@@ -1,17 +1,17 @@
 from rest_framework import serializers
-from .models import Notification,Reason
+from .models import Notification, Reason
 
 
 class ReasonsSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Reason
         fields = (
             'id',
             'reason',
         )
-class NotificationSerializer(serializers.ModelSerializer):
 
+
+class NotificationSerializer(serializers.ModelSerializer):
     created_at = serializers.SerializerMethodField(
         method_name='get_created_at')
     updated_at = serializers.SerializerMethodField(

@@ -7,9 +7,9 @@ const notificationService = {
     console.log(data)
     return Api().get('notifications/reasons/');
   },
-  returnBike(data) {
+  sendNotification(data) {
     console.log(data)
-    return Api().put('bikes/register/', data);
+    return Api().post('notifications/notification/', data);
   },
  
 }
