@@ -52,8 +52,6 @@ const useUser = () => {
         setState({ loading: false, error: false, errorPassword: true })
       } else {
         setState({ loading: true, error: false, errorPassword: false })
-
-        console.log({ user: data });
         userServices.register({ user: data })
           .then((data) => {
             saveUser(data.data.user)
@@ -77,7 +75,6 @@ const useUser = () => {
 
 
   const saveUser = (user, admin = false) => {
-    console.log(admin)
     sessionStorage.setItem("token", user.token);
     setJWT(sessionStorage.token);
     setUser(user);
@@ -87,12 +84,10 @@ const useUser = () => {
   const checkAdmin = useCallback(
     () => {
       // if (sessionStorage.token) {
-        console.log("eh")
         setIsJWTAdminLoading(true)
         userServices.checkAdmin()
           .then((data) => {
             setIsAdmin(true)
-            console.timeLog("eh")
             saveUser(data.data.user, true)
             setIsJWTAdminLoading(false)
           })

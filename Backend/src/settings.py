@@ -17,14 +17,11 @@ env = environ.Env(
 )
 
 
-
 # print("_----------",os.environ.get(AWS_ACCESS_KEY_ID))
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Take environment variables from .env file
-environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
-# env.read_env(env.str('ENV_PATH', '.env'))
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
@@ -51,6 +48,8 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework',
     'anymail',
+    "django_dbq",
+
     'src.apps.bikes',
     'src.apps.stations',
     'src.apps.notifications',
@@ -100,25 +99,30 @@ WSGI_APPLICATION = 'src.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'MontyBici',                 
-        'USER': 'root',                 
-        'PASSWORD': 'root',             
-        'HOST': 'localhost',            
-        # 'HOST': 'mysql_db',      #<- Nombre del contenedor de docker de mysql     
+        'NAME': 'MontyBici',
+        'USER': 'root',
+        'PASSWORD': 'root',
+        'HOST': 'localhost',
+        # 'HOST': 'mysql_db',      #<- Nombre del contenedor de docker de mysql
         'PORT': '3306',
     }
 }
-
+# Take environment variables from .env file
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 # https://github.com/anymail/django-anymail
 ANYMAIL = {
     # (exact settings here depend on your ESP...)
     "MAILGUN_API_KEY": env('MAILGUN_API_KEY'),
-    "MAILGUN_SENDER_DOMAIN": env('MAILGUN_SENDER_DOMAIN'),  # your Mailgun domain, if needed
+    # your Mailgun domain, if needed
+    "MAILGUN_SENDER_DOMAIN": env('MAILGUN_SENDER_DOMAIN'),
 }
 
-EMAIL_BACKEND = "anymail.backends.mailgun.EmailBackend"  # or sendgrid.EmailBackend, or...
-DEFAULT_FROM_EMAIL =  env('MAILGUN_SENDER_DOMAIN')  # if you don't already have this in settings
-SERVER_EMAIL =  env('SERVER_EMAIL')  # ditto (default from-email for Django errors)
+# or sendgrid.EmailBackend, or...
+EMAIL_BACKEND = "anymail.backends.mailgun.EmailBackend"
+# if you don't already have this in settings
+DEFAULT_FROM_EMAIL = env('DEFAULT_FROM_EMAIL')
+# ditto (default from-email for Django errors)
+SERVER_EMAIL = env('SERVER_EMAIL')
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
 
@@ -203,3 +207,11 @@ STATICFILES_DIRS = [
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 MEDIA_URL = '/media/'
+
+
+JOBS = {
+    "job_mail": {
+        "tasks": ["src.apps.core.jobs.notification_mail"],
+        "failure_hook": "src.apps.core.jobs.notification_mail_fail",
+    },
+}

@@ -1,7 +1,7 @@
 from django.shortcuts import render
 # from rest_framework.exceptions import NotFound
 from rest_framework.views import APIView
-from rest_framework import status, generics
+from rest_framework import status, generics, serializers
 from rest_framework.exceptions import NotFound
 
 from rest_framework.permissions import (
@@ -11,7 +11,7 @@ from src.apps.core.permissions import IsStaff
 from rest_framework.response import Response
 from .models import Station, Point
 from .serializers import serializerStationsPoints, AllPointsSerializer, BikeSerializer, CreatePointsSerializer
-from src.apps.bikes.models import Bike
+from src.apps.bikes.models import Bike, Register_Bike
 
 import json
 
@@ -188,6 +188,12 @@ class UpdpateBikePointAPIView(APIView):
                 except Point.DoesNotExist:
                     raise NotFound('Esta bici no existe.')
 
+                registered = Register_Bike.objects.filter(
+                    bike=id_bike, point_return__isnull=True)
+                if registered.count() != 0:
+                    raise serializers.ValidationError(
+                        'Esta bici está en uso, no se puede cambiar de sitio.')
+
             context = {"bike": bike}
         # Utilizamos este serializer para hacer la modificación de datos
         data = {}
@@ -196,7 +202,7 @@ class UpdpateBikePointAPIView(APIView):
             instance=putPoint,   data=data, context=context, partial=True)
         serializer.is_valid(raise_exception=True)
         serializer.save()
-        
+
         # Y por último, utilizamos este para mostrar los datos de forma anidados.
         # serializer_all_data = self.serializer_class_All_Point(
         #     instance=putPoint)

@@ -11,7 +11,6 @@ const GuardAdmin = () => {
     checkAdmin()
   }
   if (!isJWTAdminLoading) {
-    console.log(isAdmin, "is admin")
     return !isAdmin ? <Navigate to="/login" /> : <Outlet />;
   }
   return <Loading />

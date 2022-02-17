@@ -20,11 +20,12 @@ from src.apps.core.permissions import IsStaff, IsNotStaff
 
 
 from django.core.mail import send_mail
+from django_dbq.models import Job
 
 
 
 class getReasons(generics.ListAPIView):
- 
+
     permission_classes = (IsAuthenticated,)
     queryset = Reason.objects.filter()
     serializer_class = ReasonsSerializer
@@ -37,12 +38,12 @@ class RegisterAPIView(APIView):
     serializer_class = NotificationSerializer
 
     def get(self, request):
-                
-        # send_mail(  'Subject here',
-        #     'Here is the message.',
-        #     'kevincamossoto@gmail.com',
-        #     ['kevincamossoto@gmail.com'],
-        # fail_silently=False,)
+        # Job.objects.create(name="my_job",workspace={"key": "value"})
+
+        # queue_depths = Job.get_queue_depths()
+        # print(queue_depths)  # {"default": 1, "other_queue": 1}
+
+ 
         self.permission_classes = [IsStaff, ]
         queryset = Notification.objects.filter(checked=False)
         serializer =NestedNotificationSerializer(queryset, many=True)
@@ -90,7 +91,6 @@ class RegisterAPIView(APIView):
         self.permission_classes = [IsStaff, ]
         self_uuid = self.request.user.profile.pk
         id_notification = pk
-        print(id_notification)
         checked = request.data.get('checked', {})
         if checked == None:
             raise serializers.ValidationError(
@@ -102,9 +102,21 @@ class RegisterAPIView(APIView):
 
         data = {'checked': checked, 'admin_check': self_uuid}
         context = {'admin_check': self_uuid}
-
+ 
+        # checked=notification.admin_check
+        
         serializer = self.serializer_class(
             instance=notification,  data=data, context=context, partial=True)
         serializer.is_valid(raise_exception=True)
         serializer.save()
+
+
+        job_value={
+            "name": notification.notif_user.user.username,
+            "email": notification.notif_user.user.email,
+            "reason": notification.reason.reason,
+            "usermessage": notification.message,
+        }
+        Job.objects.create(name="job_mail",workspace={"data": job_value})
+
         return Response(serializer.data, status=status.HTTP_201_CREATED)

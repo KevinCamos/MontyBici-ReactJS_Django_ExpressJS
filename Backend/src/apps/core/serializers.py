@@ -1,7 +1,8 @@
 
 
 from rest_framework import serializers
-
+from django.core.mail import send_mail
+from src import settings
 
 
 class DynamicFieldsModelSerializer(serializers.ModelSerializer):
@@ -23,3 +24,20 @@ class DynamicFieldsModelSerializer(serializers.ModelSerializer):
             existing = set(self.fields)
             for field_name in existing - allowed:
                 self.fields.pop(field_name)
+
+
+class EmailSerializer(serializers.Serializer):
+    # username = serializers.CharField(required=False, max_length=50, min_length=4)
+    receiver = serializers.EmailField()
+    subject = serializers.CharField(max_length=50, min_length=4)
+    message = serializers.CharField(max_length=1000, min_length=30)
+
+    def sendmail(self):
+        
+        send_mail(
+            self.validated_data['subject'],
+            self.validated_data['message'],
+            settings.DEFAULT_FROM_EMAIL,
+            [self.validated_data['receiver']],
+            fail_silently=False,
+        )

@@ -9,12 +9,9 @@ import AdminContext from '../../context/Admin/AdminContext'
 
 export default function useAdminPoint() {
   const { bikes, setBikes, points, setPoints } = useContext(AdminContext)
-
-  // const [points, setPoints] = useState([]);
   const [isLoadingPoint, setIsLoadingPoint] = useState(true);
   const { enqueueSnackbar } = useSnackbar();
-  const [isBikeUpdate, setIsBikeUpdate] = useState(false);
-  const [updateBikePoint, setUpdateBikePoint] = useState(null);
+
 
   useEffect(
     function () {
@@ -74,7 +71,7 @@ export default function useAdminPoint() {
   );
 
 
-////ACÍ!!
+  ////ACÍ!!
 
   const updatePointsBike = useCallback(
     (id_point, bike_id, point_id) => {
@@ -111,7 +108,6 @@ export default function useAdminPoint() {
         updatepoint[indexRemove].bike = null;
       }
 
-
       //Cuando se elimina una bici de un slot, pero no tenemos la ID de la Bici que hemos eliminado
     } else {
       let indexRemove = points.findIndex(function (point) {
@@ -129,36 +125,35 @@ export default function useAdminPoint() {
     updatepoint[indexAdd] = newPoint;
     setPoints(updatepoint)
 
-let prueba 
-    if (newPoint.bike) prueba=({ "bike": newPoint.bike, "points": newPoint.id })
-    else prueba=({ "bike": bike_id, "points": null })
+    let newDataBike
+    console.log(newPoint)
+    if (newPoint.bike) newDataBike = ({ "bike": newPoint.bike, "points": newPoint.id })
+    else newDataBike = ({ "bike": bike_id, "points": null })
 
 
 
 
 
-    // setIsBikeUpdate(false)
     let updateBikes = bikes.map(function (bike) {
-      console.log(prueba.bike.id === bike.id)
-        if (prueba.bike.id === bike.id) {
-            if (prueba.points) bike.points = { "id": prueba.points }
-            else bike.points = null
-        }
-        return bike
+      console.log(newDataBike.bike.id === bike.id)
+      if (newDataBike.bike.id === bike.id) {
+        if (newDataBike.points) bike.points = { "id": newDataBike.points }
+        else bike.points = null
+      }
+      return bike
     })
     let newArrBikes = [...updateBikes]
     setBikes(newArrBikes)
 
 
 
-    
-    // setIsBikeUpdate(true)
+
   },
-    [points,bikes]
+    [points, bikes]
   );
 
 
 
 
-  return { points, setPoints, isLoadingPoint, updatePoint, updatePoint, updatePointsBike, isBikeUpdate, setIsBikeUpdate, updateBikePoint };
+  return { points, setPoints, isLoadingPoint, updatePoint, updatePoint, updatePointsBike, };
 }

@@ -21,14 +21,10 @@ export function AdminContextProvider({ children }) {
           .then((data) => {
             setTotalNotifications(data.data.length)
             setNotifications(data.data)
-            console.log(data)
-
             setIsLoading(false);
           }).catch((error) => {
             console.log(error)
-
             setIsLoading(false);
-
           });
       }
     },
@@ -36,27 +32,26 @@ export function AdminContextProvider({ children }) {
   )
 
 
-
   useEffect(
     function () {
-    
       if (bikes.length === 0) {
         setIsBikeLoading(true)
         bikeServices.getBikesPointsStations().then((data) => {
-          console.log(data.data.results)
           setBikes(data.data.results);
           setIsBikeLoading(false)
+        }).catch(error => {
+          console.log(error)
         });
       }
     },
-    []
+    [bikes]
   );
 
 
   return <Context.Provider value={{
     bikes, setBikes, points, setPoints,
     totalNotifications, setTotalNotifications, notifications, setNotifications,
-    isLoading, setIsLoading, isLogged, setIsLogged,isBikeLoading, setIsBikeLoading
+    isLoading, setIsLoading, isLogged, setIsLogged, isBikeLoading, setIsBikeLoading
   }}>
     {children}
   </Context.Provider>;

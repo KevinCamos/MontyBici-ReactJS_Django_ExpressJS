@@ -10,13 +10,10 @@ const drawerWidth = 240;
 
 function ResponsiveDrawer(props) {
   const { window } = props;
-  // const [mobileOpen, setMobileOpen] = useState(false);
   const { user } = useUser();
   const { totalNotifications,isLogged,setIsLogged } = useContext(AdminContext);
   if (!isLogged) setIsLogged(true)
 
-
-  console.log(totalNotifications)
 
 
   const drawer = (
@@ -54,25 +51,7 @@ function ResponsiveDrawer(props) {
           component="nav"
           sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
           aria-label="mailbox folders">
-          {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
-          {/* <Drawer
-            container={container}
-            variant="temporary"
-            open={mobileOpen}
-            onClose={handleDrawerToggle}
-            ModalProps={{
-              keepMounted: true // Better open performance on mobile.
-            }}
-            sx={{
-              display: { xs: "block", sm: "none" },
-              "& .MuiDrawer-paper": {
-                boxSizing: "border-box",
-                width: drawerWidth
-              }
-            }}>
-
-            {drawer}
-          </Drawer> */}
+       
           <Drawer
             variant="permanent"
             sx={{
