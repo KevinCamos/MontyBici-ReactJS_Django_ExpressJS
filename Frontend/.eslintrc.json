@@ -1,14 +1,14 @@
 {
     "env": {
-        "browser": true,
+        "browser": false,
         "es2021": true
     },
     "extends": [
-        "plugin:react/recommended",
-        "airbnb",
-        "plugin:jsx-a11y/recommended",
-        "plugin:react-hooks/recommended",
-        "prettier"
+        "plugin:react/recommended"
+        // "airbnb",
+        // "plugin:jsx-a11y/recommended",
+        // "plugin:react-hooks/recommended",
+        // "prettier"
 
     ],
     "parserOptions": {
@@ -19,13 +19,15 @@
         "sourceType": "module"
     },
     "plugins": [
-        "react",
-        "react-hooks",
-        "prettier"
+        "react"
+        // "react-hooks",
+        // "prettier"
     ], 
     "rules": { 
-        "prettier/prettier":"error",
-        "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
+        // "prettier/prettier":"error",
+        "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+        "react/prop-types": "off"
+
         // "allowForLoopAfterthoughts": true
         // "react/require-default-props": [<enabled>, { forbidDefaultForRequired: <boolean>, ignoreFunctionalComponents: <boolean> }]
 

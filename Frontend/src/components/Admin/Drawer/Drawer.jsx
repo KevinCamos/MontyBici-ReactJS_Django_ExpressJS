@@ -67,7 +67,7 @@ function ResponsiveDrawer() {
   );
   return (
     <Box sx={{ display: 'flex' }}>
-      <Box
+     <Box
         component="nav"
         sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
         aria-label="mailbox folders"

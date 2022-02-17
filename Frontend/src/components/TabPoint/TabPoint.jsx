@@ -1,3 +1,4 @@
+/* eslint-disable react/react-in-jsx-scope */
 import * as React from 'react';
 import { Tabs, Tab, Box } from '@mui/material';
 import Home from '@mui/icons-material/Home';
