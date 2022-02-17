@@ -40,7 +40,7 @@ export function AdminContextProvider({ children }) {
   useEffect(
     function () {
     
-      if (isLogged === true) {
+      if (bikes.length === 0) {
         setIsBikeLoading(true)
         bikeServices.getBikesPointsStations().then((data) => {
           console.log(data.data.results)

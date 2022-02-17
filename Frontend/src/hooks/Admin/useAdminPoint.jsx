@@ -28,7 +28,7 @@ export default function useAdminPoint() {
   );
 
   const updatePoint = useCallback(
-    (id_point, active, points) => {
+    (id_point, active) => {
       setIsLoadingPoint(true)
       let data = { "id_point": id_point, "active": active }
       console.log(data)
@@ -36,7 +36,7 @@ export default function useAdminPoint() {
         .updatePoint(data)
         .then((data) => {
           console.log(data)
-          updateArrayPoint(id_point, data.data.id, points)
+          updateArrayPoint(id_point)
           enqueueSnackbar('Point modificado con éxito.', { variant: 'success' });
           setIsLoadingPoint(false)
 
@@ -48,11 +48,11 @@ export default function useAdminPoint() {
 
         });
     },
-    []
+    [points]
   );
 
 
-  const updateArrayPoint = useCallback((id_point, active, points) => {
+  const updateArrayPoint = useCallback((id_point) => {
     console.log(points)
     console.log("entra ací")
     let index = points.findIndex(function (point) {
@@ -70,20 +70,20 @@ export default function useAdminPoint() {
 
     }
   },
-    []
+    [points]
   );
 
 
-
+////ACÍ!!
 
   const updatePointsBike = useCallback(
-    (id_point, bike_id, points, point_id) => {
+    (id_point, bike_id, point_id) => {
       setIsLoadingPoint(true)
       let data = { "id_point": id_point, "id_bike": bike_id }
       pointServices
         .updatePointsBike(data)
         .then((data) => {
-          updateArrayPointsBike(data.data, bike_id, points, point_id)
+          updateArrayPointsBike(data.data, bike_id, point_id)
           enqueueSnackbar('Bicicleta cambiada de sitio.', { variant: 'success' });
           setIsLoadingPoint(false)
 
@@ -95,10 +95,10 @@ export default function useAdminPoint() {
 
         });
     },
-    []
+    [points]
   );
 
-  const updateArrayPointsBike = useCallback((newPoint, bike_id, points, point_id) => {
+  const updateArrayPointsBike = useCallback((newPoint, bike_id, point_id) => {
     let updatepoint = [...points]
     if (bike_id) {
       let indexRemove = points.findIndex(function (point) {
@@ -129,14 +129,32 @@ export default function useAdminPoint() {
     updatepoint[indexAdd] = newPoint;
     setPoints(updatepoint)
 
+let prueba 
+    if (newPoint.bike) prueba=({ "bike": newPoint.bike, "points": newPoint.id })
+    else prueba=({ "bike": bike_id, "points": null })
 
-    if (newPoint.bike) setUpdateBikePoint({ "bike": newPoint.bike, "points": newPoint.id })
-    else setUpdateBikePoint({ "bike": bike_id, "points": null })
 
 
-    setIsBikeUpdate(true)
+
+
+    // setIsBikeUpdate(false)
+    let updateBikes = bikes.map(function (bike) {
+      console.log(prueba.bike.id === bike.id)
+        if (prueba.bike.id === bike.id) {
+            if (prueba.points) bike.points = { "id": prueba.points }
+            else bike.points = null
+        }
+        return bike
+    })
+    let newArrBikes = [...updateBikes]
+    setBikes(newArrBikes)
+
+
+
+    
+    // setIsBikeUpdate(true)
   },
-    []
+    [points,bikes]
   );
 
 

@@ -66,7 +66,6 @@ export default function MyRouter() {
                         <Route path="/admin-panel/bikes" element={<AdminBike />} />
                         <Route path="/admin-panel/points" element={<AdminPoint />} />
                         <Route path="/admin-panel/notifications" element={<AdminNotifications />} />
-
                       </Route>
                     </Route>
                   </Routes>

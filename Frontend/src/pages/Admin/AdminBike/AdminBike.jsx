@@ -41,9 +41,9 @@ export default function AdminBike() {
                                         <TableCell align="center">{bike.points ? (bike.points.station ? bike.points.station.name : <b>-</b>) : <b>-</b>}</TableCell>
                                         <TableCell align="center">{bike.points ? bike.points.id : <b>-</b>}</TableCell>
                                         <TableCell align="center"> {bike.active ?
-                                            <Switch value={bike.active ?? " "} defaultChecked onClick={(e) => updateBike(bike.id, !bike.active, bikes)}
+                                            <Switch value={bike.active ?? " "} defaultChecked onClick={(e) => updateBike(bike.id, !bike.active)}
                                             />
-                                            : <Switch value={!bike.active ?? " "} onClick={(e) => updateBike(bike.id, !bike.active, bikes)} />
+                                            : <Switch value={!bike.active ?? " "} onClick={(e) => updateBike(bike.id, !bike.active)} />
                                         } </TableCell>
                                     </TableRow>
 

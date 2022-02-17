@@ -14,7 +14,7 @@ export function UserContextProvider({ children }) {
           let dataUser = data.data.user;
           sessionStorage.setItem("token", dataUser.token);
           setJWT(dataUser.token);
-          
+
           setUser(dataUser);
           setIsJWTLoading(false);
           if (dataUser.profile.registers) {
@@ -41,7 +41,7 @@ export function UserContextProvider({ children }) {
   const [jwt, setJWT] = useState(() => checkUser());
   const [user, setUser] = useState(null);
 
-  return <Context.Provider value={{ jwt, setJWT,user, setUser, isJWTLoading, setIsJWTLoading, isRegisters, setIsRegisters }}>{children}</Context.Provider>;
+  return <Context.Provider value={{ jwt, setJWT, user, setUser, isJWTLoading, setIsJWTLoading, isRegisters, setIsRegisters }}>{children}</Context.Provider>;
 }
 
 export default Context;

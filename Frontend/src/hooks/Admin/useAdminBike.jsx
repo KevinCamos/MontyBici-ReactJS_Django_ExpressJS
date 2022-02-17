@@ -8,30 +8,20 @@ import { useSnackbar } from 'notistack';
 
 
 export default function useAdminBike(page = { isPageAdminBike: true }) {
-
-  // const [bikes, setBikes] = useState([]);
-  const { bikes, setBikes, points, setPoints,isBikeLoading, setIsBikeLoading } = useContext(AdminContext)
-
+  const { bikes, setBikes, points, setPoints, isBikeLoading, setIsBikeLoading } = useContext(AdminContext)
   const { enqueueSnackbar } = useSnackbar();
-
   const [pointIndex, setPointIndex] = useState(-1);
 
-
-
-
-
   const updateBike = useCallback(
-    (id_bike, active, arrayBikes, arrayPoints = []) => {
+    (id_bike, active) => {
       setIsBikeLoading(true)
       let data = { "id_bike": id_bike, "active": active }
-      // console.log(data)
-      // AudioWorklet(active)
       bikeServices
         .updateBike(data)
         .then((data) => {
           console.log(data)
-          updateArrayBike(id_bike, arrayBikes)
-          if (!page.isPageAdminBike) indexUpdateArrayPoints(id_bike, arrayPoints)
+          updateArrayBike(id_bike)
+          if (points.length>0) indexUpdateArrayPoints(id_bike, data.data.active)
           enqueueSnackbar('Bicicleta modificada con éxito.', { variant: 'success' });
           setIsBikeLoading(false)
         })
@@ -41,11 +31,11 @@ export default function useAdminBike(page = { isPageAdminBike: true }) {
           setIsBikeLoading(false)
         });
     },
-    []
+    [bikes, points]
   );
 
 
-  const updateArrayBike = useCallback((id_bike, bikes) => {
+  const updateArrayBike = useCallback((id_bike) => {
     console.log(bikes)
     let index = bikes.findIndex((bike) => {
       return bike.id === id_bike
@@ -55,26 +45,24 @@ export default function useAdminBike(page = { isPageAdminBike: true }) {
     updatebike[index].active = !updatebike[index].active;
     setBikes(updatebike)
   },
-    []
+    [bikes]
   );
 
 
-  const indexUpdateArrayPoints = useCallback((id_bike, points) => {
+  const indexUpdateArrayPoints = useCallback((id_bike,active) => {
     console.log("EEEI", id_bike)
     console.log(points)
-    // let index = bikes.findIndex(function (bike) {
-    //   console.log(bike.id, id_bike)
-    //   return bike.id === id_bike
-    // })
     let index = points.findIndex(function (point) {
       if (point.bike) {
         return point.bike.id === id_bike
       }
     })
-    setPointIndex(index)
+    let updatePoints = [...points]
+    updatePoints[index].bike.active = active;
+    setPoints(updatePoints)
 
   },
-    []
+    [points]
   );
 
 

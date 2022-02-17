@@ -4,8 +4,7 @@ import useUser from "../../hooks/useUser";
 import Loading from "../../components/Templates-Suspense/Loading";
 
 const GuardAdmin = () => {
-  const { isAdmin, isJWTLoading, isJWTAdminLoading, checkAdmin, isCheckingAdmin, setIsCheckingAdmin } = useUser();
-  console.log(isAdmin, "is admin")
+  const { isAdmin, isJWTAdminLoading, checkAdmin, isCheckingAdmin, setIsCheckingAdmin } = useUser();
 
   if (!isCheckingAdmin) {
     setIsCheckingAdmin(true)
@@ -15,10 +14,6 @@ const GuardAdmin = () => {
     console.log(isAdmin, "is admin")
     return !isAdmin ? <Navigate to="/login" /> : <Outlet />;
   }
-  // return <Loading />;
-
-  console.log(isAdmin, "is admin")
-
   return <Loading />
 };
 export default GuardAdmin;
