@@ -5,7 +5,6 @@ import useBike from "../../hooks/useBike";
 
 const ObtainBike = ({ id_point }) => {
 
-  console.log(id_point);
   const { obtainBike, errorBike } = useBike();
 
   return (

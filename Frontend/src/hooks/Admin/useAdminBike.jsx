@@ -19,7 +19,6 @@ export default function useAdminBike(page = { isPageAdminBike: true }) {
       bikeServices
         .updateBike(data)
         .then((data) => {
-          console.log(data)
           updateArrayBike(id_bike)
           if (points.length>0) indexUpdateArrayPoints(id_bike, data.data.active)
           enqueueSnackbar('Bicicleta modificada con éxito.', { variant: 'success' });
@@ -36,11 +35,9 @@ export default function useAdminBike(page = { isPageAdminBike: true }) {
 
 
   const updateArrayBike = useCallback((id_bike) => {
-    console.log(bikes)
     let index = bikes.findIndex((bike) => {
       return bike.id === id_bike
     })
-    console.log(index)
     let updatebike = [...bikes]
     updatebike[index].active = !updatebike[index].active;
     setBikes(updatebike)
@@ -50,8 +47,6 @@ export default function useAdminBike(page = { isPageAdminBike: true }) {
 
 
   const indexUpdateArrayPoints = useCallback((id_bike,active) => {
-    console.log("EEEI", id_bike)
-    console.log(points)
     let index = points.findIndex(function (point) {
       if (point.bike) {
         return point.bike.id === id_bike

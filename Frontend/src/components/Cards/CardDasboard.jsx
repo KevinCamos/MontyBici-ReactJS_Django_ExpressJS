@@ -1,7 +1,5 @@
 import * as React from "react";
 import { CardActionArea, CardActions, Card, CardContent, CardMedia, Typography, Box, Button } from "@mui/material";
-// import PedalBikeIcon from "@mui/icons-material/PedalBike";
-
 const CardDashboard = ({ icon, title, data, message }) => {
 
     return (

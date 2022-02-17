@@ -28,14 +28,10 @@ const useNotifications = () => {
     )
     const sendNotification = useCallback(
         (data) => {
-            // data.id_register= id
-            console.log(data)
             notificationsService.sendNotification(data)
                 .then((data) => {
                     enqueueSnackbar('Gracias por tu incidencia, intentaremos resolverla con la mayor brevedad posible.', { variant: 'success' })
                     setOpen(false)
-
-                    console.log(data);
                 })
                 .catch((error) => {
                     enqueueSnackbar('Ha habido algún error enviando el mensaje.', { variant: 'error' })

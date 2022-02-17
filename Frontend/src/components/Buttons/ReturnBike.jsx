@@ -3,7 +3,6 @@ import { Button } from "@mui/material";
 import useBike from "../../hooks/useBike";
 const ReturnBike = ({ id_point }) => {
 
-  console.log(id_point);
   const { returnBike, errorBike } = useBike();
 
   return (

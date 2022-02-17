@@ -9,7 +9,6 @@ import { useSnackbar } from 'notistack';
 
 const useAdminStation = () => {
   const navigate = useNavigate();
-  // const [stations, setStations] = useState([]);
 
   const { stations, setStations } = useContext(StationsContext);
   const [isLoading, setLoading] = useState(false);
@@ -32,8 +31,7 @@ const useAdminStation = () => {
     (data) => {
       setLoading(true)
       stationsServices.createStation(stationToJSON(data))
-        .then((data) => {
-          console.log(data)
+        .then(() => {
           enqueueSnackbar("Estación creada correctamente", { variant: 'success' });
 
           navigate("/admin-panel/stations")
@@ -46,12 +44,10 @@ const useAdminStation = () => {
   );
   const updateStation = useCallback(
     (data, request) => {
-      console.log(data)
       let slug = request.target.id
       setLoading(true)
       stationsServices.updateStation(stationToJSON(data, true), slug)
         .then((data) => {
-          console.log(data)
           enqueueSnackbar("Estación modificada correctamente", { variant: 'success' });
           navigate("/admin-panel/stations")
         })
@@ -68,8 +64,6 @@ const useAdminStation = () => {
       stationsServices.deleteStation(slug)
         .then((data) => {
           enqueueSnackbar("Estación eliminada correctamente", { variant: 'success' });
-
-          console.log(data)
           dropFilterStation(slug, stations)
           setLoading(false)
 
@@ -80,7 +74,6 @@ const useAdminStation = () => {
     },
     [selectedImage]
   );
-
 
 
   /**
@@ -102,14 +95,12 @@ const useAdminStation = () => {
 
   const dropFilterStation = (slug, stations) => {
     let index = stations.findIndex((station) => station.slug === slug);
-    console.log(index)
     let updateStation = [...stations]
     updateStation.splice(index, 1);
     setStations(updateStation)
   }
 
   useEffect(() => {
-    console.log("ehhhhh")
     if (selectedImage) {
       setImageUrl(URL.createObjectURL(selectedImage));
     }

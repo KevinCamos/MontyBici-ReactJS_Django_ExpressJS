@@ -12,7 +12,6 @@ const useHeader = () => {
   };
 
   const handleCloseNavMenu = () => {
-    console.log(handleCloseNavMenu);
     setAnchorElNav(null);
   };
 

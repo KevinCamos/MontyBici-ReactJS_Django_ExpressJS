@@ -8,7 +8,6 @@ const useStation = () => {
   useEffect(
     function () {
       stationsServices.getStations().then((stations) => {
-        console.log(stations.data.results)
         setStations(stations.data.results);
       });
     },

@@ -10,7 +10,6 @@ import useOnlyStation from "../../../hooks/useOnlyStation";
 import Loading from "../../../components/Templates-Suspense/Loading"
 const FormStation = () => {
     const { slug } = useParams();
-    console.log(slug)
     const { saveStation, updateStation, totalPoints, totalBikes, selectedImage, setSelectedImage, imageUrl, setImageUrl, loading, error } = useAdminStation()
     const { oneStation, isLoading } = useOnlyStation({ slug: slug });
     const { register, handleSubmit, formState: { errors } } = useForm();
@@ -132,9 +131,7 @@ const FormStation = () => {
                                         id="bikes"
                                         defaultValue={totalBikes}
                                         label="Bikes"
-                                        // onChange={handleChangeBikes}
                                         {...register("bikes")}
-
                                     >
                                         {Array.from(Array(8)).map((_, index) => (
                                             <MenuItem value={index} key={index}>{index} Bikes</MenuItem>

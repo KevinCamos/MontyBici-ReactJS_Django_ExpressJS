@@ -7,7 +7,6 @@ import useBike from "../../hooks/useBike";
 const CardStation = ({ station }) => {
 
   const { statusBike, statusPoint, isRegisters } = useBike();
-  console.log("Está registrado :", isRegisters)
   return (
     <Card sx={{ maxWidth: 400,minWidth:400, minHeight:275, boxShadow: 1 }}>
       <CardActionArea>

@@ -27,13 +27,7 @@ const style = {
 
 export default function NotificationModal({ handleClose, id }) {
     const { reasons, open, isLoading, valueReason, setValueReason, sendNotification, enqueueSnackbar } = useNotifications();
-    console.log(id)
     const { register, handleSubmit, formState: { errors } } = useForm();
-    console.log(errors);
-    // if (errors.message) {
-    //     enqueueSnackbar('Ha habido algún error enviando el mensaje.', { variant: 'error' })
-    //     errors.message = null
-    // }
 
     const onSubmit = (data) => {
          data.id_register=id
@@ -42,7 +36,6 @@ export default function NotificationModal({ handleClose, id }) {
         };
 
     const handleChange = (event) => {
-        console.log(event.target.value)
         setValueReason(event.target.value);
     };
 

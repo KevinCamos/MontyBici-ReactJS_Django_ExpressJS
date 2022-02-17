@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import notificationsService from "../../services/NotificationService";
-// import pointServices from "../../services/PointServices";
 import bikeServices from "../../services/BikeServices";
 const Context = React.createContext({});
 

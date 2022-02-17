@@ -41,9 +41,6 @@ function ResponsiveDrawer(props) {
       <Divider />
     </div>
   );
-
-  // const container = window !== undefined ? () => window().document.body : undefined;
-
   return (
     <>
       <Box sx={{ display: "flex" }}>

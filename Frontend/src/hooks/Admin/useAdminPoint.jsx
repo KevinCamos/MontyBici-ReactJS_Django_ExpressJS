@@ -28,18 +28,15 @@ export default function useAdminPoint() {
     (id_point, active) => {
       setIsLoadingPoint(true)
       let data = { "id_point": id_point, "active": active }
-      console.log(data)
       pointServices
         .updatePoint(data)
         .then((data) => {
-          console.log(data)
           updateArrayPoint(id_point)
           enqueueSnackbar('Point modificado con éxito.', { variant: 'success' });
           setIsLoadingPoint(false)
 
         })
         .catch((error) => {
-          console.log(error)
           enqueueSnackbar('Ha habido algún problema y no se ha hecho ninguna modifición.', { variant: 'error' });
           setIsLoadingPoint(false)
 
@@ -50,28 +47,20 @@ export default function useAdminPoint() {
 
 
   const updateArrayPoint = useCallback((id_point) => {
-    console.log(points)
-    console.log("entra ací")
     let index = points.findIndex(function (point) {
       return point.id === id_point
     })
 
     let updatepoint = [...points]
-    console.log()
     if (index !== -1) {
       updatepoint[index].active = !updatepoint[index].active;
-      console.log(updatepoint[index])
       setPoints(updatepoint)
-      console.log(updatepoint)
-      console.log(points)
 
     }
   },
     [points]
   );
 
-
-  ////ACÍ!!
 
   const updatePointsBike = useCallback(
     (id_point, bike_id, point_id) => {
@@ -126,16 +115,12 @@ export default function useAdminPoint() {
     setPoints(updatepoint)
 
     let newDataBike
-    console.log(newPoint)
     if (newPoint.bike) newDataBike = ({ "bike": newPoint.bike, "points": newPoint.id })
     else newDataBike = ({ "bike": bike_id, "points": null })
 
 
 
-
-
     let updateBikes = bikes.map(function (bike) {
-      console.log(newDataBike.bike.id === bike.id)
       if (newDataBike.bike.id === bike.id) {
         if (newDataBike.points) bike.points = { "id": newDataBike.points }
         else bike.points = null

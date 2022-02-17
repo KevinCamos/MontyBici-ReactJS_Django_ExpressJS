@@ -22,7 +22,6 @@ const useDashboard = () => {
             bikeServices.returnMyRegisters()
                 .then((data) => {
                     var registers = data.data.results
-                    console.log(registers)
                     setCountRegister(data.data.count)
                     if (data.data.count > 0) {
                         setRegisters(registers)
@@ -124,7 +123,6 @@ const useDashboard = () => {
         let station_return = register.point_return ? register.point_return.station.name : "-";
         let data_return = register.point_return ? date_return.toLocaleString() : "-";
         let notification = register.id
-        console.log(register)
         return { station_get, data_get, station_return, data_return, time, notification};
     }
 

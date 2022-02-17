@@ -83,7 +83,6 @@ const useUser = () => {
 
   const checkAdmin = useCallback(
     () => {
-      // if (sessionStorage.token) {
         setIsJWTAdminLoading(true)
         userServices.checkAdmin()
           .then((data) => {
@@ -96,7 +95,6 @@ const useUser = () => {
             deleteUserOrError()
             setIsAdmin(false)
           });
-      // }
     },
     [setJWT, setUser]
   );

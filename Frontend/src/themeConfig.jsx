@@ -1,6 +1,6 @@
 import { createTheme } from "@mui/material/styles";
 const green = "#43A047";
-//Config theme settings
+
 const theme = createTheme({
   palette: {
     background: {

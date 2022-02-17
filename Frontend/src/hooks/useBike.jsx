@@ -23,7 +23,6 @@ export default function useBike() {
 
     (id_point) => {
 
-      console.log({ id_point: id_point });
       bikeServices
         .obtainBike({ id_point: id_point })
         .then((data) => {
@@ -52,7 +51,6 @@ export default function useBike() {
 
   const returnBike = useCallback(
     (id_point) => {
-      console.log({ id_point: id_point });
       bikeServices
         .returnBike({ id_point: id_point })
         .then((data) => {
@@ -68,7 +66,6 @@ export default function useBike() {
 
         })
         .catch((error) => {
-          // console.error(error.response.data.errors[0]);
           let detailerror = error.response.data.errors
           let errors = detailerror.detail ? detailerror.detail : detailerror[0];
           setErrorBike(errors);
@@ -91,13 +88,11 @@ export default function useBike() {
 
   const addBike = (id_point, data) => {
     let refreshStations = [...stations]
-    console.log(data)
     refreshStations.map((station) => station.points.map((point) => {
 
       if (point.id === id_point) point.bike = data.bike
       return point
     }))
-    console.log(refreshStations)
     setStations(refreshStations)
   }
 
@@ -109,7 +104,6 @@ export default function useBike() {
     else result = "primary";
 
     return result;
-    // return bike ? (bike.active ? "primary" : "secondary") : "disabled"
   }, []);
   const statusPoint = useCallback((point) => {
     let result;

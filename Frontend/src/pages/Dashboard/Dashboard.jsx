@@ -13,7 +13,6 @@ import { PedalBike, CalendarToday, WatchLater, House } from "@mui/icons-material
 const Dashboard = () => {     
                                                                                                                //Es mejor poner los handle en el componente o página
   const { isLoading, isError, countRegister, longerJourney, lastJourney, favStationGetter, favStationReturn, rows, handleChangePage, page, rowsPerPage } = useDashboard();
-  console.log(rowsPerPage)
   if (isLoading) {
     return (
       <>

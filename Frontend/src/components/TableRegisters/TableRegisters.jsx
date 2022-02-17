@@ -15,7 +15,6 @@ const TableRegisters = ({ rows, handleChangePage, handleChangeRowsPerPage, page,
     setIdRegister(id)
     setOpen(true)
   }; const handleClose = () => setOpen(false);
-  console.log(rowsPerPage, page)
 
   const columns = [
     { id: 'station_get', label: 'Estación de recogida' },
