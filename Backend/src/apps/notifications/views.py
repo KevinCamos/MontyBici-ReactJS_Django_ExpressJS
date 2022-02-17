@@ -18,8 +18,6 @@ from .models import Reason, Notification
 # PERMSISSIONS
 from src.apps.core.permissions import IsStaff, IsNotStaff
 
-
-from django.core.mail import send_mail
 from django_dbq.models import Job
 
 
@@ -103,20 +101,18 @@ class RegisterAPIView(APIView):
         data = {'checked': checked, 'admin_check': self_uuid}
         context = {'admin_check': self_uuid}
  
-        # checked=notification.admin_check
-        
+        isChecked=notification.admin_check
         serializer = self.serializer_class(
             instance=notification,  data=data, context=context, partial=True)
         serializer.is_valid(raise_exception=True)
         serializer.save()
-
-
-        job_value={
-            "name": notification.notif_user.user.username,
-            "email": notification.notif_user.user.email,
-            "reason": notification.reason.reason,
-            "usermessage": notification.message,
-        }
-        Job.objects.create(name="job_mail",workspace={"data": job_value})
+        if isChecked ==None:
+            job_value={
+                "name": notification.notif_user.user.username,
+                "email": notification.notif_user.user.email,
+                "reason": notification.reason.reason,
+                "usermessage": notification.message,
+            }
+            Job.objects.create(name="job_mail",workspace={"data": job_value} )
 
         return Response(serializer.data, status=status.HTTP_201_CREATED)

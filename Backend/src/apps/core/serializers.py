@@ -27,7 +27,6 @@ class DynamicFieldsModelSerializer(serializers.ModelSerializer):
 
 
 class EmailSerializer(serializers.Serializer):
-    # username = serializers.CharField(required=False, max_length=50, min_length=4)
     receiver = serializers.EmailField()
     subject = serializers.CharField(max_length=50, min_length=4)
     message = serializers.CharField(max_length=1000, min_length=30)

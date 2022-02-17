@@ -5,11 +5,11 @@ import useAdminPoint from "../../../hooks/Admin/useAdminPoint";
 import useAdminBike from "../../../hooks/Admin/useAdminBike";
 import Loading from "../../../components/Templates-Suspense/Loading"
 import AdminContext from '../../../context/Admin/AdminContext'
-
+import SwitchBike from "../../../components/Admin/SwitchBike/SwitchBike"
 export default function AdminPoint() {
-    const { isLoadingPoint, updatePoint, updatePointsBike, isBikeUpdate, setIsBikeUpdate, updateBikePoint } = useAdminPoint()
-    const { updateBike, pointIndex, setPointIndex,  isBikeLoading } = useAdminBike({ isPageAdminBike: false })
-    const { bikes, setBikes, points, setPoints } = useContext(AdminContext)
+    const { isLoadingPoint, updatePoint, updatePointsBike } = useAdminPoint()
+    const { isBikeLoading } = useAdminBike({ isPageAdminBike: false })
+    const { bikes, points } = useContext(AdminContext)
 
 
     return (
@@ -52,15 +52,12 @@ export default function AdminPoint() {
                                         } </TableCell>
                                         <TableCell align="center">{point.bike ? point.bike.id : <b>-</b>}</TableCell>
                                         {!point.bike ? <TableCell align="center"><b>-</b></TableCell> :
-                                            <TableCell align="center"> {point.bike.active
-                                                ? <Switch defaultValue={point ? point : false} value={point.bike.active ?? " "} defaultChecked onClick={(e) => updateBike(point.bike.id, !point.bike.active)} />
-                                                : <Switch defaultValue={point ? point : false} value={!point.bike.active ?? " "} onClick={(e) => updateBike(point.bike.id, !point.bike.active)} />
-                                            } </TableCell>}
+                                            <TableCell align="center"><SwitchBike bike={point.bike} /></TableCell>}
                                         <TableCell align="center">
                                             <FormControl fullWidth>
                                                 <InputLabel id="points">MontyPoints</InputLabel>
                                                 <Select
-                                                    onChange={e => updatePointsBike(point.id, e.target.value,  point.id)}
+                                                    onChange={e => updatePointsBike(point.id, e.target.value, point.id)}
 
                                                     inputProps={{ 'aria-label': 'Añade una bici' }}
                                                     defaultValue={point.bike ? point.bike.id : false}

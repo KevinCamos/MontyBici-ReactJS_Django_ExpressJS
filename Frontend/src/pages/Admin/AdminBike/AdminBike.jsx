@@ -3,9 +3,10 @@ import { Helmet } from "react-helmet";
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Switch, Box, Grid } from '@mui/material';
 import useAdminBike from "../../../hooks/Admin/useAdminBike";
 import Loading from "../../../components/Templates-Suspense/Loading"
+import SwitchBike from "../../../components/Admin/SwitchBike/SwitchBike"
 
 export default function AdminBike() {
-    const { bikes, isLoading: isBikeLoading, updateBike } = useAdminBike()
+    const { bikes,  isBikeLoading } = useAdminBike()
     return (
         <>
             {isBikeLoading && <Loading />}
@@ -40,11 +41,7 @@ export default function AdminBike() {
                                         <TableCell component="th" align="left">{bike.id}</TableCell>
                                         <TableCell align="center">{bike.points ? (bike.points.station ? bike.points.station.name : <b>-</b>) : <b>-</b>}</TableCell>
                                         <TableCell align="center">{bike.points ? bike.points.id : <b>-</b>}</TableCell>
-                                        <TableCell align="center"> {bike.active ?
-                                            <Switch value={bike.active ?? " "} defaultChecked onClick={(e) => updateBike(bike.id, !bike.active)}
-                                            />
-                                            : <Switch value={!bike.active ?? " "} onClick={(e) => updateBike(bike.id, !bike.active)} />
-                                        } </TableCell>
+                                        <TableCell align="center"> <SwitchBike bike={bike}/></TableCell>
                                     </TableRow>
 
 
