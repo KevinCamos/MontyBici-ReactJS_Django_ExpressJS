@@ -1,8 +1,6 @@
+import Api from './Api';
 
-import Api from './Api'
-  
-const userServices ={
-
+const userServices = {
   login(data) {
     return Api().post('auth/users/login', data);
   },
@@ -15,12 +13,7 @@ const userServices ={
   },
   checkAdmin() {
     return Api().get('auth/user-staff');
-  },
-
-
-}
+  }
+};
 
 export default userServices;
-
-
-

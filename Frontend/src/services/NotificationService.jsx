@@ -1,7 +1,6 @@
-import Api from './Api'
+import Api from './Api';
 
 const notificationService = {
-
   getReasons() {
     return Api().get('notifications/reasons/');
   },
@@ -12,8 +11,8 @@ const notificationService = {
     return Api().post('notifications/notification/', data);
   },
   checkNotification(data, id) {
-    return Api().put('notifications/notification/'+id, data);
-  },
-}
+    return Api().put(`notifications/notification/${id}`, data);
+  }
+};
 
 export default notificationService;

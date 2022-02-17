@@ -1,15 +1,18 @@
-import * as React from "react";
-import { Button } from "@mui/material";
-import useBike from "../../hooks/useBike";
+import * as React from 'react';
+import { Button } from '@mui/material';
+import useBike from '../../hooks/useBike';
 
-
-const ObtainBike = ({ id_point }) => {
-
+function ObtainBike({ id_point }) {
   const { obtainBike, errorBike } = useBike();
 
   return (
     <>
-      <Button variant="contained" color="success" alt="" onClick={() => obtainBike(id_point)}>
+      <Button
+        variant="contained"
+        color="success"
+        alt=""
+        onClick={() => obtainBike(id_point)}
+      >
         Pulsa aquí para obtener la bicicleta
       </Button>
 
@@ -17,4 +20,4 @@ const ObtainBike = ({ id_point }) => {
     </>
   );
 }
-export default ObtainBike
+export default ObtainBike;

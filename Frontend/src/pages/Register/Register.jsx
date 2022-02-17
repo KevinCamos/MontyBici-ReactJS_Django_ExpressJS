@@ -1,21 +1,28 @@
-import React from "react";
-import { Avatar, Button, CssBaseline, TextField, Box, Typography, Container, Grid } from "@mui/material";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import { Link } from "react-router-dom";
-import { useForm } from "react-hook-form";
-import Loading from "../../components/Templates-Suspense/Loading";
+import React from 'react';
+import {
+  Avatar,
+  Button,
+  CssBaseline,
+  TextField,
+  Box,
+  Typography,
+  Container,
+  Grid
+} from '@mui/material';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import { Link } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+import Loading from '../../components/Templates-Suspense/Loading';
 
-import useUser from "../../hooks/useUser";
+import useUser from '../../hooks/useUser';
 
-const StationPage = () => {
-
+function StationPage() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors }
   } = useForm();
   const { signup, state } = useUser();
-  console.log(errors);
 
   return (
     <Container component="main" maxWidth="xs">
@@ -23,21 +30,25 @@ const StationPage = () => {
       <Box
         sx={{
           marginTop: 8,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center'
         }}
       >
-        <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
-        <Box component="form" noValidate onSubmit={handleSubmit(signup)} sx={{ mt: 3 }}>
+        <Box
+          component="form"
+          noValidate
+          onSubmit={handleSubmit(signup)}
+          sx={{ mt: 3 }}
+        >
           {state.loading ? (
-            <Loading text={"Registrando usuario..."} />
-
+            <Loading text="Registrando usuario..." />
           ) : (
             <>
               <Grid container spacing={2}>
@@ -50,14 +61,34 @@ const StationPage = () => {
                     id="username"
                     label="Username"
                     autoFocus
-                    {...register("username", { required: true, max: 16, min: 4, maxLength: 100 })}
+                    {...register('username', {
+                      required: true,
+                      max: 16,
+                      min: 4,
+                      maxLength: 100
+                    })}
                   />
-                  {errors.username && <small  >El nombre de usuario es requerido</small>}
+                  {errors.username && (
+                    <small>El nombre de usuario es requerido</small>
+                  )}
                 </Grid>
 
                 <Grid item xs={12}>
-                  <TextField required fullWidth id="email" label="Email Address" name="email" autoComplete="email" {...register("email", { required: true, pattern: /^\S+@\S+$/i })} />
-                  {errors.email && <small className="error">El email es requerido</small>}
+                  <TextField
+                    required
+                    fullWidth
+                    id="email"
+                    label="Email Address"
+                    name="email"
+                    autoComplete="email"
+                    {...register('email', {
+                      required: true,
+                      pattern: /^\S+@\S+$/i
+                    })}
+                  />
+                  {errors.email && (
+                    <small className="error">El email es requerido</small>
+                  )}
                 </Grid>
                 <Grid item xs={12}>
                   <TextField
@@ -68,22 +99,50 @@ const StationPage = () => {
                     type="password"
                     id="password"
                     autoComplete="new-password"
-                    {...register("password", { required: true, max: 16, min: 8, maxLength: 16 })}
+                    {...register('password', {
+                      required: true,
+                      max: 16,
+                      min: 8,
+                      maxLength: 16
+                    })}
                   />
-                  {errors.password && <small className="error">El password es requerido</small>}
+                  {errors.password && (
+                    <small className="error">El password es requerido</small>
+                  )}
                 </Grid>
                 <Grid item xs={12}>
-                  <TextField required fullWidth name="password2" label="Repeat-Password" type="password" id="password2" {...register("password2")} />
-                  {state.errorPassword && <small className="error">Debe repetir la misma contraseña</small>}
+                  <TextField
+                    required
+                    fullWidth
+                    name="password2"
+                    label="Repeat-Password"
+                    type="password"
+                    id="password2"
+                    {...register('password2')}
+                  />
+                  {state.errorPassword && (
+                    <small className="error">
+                      Debe repetir la misma contraseña
+                    </small>
+                  )}
                 </Grid>
               </Grid>
-              {state.error && <span className="error">Ha habido algún problema con el registro</span>}
-              <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
+              {state.error && (
+                <span className="error">
+                  Ha habido algún problema con el registro
+                </span>
+              )}
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+              >
                 Sign Up
               </Button>
               <Grid container justifyContent="flex-end">
                 <Grid item>
-                  <Link href="#" variant="body2" to={"/Login"}>
+                  <Link href="#" variant="body2" to="/Login">
                     Already have an account? Sign in
                   </Link>
                 </Grid>
@@ -95,4 +154,4 @@ const StationPage = () => {
     </Container>
   );
 }
-export default StationPage
+export default StationPage;

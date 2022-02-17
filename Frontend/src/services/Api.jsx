@@ -1,11 +1,12 @@
-import axios from "axios";
-import SERVER_URL from '../secrets'
+import axios from 'axios';
+import SERVER_URL from '../secrets';
+
 const Api = () => {
   const axiosInstance = axios.create({
-    baseURL: SERVER_URL,
+    baseURL: SERVER_URL
   });
 
-  const token = sessionStorage.getItem("token");
+  const token = sessionStorage.getItem('token');
   if (token) {
     axiosInstance.defaults.headers.common.Authorization = `Token ${token}`;
   }
@@ -15,12 +16,11 @@ const Api = () => {
     (error) => {
       console.log(error);
       if (error.response.status === 401) {
-        sessionStorage.removeItem("token");
-        sessionStorage.removeItem("user");
+        sessionStorage.removeItem('token');
+        sessionStorage.removeItem('user');
 
         // USER_REMOVE
       }
-
 
       return Promise.reject(error);
     }
@@ -28,4 +28,4 @@ const Api = () => {
 
   return axiosInstance;
 };
-export default Api
+export default Api;

@@ -1,20 +1,36 @@
-import * as React from "react";
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button } from '@mui/material';
+import * as React from 'react';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  Button
+} from '@mui/material';
 
 import TablePagination from '@mui/material/TablePagination';
-import NotificationModal from '../NotificationModal/NotificationModal'
-import useNotifications from "../../hooks/useNotifications";
+import NotificationModal from '../NotificationModal/NotificationModal';
+import useNotifications from '../../hooks/useNotifications';
 
 // https://mui.com/components/tabs/
-const TableRegisters = ({ rows, handleChangePage, handleChangeRowsPerPage, page, rowsPerPage }) => {
-  const { open, setOpen} = useNotifications();
+function TableRegisters({
+  rows,
+  handleChangePage,
+  handleChangeRowsPerPage,
+  page,
+  rowsPerPage
+}) {
+  const { open, setOpen } = useNotifications();
 
   const [idRegister, setIdRegister] = React.useState(false);
 
   const handleOpen = (id) => {
-    setIdRegister(id)
-    setOpen(true)
-  }; const handleClose = () => setOpen(false);
+    setIdRegister(id);
+    setOpen(true);
+  };
+  const handleClose = () => setOpen(false);
 
   const columns = [
     { id: 'station_get', label: 'Estación de recogida' },
@@ -22,12 +38,15 @@ const TableRegisters = ({ rows, handleChangePage, handleChangeRowsPerPage, page,
     { id: 'station_return', label: 'Estación de devolución' },
     { id: 'data_return', label: 'Data de devolución' },
     { id: 'time', label: 'Tiempo transcurrido' },
-    { id: 'notification', label: 'Notificar Incidencia' },
-
+    { id: 'notification', label: 'Notificar Incidencia' }
   ];
   return (
     <>
-      <NotificationModal open={open} handleClose={handleClose} id={idRegister} />
+      <NotificationModal
+        open={open}
+        handleClose={handleClose}
+        id={idRegister}
+      />
       <Paper sx={{ width: '100%', overflow: 'hidden' }}>
         <TableContainer sx={{ maxHeight: 440 }}>
           <Table stickyHeader aria-label="sticky table">
@@ -46,23 +65,34 @@ const TableRegisters = ({ rows, handleChangePage, handleChangeRowsPerPage, page,
             <TableBody>
               {rows
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((row, index) => {
-                  return (
-                    <TableRow hover role="checkbox" tabIndex={-1} key={`TableRow${index}`}>
-                      {columns.map((column) => {
-                        const value = row[column.id];
-                        return (
-                          <TableCell key={column.id}>
-                            {typeof value === 'number'
-
-                              ? <Button variant="contained" onClick={() => { handleOpen(value) }}>Notificar Incidencia</Button>
-                              : value}
-                          </TableCell>
-                        );
-                      })}
-                    </TableRow>
-                  );
-                })}
+                .map((row, index) => (
+                  <TableRow
+                    hover
+                    role="checkbox"
+                    tabIndex={-1}
+                    key={`TableRow${index}`}
+                  >
+                    {columns.map((column) => {
+                      const value = row[column.id];
+                      return (
+                        <TableCell key={column.id}>
+                          {typeof value === 'number' ? (
+                            <Button
+                              variant="contained"
+                              onClick={() => {
+                                handleOpen(value);
+                              }}
+                            >
+                              Notificar Incidencia
+                            </Button>
+                          ) : (
+                            value
+                          )}
+                        </TableCell>
+                      );
+                    })}
+                  </TableRow>
+                ))}
             </TableBody>
           </Table>
         </TableContainer>
@@ -76,9 +106,7 @@ const TableRegisters = ({ rows, handleChangePage, handleChangeRowsPerPage, page,
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
       </Paper>
-
     </>
   );
-
 }
-export default TableRegisters
+export default TableRegisters;

@@ -1,21 +1,20 @@
-import "./App.css";
-import * as React from "react";
-import theme from "./themeConfig";
-
-import MyRouter from "./router";
-import { ThemeProvider } from "@mui/material/styles";
+import { ThemeProvider } from '@mui/material/styles';
 import { SnackbarProvider } from 'notistack';
+import * as React from 'react';
+import './App.css';
+import MyRouter from './router';
+import theme from './themeConfig';
 
 function App() {
-  document.title = "MontyBici";
+  document.title = 'MontyBici';
 
   return (
     <div className="App">
       <div className="App-header">
-        <ThemeProvider theme={theme}> 
-        {/* SnackBarProvider sirve para limitar el máximo de mensajes al estilo de Toaster */}
+        <ThemeProvider theme={theme}>
+          {/* SnackBarProvider sirve para limitar el máximo de mensajes al estilo de Toaster */}
           <SnackbarProvider maxSnack={3}>
-          <MyRouter />
+            <MyRouter />
           </SnackbarProvider>
         </ThemeProvider>
       </div>

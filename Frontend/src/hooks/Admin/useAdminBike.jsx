@@ -1,65 +1,76 @@
-import { useCallback, useState, useEffect, useContext } from "react";
-import bikeServices from "../../services/BikeServices";
-
-
-import AdminContext from '../../context/Admin/AdminContext'
-
+import { useCallback, useState, useContext } from 'react';
 import { useSnackbar } from 'notistack';
+import bikeServices from '../../services/BikeServices';
 
+import AdminContext from '../../context/Admin/AdminContext';
 
-export default function useAdminBike(page = { isPageAdminBike: true }) {
-  const { bikes, setBikes, points, setPoints, isBikeLoading, setIsBikeLoading } = useContext(AdminContext)
+export default function useAdminBike() {
+  const {
+    bikes,
+    setBikes,
+    points,
+    setPoints,
+    isBikeLoading,
+    setIsBikeLoading
+  } = useContext(AdminContext);
   const { enqueueSnackbar } = useSnackbar();
   const [pointIndex, setPointIndex] = useState(-1);
+  const indexUpdateArrayPoints = useCallback(
+    (idBike, active) => {
+      const index = points.findIndex((point) => {
+        if (point.bike) {
+          return point.bike.id === idBike;
+        }
+      });
+      const updatePoints = [...points];
+      updatePoints[index].bike.active = active;
+      setPoints(updatePoints);
+    },
+    [points]
+  );
+
+  const updateArrayBike = useCallback(
+    (idBike) => {
+      const index = bikes.findIndex((bike) => bike.id === idBike);
+      const updatebike = [...bikes];
+      updatebike[index].active = !updatebike[index].active;
+      setBikes(updatebike);
+    },
+    [bikes]
+  );
 
   const updateBike = useCallback(
-    (id_bike, active) => {
-      setIsBikeLoading(true)
-      let data = { "id_bike": id_bike, "active": active }
+    (idBike, active) => {
+      setIsBikeLoading(true);
+      const data = { id_bike: idBike, active };
       bikeServices
         .updateBike(data)
-        .then((data) => {
-          updateArrayBike(id_bike)
-          if (points.length>0) indexUpdateArrayPoints(id_bike, data.data.active)
-          enqueueSnackbar('Bicicleta modificada con éxito.', { variant: 'success' });
-          setIsBikeLoading(false)
+        .then((response) => {
+          updateArrayBike(idBike);
+          if (points.length > 0)
+            indexUpdateArrayPoints(idBike, response.data.active);
+          enqueueSnackbar('Bicicleta modificada con éxito.', {
+            variant: 'success'
+          });
+          setIsBikeLoading(false);
         })
         .catch((error) => {
-          console.log(error)
-          enqueueSnackbar('Ha habido algún problema y no se ha hecho ninguna modifición.', { variant: 'error' });
-          setIsBikeLoading(false)
+          enqueueSnackbar(
+            'Ha habido algún problema y no se ha hecho ninguna modifición.',
+            { variant: 'error' }
+          );
+          setIsBikeLoading(false);
         });
     },
     [bikes, points]
   );
 
-
-  const updateArrayBike = useCallback((id_bike) => {
-    let index = bikes.findIndex((bike) => {
-      return bike.id === id_bike
-    })
-    let updatebike = [...bikes]
-    updatebike[index].active = !updatebike[index].active;
-    setBikes(updatebike)
-  },
-    [bikes]
-  );
-
-
-  const indexUpdateArrayPoints = useCallback((id_bike,active) => {
-    let index = points.findIndex(function (point) {
-      if (point.bike) {
-        return point.bike.id === id_bike
-      }
-    })
-    let updatePoints = [...points]
-    updatePoints[index].bike.active = active;
-    setPoints(updatePoints)
-
-  },
-    [points]
-  );
-
-
-  return { bikes, setBikes, isLoading: isBikeLoading, updateBike, pointIndex, setPointIndex };
+  return {
+    bikes,
+    setBikes,
+    isLoading: isBikeLoading,
+    updateBike,
+    pointIndex,
+    setPointIndex
+  };
 }

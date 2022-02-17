@@ -1,13 +1,13 @@
-import React from "react";
-import { Helmet } from "react-helmet";
+import React from 'react';
+import { Helmet } from 'react-helmet';
 
-import ListOfStations from "../../components/ListOfStations/ListOfStations";
-import useStation from "../../hooks/useStation";
+import { ThemeProvider } from '@mui/material/styles';
+import ListOfStations from '../../components/ListOfStations/ListOfStations';
+import useStation from '../../hooks/useStation';
 
-import { ThemeProvider } from "@mui/material/styles";
-import theme from "../Themes/themeCard";
-const StationPage = () => {
+import theme from '../Themes/themeCard';
 
+function StationPage() {
   const { stations } = useStation();
   return (
     <>
@@ -21,4 +21,4 @@ const StationPage = () => {
     </>
   );
 }
-export default StationPage
+export default StationPage;

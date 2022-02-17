@@ -1,8 +1,6 @@
-
-import Api from './Api'
+import Api from './Api';
 
 const pointServices = {
-
   getPointsStations() {
     return Api().get('stations/getpoints/');
   },
@@ -11,9 +9,7 @@ const pointServices = {
   },
   updatePointsBike(data) {
     return Api().put('stations/updatepointsbike/', data);
-  },
-}
-
+  }
+};
 
 export default pointServices;
-

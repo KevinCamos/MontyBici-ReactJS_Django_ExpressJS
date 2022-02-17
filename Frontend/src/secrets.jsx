@@ -1,6 +1,3 @@
+const SERVER_URL = 'http://localhost:8000/api/';
 
-
-const SERVER_URL = 'http://localhost:8000/api/'
-
-
-export default SERVER_URL
+export default SERVER_URL;

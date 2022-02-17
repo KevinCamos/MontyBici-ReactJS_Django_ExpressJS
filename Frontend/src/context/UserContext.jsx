@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import userServices from "../services/UserServices";
+import React, { useState } from 'react';
+import userServices from '../services/UserServices';
 
 const Context = React.createContext({});
 
@@ -11,25 +11,24 @@ export function UserContextProvider({ children }) {
       userServices
         .checkUser()
         .then((data) => {
-          let dataUser = data.data.user;
-          sessionStorage.setItem("token", dataUser.token);
+          const dataUser = data.data.user;
+          sessionStorage.setItem('token', dataUser.token);
           setJWT(dataUser.token);
 
           setUser(dataUser);
           setIsJWTLoading(false);
           if (dataUser.profile.registers) {
-            setIsRegisters(true)
+            setIsRegisters(true);
           } else {
-            setIsRegisters(false)
+            setIsRegisters(false);
           }
-
         })
         .catch((error) => {
-          sessionStorage.removeItem("token");
+          sessionStorage.removeItem('token');
           setJWT(null);
           setIsJWTLoading(false);
-          setIsRegisters(false)
-          setUser(null)
+          setIsRegisters(false);
+          setUser(null);
           error.log(error);
         });
     } else {
@@ -41,7 +40,22 @@ export function UserContextProvider({ children }) {
   const [jwt, setJWT] = useState(() => checkUser());
   const [user, setUser] = useState(null);
 
-  return <Context.Provider value={{ jwt, setJWT, user, setUser, isJWTLoading, setIsJWTLoading, isRegisters, setIsRegisters }}>{children}</Context.Provider>;
+  return (
+    <Context.Provider
+      value={{
+        jwt,
+        setJWT,
+        user,
+        setUser,
+        isJWTLoading,
+        setIsJWTLoading,
+        isRegisters,
+        setIsRegisters
+      }}
+    >
+      {children}
+    </Context.Provider>
+  );
 }
 
 export default Context;

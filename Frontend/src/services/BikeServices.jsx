@@ -1,8 +1,6 @@
-
-import Api from './Api'
+import Api from './Api';
 
 const bikeServices = {
-
   obtainBike(data) {
     return Api().post('bikes/register/', data);
   },
@@ -17,8 +15,7 @@ const bikeServices = {
   },
   updateBike(data) {
     return Api().put('bikes/updatebike/', data);
-  },
-}
+  }
+};
 
 export default bikeServices;
-

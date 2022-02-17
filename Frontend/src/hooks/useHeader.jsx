@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState } from 'react';
 
 const useHeader = () => {
   const [anchorElNav, setAnchorElNav] = useState(null);
@@ -19,10 +19,20 @@ const useHeader = () => {
     setAnchorElUser(null);
   };
 
-  const pagesLogged = ["Stations"];
-  const pagesNoLogged = ["login", "register", "admin"];
-  const settings = [ "dashboard"];
-  return { anchorElNav, anchorElUser, handleOpenNavMenu, handleOpenUserMenu, handleCloseNavMenu, handleCloseUserMenu, pagesLogged, pagesNoLogged, settings };
-}
+  const pagesLogged = ['Stations'];
+  const pagesNoLogged = ['login', 'register', 'admin'];
+  const settings = ['dashboard'];
+  return {
+    anchorElNav,
+    anchorElUser,
+    handleOpenNavMenu,
+    handleOpenUserMenu,
+    handleCloseNavMenu,
+    handleCloseUserMenu,
+    pagesLogged,
+    pagesNoLogged,
+    settings
+  };
+};
 
-export default useHeader
+export default useHeader;
