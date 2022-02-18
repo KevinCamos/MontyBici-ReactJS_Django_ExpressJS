@@ -7,6 +7,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
+import dj_database_url
 import os
 from pathlib import Path
 
@@ -27,17 +28,16 @@ env = environ.Env(
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY =os.environ.get('SECRET_KEY')
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '123.0.0.1']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -100,18 +100,18 @@ WSGI_APPLICATION = 'src.wsgi.application'
 
 # Database
 # https://dev.to/sm0ke/how-to-use-mysql-with-django-for-beginners-2ni0
-
+DATABASES = {'default': dj_database_url.config()}
+# we only need the engine name, as heroku takes care of the rest
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'MontyBici',
-        'USER': 'root',
-        'PASSWORD': 'root',
-        'HOST': 'localhost',
-        # 'HOST': 'mysql_db',      #<- Nombre del contenedor de docker de mysql
-        'PORT': '3306',
+    "default": {
+        'ENGINE': 'django.db.backends.mysql'
     }
 }
+# try to load local_settings.py if it exists
+try:
+    from local_settings import *
+except Exception as e:
+    pass
 # Take environment variables from .env file
 environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 # https://github.com/anymail/django-anymail
