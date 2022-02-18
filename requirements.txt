@@ -8,6 +8,7 @@ django-db-queue==3.0.0
 django-dotenv==1.4.2
 django-environ==0.8.1
 django-heroku==0.3.1
+django-on-heroku==1.1.2
 django-anymail==8.5
 Pillow==9.0.1
 psycopg2==2.9.3

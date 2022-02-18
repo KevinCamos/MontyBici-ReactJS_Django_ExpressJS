@@ -14,7 +14,6 @@ from pathlib import Path
 import environ
 import django_heroku
 
-django_heroku.settings(locals())
 
 # https://django-environ.readthedocs.io/en/latest/getting-started.html#installation
 env = environ.Env(
@@ -25,7 +24,8 @@ env = environ.Env(
 
 # print("_----------",os.environ.get(AWS_ACCESS_KEY_ID))
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
 
 # Quick-start development settings - unsuitable for production
@@ -171,8 +171,13 @@ DATE_INPUT_FORMATS = ('%Y-%m-%d %H:%M:%S')
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
-
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
 STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [
+    os.path.join(PROJECT_ROOT, 'static'),
+]
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # REST_FRAMEWORK = {
 #     'DEFAULT_PERMISSION_CLASSES': [
@@ -223,3 +228,7 @@ JOBS = {
         "failure_hook": "src.apps.core.jobs.notification_mail_fail",
     },
 }
+
+
+
+django_heroku.settings(locals())
