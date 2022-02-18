@@ -125,7 +125,7 @@ Lista de tecnologías utilizadas en este proyecto:
 
 `Frontend` 🏛️
 
-- [Vue3](https://vue3.org): V3
+- [React](https://reactjs.org/) v17.0.2
   - Hooks
   - Routing
   - AuthGuard/AuthAdmin
