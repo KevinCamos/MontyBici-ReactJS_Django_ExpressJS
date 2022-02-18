@@ -1,0 +1,5 @@
+MAILGUN_API_KEY=974c0efeadb5e80f5632b9bdea87a3ef-c3d1d1eb-9175802f
+MAILGUN_SENDER_DOMAIN=sandbox21abdfd5e649478b9d3ad0e51995de38.mailgun.org
+DEFAULT_FROM_EMAIL=kevincamossoto@gmail.com
+SERVER_EMAIL=kevincamossoto@gmail.com
+SECRET_KEY="@1t_msb4qfd&9ag0im-w-_)z0u#@7hcraypd+fuuyasmu)6d1l"
