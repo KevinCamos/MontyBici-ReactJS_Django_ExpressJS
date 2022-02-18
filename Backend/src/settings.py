@@ -100,13 +100,16 @@ WSGI_APPLICATION = 'src.wsgi.application'
 
 # Database
 # https://dev.to/sm0ke/how-to-use-mysql-with-django-for-beginners-2ni0
-DATABASES = {'default': dj_database_url.config()}
+
 # we only need the engine name, as heroku takes care of the rest
 DATABASES = {
     "default": {
-        'ENGINE': 'django.db.backends.mysql'
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME':BASE_DIR / 'db.sqlite3',
     }
 }
+DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
+
 # try to load local_settings.py if it exists
 try:
     from local_settings import *

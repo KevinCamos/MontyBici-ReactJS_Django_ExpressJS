@@ -1,0 +1,6 @@
+set/export MAILGUN_API_KEY=<>
+set/export MAILGUN_SENDER_DOMAIN=<>
+set/export DEFAULT_FROM_EMAIL=<>
+set/export SERVER_EMAIL=<>
+set/export SECRET_KEY=<>
+set/export DATABASE_URL=<>
