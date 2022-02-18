@@ -14,9 +14,9 @@ Por  [`Kevin Camos Soto`](https://github.com/KevinCamos)
 # ¡MontyBici! 💻
 
 Bienvenidas y bienvenidos a MontyBici
-<img src="./img/orders.gif">
+<img src="./img/1.-ObtainBike.gif">
 
-`¿Qué es VueJS_Laravel_Golang-Gin-Go-MySQL?`
+`¿Qué es MontyBici-React_Django-MySQL?`
 
 MontyBici es el tercer y último proyecto del curso `2º de DAW`. Realizado  por `KevinCamos` con:
 
@@ -32,6 +32,8 @@ MontyBici es el tercer y último proyecto del curso `2º de DAW`. Realizado  por
 4. **Dashboard:**
    Puedes acceder a datos como el viaje más largo, estación donde coges la bici que más usas al igual que donde la dejas. También te proporciona una tabla con paginación, donde puedes acceder a todos los datos de tus viajes, además de poder enviar a los administradores una incidencia en relación a cualquiera de estos.
 
+<img src="./img/2.-Dashboard.gif">
+
 ##### `Para toda la vista de usuario hay un AuthGuard que solo te permite entrar si eres un usuario de la aplicación`
 
 ## Panel Admin
@@ -45,6 +47,7 @@ MontyBici es el tercer y último proyecto del curso `2º de DAW`. Realizado  por
     Te permite gestionar el estado de las bicicletas
 4. **Notifiactions:**
    Además de poder ver el total de notificaciones por resolver, te ofrece un acordeon con todas las incidencias y todos los datos sobre estas. Al marcarlas como leidas se envía un correo al usuario para notificarle de que se ha tenido en cuenta su mensaje.
+<img src="./img/3.-CreateStation.gif">
 
 ##### `Para toda la vista de usuario hay un AuthGuard que solo te permite entrar si eres un ADMINISTRADOR de la aplicación`
 
@@ -70,6 +73,7 @@ Tener instalado las siguientes herramientas:
   $ python3 manage.py migrate
   $ python3 manage.py createsuperuser
   ```
+<img src="./img/4.-UpdatePointsBikes.gif">
 
 - [Node](https://ubunlog.com/php-8-0-instalar-lenguaje-en-ubuntu/) v16.13.1.
 - [React](https://reactjs.org/) v17.0.2
@@ -88,6 +92,7 @@ $ python3 manage.py runserver 0.0.0.0:8000
 ```
 
 
+<img src="./img/5.-Notifications.gif">
 
 
 
