@@ -10,8 +10,8 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 import os
 from pathlib import Path
 
-import django_heroku
 import environ
+import django_heroku
 
 django_heroku.settings(locals())
 
@@ -32,7 +32,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ('SECRET_KEY')
+SECRET_KEY =os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -117,17 +117,17 @@ environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 # https://github.com/anymail/django-anymail
 ANYMAIL = {
     # (exact settings here depend on your ESP...)
-    "MAILGUN_API_KEY": env('MAILGUN_API_KEY'),
+    "MAILGUN_API_KEY": os.environ.get('MAILGUN_API_KEY'),
     # your Mailgun domain, if needed
-    "MAILGUN_SENDER_DOMAIN": env('MAILGUN_SENDER_DOMAIN'),
+    "MAILGUN_SENDER_DOMAIN": os.environ.get('MAILGUN_SENDER_DOMAIN'),
 }
 
 # or sendgrid.EmailBackend, or...
 EMAIL_BACKEND = "anymail.backends.mailgun.EmailBackend"
 # if you don't already have this in settings
-DEFAULT_FROM_EMAIL = env('DEFAULT_FROM_EMAIL')
+DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL')
 # ditto (default from-email for Django errors)
-SERVER_EMAIL = env('SERVER_EMAIL')
+SERVER_EMAIL = os.environ.get('SERVER_EMAIL')
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
 
