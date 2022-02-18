@@ -7,9 +7,13 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
-from pathlib import Path
-import environ
 import os
+from pathlib import Path
+import django_heroku
+import environ
+
+django_heroku.settings(locals())
+
 # https://django-environ.readthedocs.io/en/latest/getting-started.html#installation
 env = environ.Env(
     # set casting, default value
@@ -27,7 +31,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '@1t_msb4qfd&9ag0im-w-_)z0u#@7hcraypd+fuuyasmu)6d1l'
+SECRET_KEY = os.environ('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
