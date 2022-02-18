@@ -104,8 +104,8 @@ WSGI_APPLICATION = 'src.wsgi.application'
 # we only need the engine name, as heroku takes care of the rest
 DATABASES = {
     "default": {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME':BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
