@@ -1,0 +1,906 @@
+{
+	"info": {
+		"_postman_id": "4f4f2650-b5bf-42df-9af4-d67b78f8478e",
+		"name": "MontyBici",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Bikes",
+			"item": [
+				{
+					"name": "Register Get Bike",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MiwiZXhwIjoxNjQ4NzQyODIxfQ.y4wHs3xKj7XWStZ3_3S-5NJruGTNVOSZHWQ8D2aZ_ww",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "   {\r\n            \"id_point\":1\r\n   }     ",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/bikes/register/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"bikes",
+								"register",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "My Registers",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwiZXhwIjoxNjQ1ODgwNjM3fQ.FuZ9mbF5yEj8jK82TjPtJo-ULNpYuQpgg1fEJ93PkFA",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/bikes/myregisters/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"bikes",
+								"myregisters",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Bikes",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwiZXhwIjoxNjQ1ODgwNjM3fQ.FuZ9mbF5yEj8jK82TjPtJo-ULNpYuQpgg1fEJ93PkFA",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 3,\r\n    \"active\": false,\r\n    \"station\": {\r\n        \"name\": \"Developer WEB\"\r\n    },\r\n    \"bike\": {\r\n        \"id\": 1,\r\n        \"active\": true\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/bikes/getbikes?=Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwiZXhwIjoxNjQ1ODgwNjM3fQ.FuZ9mbF5yEj8jK82TjPtJo-ULNpYuQpgg1fEJ93PkFA",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"bikes",
+								"getbikes"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwiZXhwIjoxNjQ1ODgwNjM3fQ.FuZ9mbF5yEj8jK82TjPtJo-ULNpYuQpgg1fEJ93PkFA"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Bikes Not Points",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6NywiZXhwIjoxNjQ5NDQzNDg0fQ.NdkdLTNaUt-Op5_rGn3kSilvLxMj4rzBKG1sKKufOz8",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/bikes/getbikes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"bikes",
+								"getbikes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Bikes",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwiZXhwIjoxNjQ1ODgwNjM3fQ.FuZ9mbF5yEj8jK82TjPtJo-ULNpYuQpgg1fEJ93PkFA",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id_bike\":13,\r\n    \"active\":true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/bikes/updatebike/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"bikes",
+								"updatebike",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register Return Bike",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MiwiZXhwIjoxNjQ4NzQyODIxfQ.y4wHs3xKj7XWStZ3_3S-5NJruGTNVOSZHWQ8D2aZ_ww",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "   {\r\n            \"id_point\":1\r\n   }       ",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/bikes/register/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"bikes",
+								"register",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Notifications",
+			"item": [
+				{
+					"name": "Check Notification",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MiwiZXhwIjoxNjQ4NzQyODIxfQ.y4wHs3xKj7XWStZ3_3S-5NJruGTNVOSZHWQ8D2aZ_ww",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "   {\r\n            \"checked\":true\r\n   }       ",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/notifications/notification/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"notifications",
+								"notification",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Reasons",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwiZXhwIjoxNjQ1ODgwNjM3fQ.FuZ9mbF5yEj8jK82TjPtJo-ULNpYuQpgg1fEJ93PkFA",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id_point\":13,\r\n    \"active\":false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/notifications/reasons/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"notifications",
+								"reasons",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Notifications Not Checked",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwiZXhwIjoxNjQ1ODgwNjM3fQ.FuZ9mbF5yEj8jK82TjPtJo-ULNpYuQpgg1fEJ93PkFA",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id_point\":13,\r\n    \"active\":false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/notifications/notification/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"notifications",
+								"notification",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Notification",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MiwiZXhwIjoxNjQ4NzQyODIxfQ.y4wHs3xKj7XWStZ3_3S-5NJruGTNVOSZHWQ8D2aZ_ww",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "   {\r\n            \"id_register\":8,\r\n            \"id_reason\":1,\r\n            \"message\":\"Problema de prueba\"\r\n   }       ",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/notifications/notification/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"notifications",
+								"notification",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Stations",
+			"item": [
+				{
+					"name": "Get Stations",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"slug\": \"sdfddamsfklsdaf\",\r\n    \"name\": \"13 rosas\",\r\n    \"direction\": \"Av. Albaida, 42\",\r\n    \"location\": \"Ontinyent\",\r\n    \"img\":\"klmasdf\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/stations/station/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"stations",
+								"station",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Station",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwiZXhwIjoxNjQ1NjQxMjI4fQ.5mNH5zSS-uGEMhsK1_XSXHZVha-8yNze5uGJktlC_lU",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"station\": {\r\n        \"name\": \"2\",\r\n        \"direction\": \"C/ de (1+1) === 7\",\r\n        \"location\": \"Ontinyent\"\r\n    },\r\n    \"points\": 4,\r\n    \"bikes\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/stations/station-admin/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"stations",
+								"station-admin",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Station Copy",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwiZXhwIjoxNjQ1NjQxMjI4fQ.5mNH5zSS-uGEMhsK1_XSXHZVha-8yNze5uGJktlC_lU",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/stations/station-admin/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"stations",
+								"station-admin",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Station",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwiZXhwIjoxNjQ1NjQxMjI4fQ.5mNH5zSS-uGEMhsK1_XSXHZVha-8yNze5uGJktlC_lU",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "station",
+									"value": "  {\n        \"direction\": \"C/ el lado oscuro\",\n        \"location\": \"Ontinyent\"}",
+									"contentType": "application/json",
+									"type": "text"
+								},
+								{
+									"key": "img",
+									"type": "file",
+									"src": "/C:/Users/kevin/Desktop/mediamonty/station1.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/stations/station-admin/vader-sw1sw6",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"stations",
+								"station-admin",
+								"vader-sw1sw6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Station",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwiZXhwIjoxNjQ1NjQxMjI4fQ.5mNH5zSS-uGEMhsK1_XSXHZVha-8yNze5uGJktlC_lU",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "station",
+									"value": "",
+									"contentType": "application/json",
+									"type": "text"
+								},
+								{
+									"key": "img",
+									"type": "file",
+									"src": "/C:/Users/kevin/Desktop/mediamonty/station1.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/stations/station-admin/lorena-js-czvds9",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"stations",
+								"station-admin",
+								"lorena-js-czvds9"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user\": {\r\n        \"username\": \"yomogan\",\r\n        \"email\": \"yomogan@gmail.com\",\r\n        \"password\": \"yomogana\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/auth/users/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"auth",
+								"users",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Profile Admin",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwiZXhwIjoxNjQ1NTczMDEzfQ.thUGeKepwgQVXje8RVemlpc0Y3zdCa242qO4Wbo6Nc8",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/auth/user-staff/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"auth",
+								"user-staff",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Profile",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MiwiZXhwIjoxNjQ4NzQyODIxfQ.y4wHs3xKj7XWStZ3_3S-5NJruGTNVOSZHWQ8D2aZ_ww",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/auth/user/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"auth",
+								"user",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user\": {\r\n        \"email\": \"kevin@gmail.com\",\r\n        \"password\": \"kevin\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/auth/users/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"auth",
+								"users",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login Admin",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user\": {\r\n        \"email\": \"kevin@gmail.com\",\r\n        \"password\": \"kevin\",\r\n        \"is_staff\":true\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/auth/users/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"auth",
+								"users",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Points",
+			"item": [
+				{
+					"name": "Update Points",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwiZXhwIjoxNjQ1ODgwNjM3fQ.FuZ9mbF5yEj8jK82TjPtJo-ULNpYuQpgg1fEJ93PkFA",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id_point\":13,\r\n    \"active\":false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/stations/updatepoint/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"stations",
+								"updatepoint",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update PointsBike",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwiZXhwIjoxNjQ1ODgwNjM3fQ.FuZ9mbF5yEj8jK82TjPtJo-ULNpYuQpgg1fEJ93PkFA",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id_point\":3,\r\n    \"id_bike\":false\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/stations/updatepointsbike/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"stations",
+								"updatepointsbike",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Points",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwiZXhwIjoxNjQ1ODgwNjM3fQ.FuZ9mbF5yEj8jK82TjPtJo-ULNpYuQpgg1fEJ93PkFA",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id_point\":13,\r\n    \"active\":false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/stations/getpoints/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"stations",
+								"getpoints",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
