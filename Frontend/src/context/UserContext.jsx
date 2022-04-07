@@ -39,7 +39,6 @@ export function UserContextProvider({ children }) {
   const [isRegisters, setIsRegisters] = useState(false);
   const [jwt, setJWT] = useState(() => checkUser());
   const [user, setUser] = useState(null);
-
   return (
     <Context.Provider
       value={{

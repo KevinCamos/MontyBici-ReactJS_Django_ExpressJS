@@ -6,17 +6,25 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 
 export default function PaymentForm() {
+  const messageError = admin
+  ? '¿Tus credenciales son correctas para entrar?'
+  : '¿Has escrito bien tu email y password?';
+const {
+  register,
+  handleSubmit,
+  formState: { errors }
+} = useForm();
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
-        Payment method
+        Datos de bancarios
       </Typography>
       <Grid container spacing={3}>
         <Grid item xs={12} md={6}>
           <TextField
             required
             id="cardName"
-            label="Name on card"
+            label="Titular de la tarjeta"
             fullWidth
             autoComplete="cc-name"
             variant="standard"
@@ -26,7 +34,7 @@ export default function PaymentForm() {
           <TextField
             required
             id="cardNumber"
-            label="Card number"
+            label="Número de tarjeta"
             fullWidth
             autoComplete="cc-number"
             variant="standard"
@@ -36,7 +44,7 @@ export default function PaymentForm() {
           <TextField
             required
             id="expDate"
-            label="Expiry date"
+            label="Data de expiración"
             fullWidth
             autoComplete="cc-exp"
             variant="standard"

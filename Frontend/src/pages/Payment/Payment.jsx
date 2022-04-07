@@ -12,17 +12,17 @@ import Button from '@mui/material/Button';
 import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import AddressForm from './Components/AdressForm';
-import PaymentForm from './Components/PaymentForm';
-import Review from './Components/Review';
+import PaymentForm from './container-steps/PaymentForm';
+import Review from './container-steps/Review';
 
-
-
+import useUser from '../../hooks/useUser';
 
 
 export default function Payment() {
-  const steps = ['Datos Personales', 'Detas Bancarios', 'Revisa tus datos'];
+  const steps = [ 'Detas Bancarios', 'Revisa tus datos'];
   const [activeStep, setActiveStep] = React.useState(0);
+  const { user} = useUser();
+
   
   const handleNext = () => {
     
@@ -34,9 +34,8 @@ export default function Payment() {
   };
   function getStepContent(step) {
     switch (step) {
-      case 0: return <AddressForm />;
-      case 1: return <PaymentForm />;
-      case 2: return <Review />;
+      case 0: return <PaymentForm />;
+      case 1: return <Review />;
       default: throw new Error('Unknown step');
     }
   }
@@ -49,7 +48,7 @@ export default function Payment() {
           <Typography component="h1" variant="h4" align="center">
             Aumenta tu monedero
           </Typography>
-          <Stepper activeStep={activeStep} sx={{ pt: 3, pb: 5 }}>
+          <Stepper activeStep={activeStep} sx={{ pt: 3, pb: 5, pl:8, pr:8 }}>
             {steps.map((label) => (
               <Step key={label}>
                 <StepLabel>{label}</StepLabel>

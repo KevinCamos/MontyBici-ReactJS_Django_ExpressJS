@@ -4,7 +4,7 @@ import useUser from '../../hooks/useUser';
 import Loading from '../../components/Templates-Suspense/Loading';
 
 function GuardUser() {
-  const { isLogged, isJWTLoading } = useUser();
+  const { isLogged, isJWTLoading} = useUser();
   if (!isJWTLoading) {
     return !isLogged ? <Navigate to="/login" /> : <Outlet />;
   }
