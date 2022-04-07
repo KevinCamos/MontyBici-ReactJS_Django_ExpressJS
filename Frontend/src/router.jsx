@@ -19,6 +19,8 @@ export default function MyRouter() {
   const StationPage = React.lazy(() => import('./pages/Stations/StationPage'));
   const DetailsPage = React.lazy(() => import('./pages/Details/DetailsPage'));
   const Dashboard = React.lazy(() => import('./pages/Dashboard/Dashboard'));
+  const Payment = React.lazy(() => import('./pages/Payment/Payment'));
+
   const NotFound = React.lazy(() => import('./pages/NotFound/NotFound'));
 
   // ADMIN AdminNotifications
@@ -60,6 +62,9 @@ export default function MyRouter() {
                     </Route>
                     <Route path="/dashboard" element={<GuardUser />}>
                       <Route index element={<Dashboard />} />
+                    </Route>
+                    <Route path="/payment" element={<GuardUser />}>
+                      <Route index element={<Payment />} />
                     </Route>
                     <Route path="*" element={<NotFound />} />
                   </Route>
