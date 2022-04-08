@@ -34,7 +34,7 @@ export default function Payment() {
   };
   function getStepContent(step) {
     switch (step) {
-      case 0: return <PaymentForm />;
+      case 0: return <PaymentForm activeStep={activeStep} steps={steps}/>;
       case 1: return <Review />;
       default: throw new Error('Unknown step');
     }
@@ -78,13 +78,13 @@ export default function Payment() {
                       </Button>
                     )}
 
-                    <Button
-                      variant="contained"
+                    {/* <Button
+                      variant="submit"
                       onClick={handleNext}
                       sx={{ mt: 3, ml: 1 }}
                     >
-                      {activeStep === steps.length - 1 ? 'Place order' : 'Next'}
-                    </Button>
+                      {activeStep === steps.length - 1 ? 'Place order' : 'Siguiente página'}
+                    </Button> */}
                   </Box>
                 </React.Fragment>
               )}
