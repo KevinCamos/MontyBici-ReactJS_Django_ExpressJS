@@ -21,6 +21,7 @@
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.21",
     "mongoose-unique-validator": "^2.0.3",
+    "node-fetch": "^2.6.7",
     "slug": "^5.1.0"
   }
 }

@@ -6,10 +6,10 @@ const { Headers } = require('node-fetch');
 // import {Headers} from 'node-fetch';
 
 exports.get_user_token = async (token) =>{
-    return fetch('http://0.0.0.0:4000/api/user-token-gql', { 
+    return fetch('http://localhost:8000/api/stations/station/', { 
         method: 'GET', 
         headers: new Headers({
-          'Authorization': 'Token '+token, 
+          // 'Authorization': 'Token '+token, 
           'Content-Type': 'application/x-www-form-urlencoded'
         }),
       }).then(response => response.json())

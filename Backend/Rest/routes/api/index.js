@@ -1,6 +1,6 @@
 var router = require("express").Router();
 
-router.use('/profiles', require('./simulatorBank'));
+router.use('/simulatorBank', require('./simulatorBank'));
 
 router.use(function (err, req, res, next) {
   if (err.name === "ValidationError") {

@@ -1,31 +1,13 @@
 const express = require("express");
-// const conectarDB = require("./config/db");
-const cors = require("cors"); //http://www.vidamrr.com/2020/01/que-es-cors-y-como-usarlo-en-nodejs.html
-// const passport = require('passport');
+const cors = require("cors"); 
 
 const app = express();
 
-// conectarDB();
-
-//app.set ('port', process.env.PORT || 4000)
 const port = process.env.PORT || 4000;
 
 app.use(cors());
 app.use(express.json());
 
-// /* CARGAMOS MODELS*/
-// require('./models/user.model');
-// require('./models/product.model');
-// require('./models/comment.model');
-// require('./models/order.model');
-
-// /* CARGAMOS CONFIGURACIÓN PASSPORT*/
-// require('./config/passport');
-
-/**
- * Para ir al router.post/get.. de un objeto, se utiliza require('./carpetarouter')
- */
-/* require("./routes"); //es dirigeix a la carpeta routes! */ 
 app.use(require("./routes"));
 
 /// catch 404 and forward to error handler
@@ -35,9 +17,6 @@ app.use(function (req, res, next) {
   next(err);
 });
 
-/// error handlers
-
 app.listen(port, "0.0.0.0", () => {
-  //app.get('port')
   console.log(`El servidor está corriendo perfectamente en el puerto ${port}`);
 });
