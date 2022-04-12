@@ -1,20 +1,19 @@
-//importamos fetch
 const fetch = require("node-fetch");
 const { Headers } = require('node-fetch');
 
-// import fetch from 'node-fetch';
-// import {Headers} from 'node-fetch';
-
 exports.get_user_token = async (token) =>{
-    return fetch('http://localhost:8000/api/stations/station/', { 
+    return fetch('http://localhost:8000/api/auth/user/', { 
         method: 'GET', 
         headers: new Headers({
-          // 'Authorization': 'Token '+token, 
+          'Authorization': token, 
           'Content-Type': 'application/x-www-form-urlencoded'
         }),
-      }).then(response => response.json())
+      }).then(response => response.status===200
+        ?response.json()
+        :{status:404}
+      )
       .then(data => {
-  console.log(data)
+        console.log(data)
           return data;
       });
 

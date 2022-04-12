@@ -1,9 +1,10 @@
 import axios from 'axios';
 import SERVER_URL from '../secrets';
 
-const Api = () => {
+const Api = (OTHER_URL) => {
+  console.log(OTHER_URL)
   const axiosInstance = axios.create({
-    baseURL: SERVER_URL
+    baseURL: OTHER_URL||SERVER_URL
   });
 
   const token = sessionStorage.getItem('token');
