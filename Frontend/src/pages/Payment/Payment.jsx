@@ -1,4 +1,4 @@
-import  React, {useState} from 'react';
+import React, { useState } from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -16,32 +16,34 @@ import PaymentForm from './container-steps/PaymentForm';
 import Review from './container-steps/Review';
 
 import useUser from '../../hooks/useUser';
+import usePayments from '../../hooks/usePayments';
 
 
 export default function Payment() {
-  const steps = [ 'Detas Bancarios', 'Revisa tus datos'];
-  const [activeStep, setActiveStep] =useState(0);
-  const { user} = useUser();
+  const steps = ['Detas Bancarios', 'Revisa tus datos'];
+  const [activeStep, setActiveStep] = useState(0);
+  const { user } = useUser();
+  const { postPayment } = usePayments();
   const [dataPayment, setDataPayment] = useState({});
 
-  
+
   const handleNext = () => {
-    
+
     setActiveStep(activeStep + 1);
   };
-  
+
   const handleBack = () => {
     setActiveStep(activeStep - 1);
   };
 
-  const saveDataNextPage = (e)=>{
+  const saveDataNextPage = (e) => {
     setDataPayment(e)
     handleNext()
   }
   function getStepContent(step) {
     switch (step) {
-      case 0: return <PaymentForm activeStep={activeStep} steps={steps} emmitPayment={e=>{saveDataNextPage(e)}}/>;
-      case 1: return <Review dataPayment={dataPayment}/>;
+      case 0: return <PaymentForm activeStep={activeStep} steps={steps} emmitPayment={e => { saveDataNextPage(e) }} />;
+      case 1: return <Review dataPayment={dataPayment} emmitPayment={e => { postPayment(e) }} />;
       default: throw new Error('Unknown step');
     }
   }
@@ -54,7 +56,7 @@ export default function Payment() {
           <Typography component="h1" variant="h4" align="center">
             Aumenta tu monedero
           </Typography>
-          <Stepper activeStep={activeStep} sx={{ pt: 3, pb: 5, pl:8, pr:8 }}>
+          <Stepper activeStep={activeStep} sx={{ pt: 3, pb: 5, pl: 8, pr: 8 }}>
             {steps.map((label) => (
               <Step key={label}>
                 <StepLabel>{label}</StepLabel>

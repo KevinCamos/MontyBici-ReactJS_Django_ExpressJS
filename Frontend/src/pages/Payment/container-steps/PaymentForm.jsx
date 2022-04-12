@@ -57,20 +57,7 @@ export default function PaymentForm(props) {
 
           />
         </FormControl>
-            {/* <TextField
-              error={valueLength(errors.moneyCard)}
-              // helperText="Incorrect entry."
-              
-              required
-              id="moneyCard"
-              label="Total recarga"
-              fullWidth
-              autoComplete="cc-money"
-              variant="standard"
-              
-              // defaultValue="Daniel Molla Mira"
-
-            /> */}
+    
           </Grid>
         </Grid>
       <Typography variant="h6" sx={{ my: { xs: 3, md: 3 } }} >       
