@@ -1,4 +1,4 @@
-import * as React from 'react';
+import  React, {useState} from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -20,8 +20,9 @@ import useUser from '../../hooks/useUser';
 
 export default function Payment() {
   const steps = [ 'Detas Bancarios', 'Revisa tus datos'];
-  const [activeStep, setActiveStep] = React.useState(0);
+  const [activeStep, setActiveStep] =useState(0);
   const { user} = useUser();
+  const [dataPayment, setDataPayment] = useState({});
 
   
   const handleNext = () => {
@@ -32,10 +33,15 @@ export default function Payment() {
   const handleBack = () => {
     setActiveStep(activeStep - 1);
   };
+
+  const saveDataNextPage = (e)=>{
+    setDataPayment(e)
+    handleNext()
+  }
   function getStepContent(step) {
     switch (step) {
-      case 0: return <PaymentForm activeStep={activeStep} steps={steps}/>;
-      case 1: return <Review />;
+      case 0: return <PaymentForm activeStep={activeStep} steps={steps} emmitPayment={e=>{saveDataNextPage(e)}}/>;
+      case 1: return <Review dataPayment={dataPayment}/>;
       default: throw new Error('Unknown step');
     }
   }
