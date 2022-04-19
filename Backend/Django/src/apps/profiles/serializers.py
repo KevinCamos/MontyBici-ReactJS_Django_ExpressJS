@@ -1,5 +1,10 @@
+import json
+from django.forms import DecimalField
 from rest_framework import serializers
 from django.db.models import F
+from src.apps.credits.models import Credit
+
+from src.apps.credits.serializers import serializerCredit
 
 from .models import Profile
 from src.apps.bikes.models import Register_Bike
@@ -16,15 +21,20 @@ class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
         # fields = ('username', 'bio', 'image', 'following')
-        fields = ('username',  'image', "registers")
+        fields = ('username',  'image')
         read_only_fields = ('username',)
 
     def to_representation(self, instance):
         register = Register_Bike.objects.filter(
-            user=instance.pk, point_return__isnull=True).values('bike',station=F('point_get__station__name'))
+            user=instance.pk, point_return__isnull=True).values('bike', station=F('point_get__station__name'))
+        credit = Credit.objects.filter(id_user=instance.pk).last()
+
         if register.count() == 0:
             return{
                 "image": instance.image,
+                "credit": {"amount": str(credit.amount)
+                # ,"createsd_at": str(credit.created_at)
+                           }
             }
         else:
             return{
@@ -33,18 +43,18 @@ class ProfileSerializer(serializers.ModelSerializer):
             }
 
 
-
 class ProfileRegisterSerializer(serializers.ModelSerializer):
     username = serializers.CharField(source='user.username')
     # bio = serializers.CharField(allow_blank=True, required=False)
     image = serializers.CharField(allow_blank=True, required=False)
     # image = serializers.SerializerMethodField()
     # following = serializers.SerializerMethodField()
+    credit = serializers.CharField(allow_blank=True, required=False)
 
     class Meta:
         model = Profile
         # fields = ('username', 'bio', 'image', 'following')
-        fields = ('username',  'image')
+        fields = ('username',  'image', "credit")
         read_only_fields = ('username',)
     # def get_image(self, obj):
     #     if obj.image:
