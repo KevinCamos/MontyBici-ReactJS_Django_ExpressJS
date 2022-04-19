@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'src.apps.core',
     'src.apps.profiles',
     'src.apps.authentication',
+    'src.apps.credits',
 
 
 ]
