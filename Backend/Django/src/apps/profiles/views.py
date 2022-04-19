@@ -4,10 +4,37 @@ from rest_framework.generics import RetrieveAPIView
 from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser
 from rest_framework.response import Response
 from rest_framework.views import APIView
+
 from .models import Profile
 from .renderers import ProfileJSONRenderer
-from .serializers import ProfileSerializer
+from .serializers import ProfileSerializer, serializerProfileCredit
 from rest_framework import viewsets
+
+
+
+
+ 
+class UpdateAmountCredit(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    serializer_class = serializerProfileCredit
+
+    def put(self, request):
+        moneyCard = request.data.get('moneyCard', {})
+        
+        if (type(moneyCard) != int or moneyCard <= 0 ):
+            raise NotFound("error")
+        serializer = self.serializer_class(
+            instance=self.request.user.profile,   data={"credit": moneyCard}, partial=True)
+        serializer.is_valid(raise_exception=True)
+
+        serializer.save()
+        return Response(self.request.user.profile.credit, status=status.HTTP_201_CREATED)
+
+
+
+
+
 
 
 #Admin

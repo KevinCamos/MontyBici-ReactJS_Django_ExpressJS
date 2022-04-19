@@ -1,8 +1,30 @@
+from django.forms import DecimalField
 from rest_framework import serializers
 from django.db.models import F
 
 from .models import Profile
 from src.apps.bikes.models import Register_Bike
+
+
+class serializerProfileCredit(serializers.ModelSerializer):
+
+    credit = DecimalField( required=False)
+
+    class Meta:
+        model = Profile
+        fields = [
+            'credit'
+        ]
+
+    def update(self, instance, validated_data):
+        
+        instance.credit += validated_data.get('credit', instance.credit)
+     
+        instance.save()
+        return instance
+
+
+
 
 
 class ProfileSerializer(serializers.ModelSerializer):
@@ -16,7 +38,7 @@ class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
         # fields = ('username', 'bio', 'image', 'following')
-        fields = ('username',  'image', "registers")
+        fields = ('username',  'image', "registers", "credit")
         read_only_fields = ('username',)
 
     def to_representation(self, instance):
@@ -25,6 +47,7 @@ class ProfileSerializer(serializers.ModelSerializer):
         if register.count() == 0:
             return{
                 "image": instance.image,
+                "credit": str(instance.credit),
             }
         else:
             return{
@@ -40,11 +63,11 @@ class ProfileRegisterSerializer(serializers.ModelSerializer):
     image = serializers.CharField(allow_blank=True, required=False)
     # image = serializers.SerializerMethodField()
     # following = serializers.SerializerMethodField()
-
+    credit = serializers.CharField(allow_blank=True, required=False)
     class Meta:
         model = Profile
         # fields = ('username', 'bio', 'image', 'following')
-        fields = ('username',  'image')
+        fields = ('username',  'image', "credit")
         read_only_fields = ('username',)
     # def get_image(self, obj):
     #     if obj.image:
@@ -66,3 +89,5 @@ class ProfileRegisterSerializer(serializers.ModelSerializer):
     #     followee = instance
 
     #     return follower.is_following(followee)
+
+

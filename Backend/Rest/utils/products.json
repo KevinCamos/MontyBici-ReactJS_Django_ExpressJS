@@ -1,33 +1,33 @@
 [{
-    "moneyBank": "5,00",
+    "moneyBank": 5.00,
     "cardName": "Daniel Molla Mira",
     "cardNumber": "123456789666",
     "expDate": "02/2020",
     "cvv": "123"
 },
 {
-    "moneyBank": "100,00",
+    "moneyBank": 100.00,
     "cardName": "Yomogan",
     "cardNumber": "111222333444",
     "expDate": "02/2020",
     "cvv": "123"
 },
 {
-    "moneyBank": "100,00",
+    "moneyBank": 100.00,
     "cardName": "Lorena Frontend",
     "cardNumber": "222333444555",
     "expDate": "02/2020",
     "cvv": "123"
 },
 {
-    "moneyBank": "100,00",
+    "moneyBank":100.00,
     "cardName": "Javi Diseny",
     "cardNumber": "222333444555",
     "expDate": "02/2020",
     "cvv": "123"
 },
 {
-    "moneyBank": "100,00",
+    "moneyBank": 100.00,
     "cardName": "Kevin Alumne",
     "cardNumber": "666666666666",
     "expDate": "02/2020",

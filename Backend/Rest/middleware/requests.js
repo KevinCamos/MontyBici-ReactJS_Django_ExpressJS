@@ -13,8 +13,25 @@ exports.get_user_token = async (token) =>{
         :{status:404}
       )
       .then(data => {
-        console.log(data)
           return data;
       });
+
+}
+
+exports.post_money = async (moneyCard,token) =>{
+  return fetch('http://localhost:8000/api/auth/user/', { 
+      method: 'PUT', 
+      body: JSON.stringify(moneyCard),
+      headers: new Headers({
+        'Authorization': token, 
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }),
+    }).then(response => response.status===200
+      ?response.json()
+      :{status:404}
+    )
+    .then(data => {
+        return data;
+    });
 
 }

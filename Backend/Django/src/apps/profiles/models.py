@@ -36,6 +36,7 @@ class Profile(TimestampedModel):
     url = "https://avatars.dicebear.com/api/avataaars/"+randomstring+".svg"
     image = models.URLField(blank=True,  default=url)
 
+    credit = models.DecimalField(max_digits=6, decimal_places=2, default=0)
 
 
     def __str__(self):
