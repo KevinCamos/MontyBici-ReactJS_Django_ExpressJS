@@ -7,10 +7,11 @@ class serializerCredit(serializers.ModelSerializer):
 
     movement = DecimalField( required=False)
     amount = DecimalField( required=False)
+    id_user = UUIDField( required=False)
     class Meta:
         model = Credit
         fields = [
-            'movement', 'amount', 'created_at'
+            'movement', 'amount', 'created_at', 'id_user'
         ]
 
     def create(self, validated_data):

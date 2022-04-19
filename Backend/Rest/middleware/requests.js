@@ -18,15 +18,15 @@ exports.get_user_token = async (token) =>{
 
 }
 
-exports.post_money = async (moneyCard,token) =>{
-  return fetch('http://localhost:8000/api/auth/user/', { 
-      method: 'PUT', 
-      body: JSON.stringify(moneyCard),
+exports.post_money = async (movement,token) =>{
+  return fetch('http://localhost:8000/api/credits/credit/', { 
+      method: 'POST', 
+      body: JSON.stringify({movement:movement}),
       headers: new Headers({
         'Authorization': token, 
-        'Content-Type': 'application/x-www-form-urlencoded'
+        'Content-Type': 'application/json'
       }),
-    }).then(response => response.status===200
+    }).then(response => response.status===201
       ?response.json()
       :{status:404}
     )

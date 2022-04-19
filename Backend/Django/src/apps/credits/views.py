@@ -16,17 +16,21 @@ class AmountCredit(APIView):
     serializer_class = serializerCredit
 
     def post(self, request):
-        movement = request.data.get('movement', {})
+        
+        movement = request.data.get('movement',{})
         self_uuid = self.request.user.profile.pk
+
         if (type(movement) != int ):
             raise NotFound("error")
 
-       
-        obj = Credit.objects.filter(id_user=self_uuid).last()
-        if obj != None:
-            amount = obj.amount + movement
-        else:
-            amount= movement
+        try:
+           obj = Credit.objects.filter(id_user=self_uuid).last()
+           if obj != None:
+               amount = obj.amount + movement
+           else:
+               amount= movement
+        except Credit.DoesNotExist:
+            raise NotFound('Esta razón no existe.')
 
 
         serializer = self.serializer_class(
