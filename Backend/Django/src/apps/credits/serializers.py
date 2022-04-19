@@ -10,7 +10,7 @@ class serializerCredit(serializers.ModelSerializer):
     class Meta:
         model = Credit
         fields = [
-            'movement', 'amount'
+            'movement', 'amount', 'created_at'
         ]
 
     def create(self, validated_data):

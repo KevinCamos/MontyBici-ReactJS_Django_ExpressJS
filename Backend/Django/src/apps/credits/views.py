@@ -10,7 +10,7 @@ from .serializers import serializerCredit
 from rest_framework import viewsets
 
 
-class UpdateAmountCredit(APIView):
+class AmountCredit(APIView):
     permission_classes = (IsAuthenticated,)
 
     serializer_class = serializerCredit
@@ -34,4 +34,12 @@ class UpdateAmountCredit(APIView):
         serializer.is_valid(raise_exception=True)
 
         serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+
+    def get(self, request):
+        self_uuid = self.request.user.profile.pk
+               
+        queryset = Credit.objects.filter(id_user=self_uuid)
+        serializer =self.serializer_class(queryset, many=True)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
