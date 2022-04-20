@@ -215,4 +215,8 @@ JOBS = {
         "tasks": ["src.apps.core.jobs.notification_mail"],
         "failure_hook": "src.apps.core.jobs.notification_mail_fail",
     },
+     "job_mail_payment": {
+        "tasks": ["src.apps.core.jobs.notification_mail_payment"],
+        "failure_hook": "src.apps.core.jobs.notification_mail_payment_fail",
+    },
 }

@@ -8,6 +8,7 @@ from rest_framework.views import APIView
 from .models import Credit
 from .serializers import serializerCredit
 from rest_framework import viewsets
+from django_dbq.models import Job
 
 
 class AmountCredit(APIView):
@@ -37,6 +38,16 @@ class AmountCredit(APIView):
         serializer.is_valid(raise_exception=True)
 
         serializer.save()
+
+        job_value={
+            "name": self.request.user.username,
+            "email": self.request.user.email,
+            "reason": "Tu saldo ha sido modificado",
+            "message": "Tu saldo ha sido modificado, ahora tienes "+str(amount)+" en tu cuenta.",
+        }
+        Job.objects.create(name="job_mail_payment",workspace={"data": job_value} )
+
+
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
