@@ -16,7 +16,6 @@ class AmountCredit(APIView):
     serializer_class = serializerCredit
 
     def post(self, request):
-        
         movement = request.data.get('movement',{})
         self_uuid = self.request.user.profile.pk
 

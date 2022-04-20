@@ -15,11 +15,10 @@ exports.get_user_token = async (token) =>{
       .then(data => {
           return data;
       });
-
 }
 
 exports.post_money = async (movement,token) =>{
-  return fetch('http://localhost:8000/api/credits/credit/', { 
+  return fetch('http://0.0.0.0:8000/api/credits/credit', { 
       method: 'POST', 
       body: JSON.stringify({movement:movement}),
       headers: new Headers({
