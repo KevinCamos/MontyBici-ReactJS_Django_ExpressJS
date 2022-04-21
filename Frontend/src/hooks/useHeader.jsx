@@ -19,7 +19,7 @@ const useHeader = () => {
     setAnchorElUser(null);
   };
 
-  const pagesLogged = ['Stations', 'Payment'];
+  const pagesLogged = ['Stations', 'Payment', "Credit"];
   const pagesNoLogged = ['login', 'register', 'admin'];
   const settings = ['dashboard'];
   return {

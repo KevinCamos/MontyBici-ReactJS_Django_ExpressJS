@@ -151,10 +151,21 @@ function Header() {
                         {user.profile.registers.station}
                       </Typography>
                     </Grid>
+               
                   </Box>
                 )}
+                {user?.profile?.credit?.amount &&(
+                                  <Box sx={{ flexGrow: 0 }}>
+
+              <Grid item xs >
+                                
+              <Typography noWrap>{user?.profile?.credit?.amount||""}</Typography>
+              </Grid>
+              </Box>
+
+                )}
                 <Box sx={{ flexGrow: 0 }}>
-                  <Grid item xs zeroMinWidth>
+                <Grid item xs zeroMinWidth>
                     <Tooltip title="Open settings">
                       <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                         <Avatar
@@ -166,6 +177,7 @@ function Header() {
                     </Tooltip>
                     <Typography noWrap>{user.username}</Typography>
                   </Grid>
+                  
                   <Menu
                     sx={{ mt: '45px' }}
                     id="menu-appbar"
