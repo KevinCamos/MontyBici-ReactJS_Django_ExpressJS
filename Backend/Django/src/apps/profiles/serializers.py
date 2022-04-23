@@ -1,4 +1,6 @@
 import json
+import datetime
+
 from django.forms import DecimalField
 from rest_framework import serializers
 from django.db.models import F
@@ -26,20 +28,23 @@ class ProfileSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         register = Register_Bike.objects.filter(
-            user=instance.pk, point_return__isnull=True).values('bike', station=F('point_get__station__name'))
+            user=instance.pk, point_return__isnull=True).values('bike','data_get', station=F('point_get__station__name'))
+      
         credit = Credit.objects.filter(id_user=instance.pk).last()
-
         if register.count() == 0:
+
             return{
                 "image": instance.image,
-                "credit": {"amount": str(credit.amount)
-                # ,"createsd_at": str(credit.created_at)
-                           }
+                "credit": {"amount": str(credit.amount)    }
             }
         else:
+            reg= register[0]
+            reg["data_get"]=register[0]['data_get'].isoformat()
+
             return{
                 "image": instance.image,
-                "registers": register[0]
+                "registers":reg,
+                "credit": {"amount": str(credit.amount)}
             }
 
 

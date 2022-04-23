@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 import AppBar from '@mui/material/AppBar';
 import {
   Box,
@@ -31,7 +31,10 @@ function Header() {
     pagesNoLogged,
     settings
   } = useHeader();
-  const { isLogged, user, logout } = useUser();
+  
+  const { isLogged, user, logout, amount, setAmount } = useUser();
+
+  
   const logoutClick = (event) => {
     handleCloseUserMenu();
     logout();
@@ -136,6 +139,16 @@ function Header() {
 
             {isLogged && (
               <>
+                  {user?.profile?.credit?.amount &&(
+                                    <Box sx={{ flexGrow: 0 }}>
+      
+                <Grid item xs >
+                                  
+                <Typography noWrap>{amount||"0€"}</Typography>
+                </Grid>
+                </Box>
+      
+                  )}
                 {user.profile.registers && (
                   <Box
                     variant="h6"
@@ -153,16 +166,6 @@ function Header() {
                     </Grid>
                
                   </Box>
-                )}
-                {user?.profile?.credit?.amount &&(
-                                  <Box sx={{ flexGrow: 0 }}>
-
-              <Grid item xs >
-                                
-              <Typography noWrap>{user?.profile?.credit?.amount||""}</Typography>
-              </Grid>
-              </Box>
-
                 )}
                 <Box sx={{ flexGrow: 0 }}>
                 <Grid item xs zeroMinWidth>

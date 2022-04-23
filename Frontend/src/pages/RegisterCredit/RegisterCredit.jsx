@@ -21,9 +21,6 @@ const columns = [
 
 ];
 
-
-
-
 function RegisterCredit() {
   // Es mejor poner los handle en el componente o página
   const [page, setPage] = React.useState(0);
@@ -38,7 +35,7 @@ function RegisterCredit() {
     setPage(0);
   };
 
-  const { isLoading, isError,rows    } = useRegisterCredit();
+  const { isLoading, isError,rows } = useRegisterCredit();
   if (isLoading) {
     return (
       <>

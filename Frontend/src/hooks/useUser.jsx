@@ -1,4 +1,4 @@
-import { useCallback, useContext, useState } from 'react';
+import { useCallback, useContext, useState,useEffect} from 'react';
 
 import { useNavigate } from 'react-router-dom';
 
@@ -14,9 +14,12 @@ const useUser = () => {
     error: false,
     errorPassword: false
   });
+  const[amount, setAmount]=useState(0)
+  
   const [isAdmin, setIsAdmin] = useState(false);
   const [isJWTAdminLoading, setIsJWTAdminLoading] = useState(true);
   const [isCheckingAdmin, setIsCheckingAdmin] = useState(false);
+  const [isInterval, setIsInterval] = useState(false);
 
   const { jwt, setJWT, user, setUser, isJWTLoading, isRegisters } =
     useContext(UserContext);
@@ -27,7 +30,6 @@ const useUser = () => {
     setJWT(null);
     sessionStorage.removeItem('token');
   };
-
   const saveUser = (dataUser) => {
     sessionStorage.setItem('token', dataUser.token);
     setJWT(sessionStorage.token);
@@ -41,6 +43,7 @@ const useUser = () => {
         .then((response) => {
           saveUser(response.data.user);
           navigate('/stations');
+
         })
         .catch((error) => {
           deleteUserOrError(error);
@@ -57,6 +60,7 @@ const useUser = () => {
         .then((response) => {
           saveUser(response.data.user, true);
           navigate('/admin-panel');
+          
         })
         .catch((error) => {
           deleteUserOrError(error);
@@ -92,6 +96,7 @@ const useUser = () => {
         setIsAdmin(true);
         saveUser(data.data.user);
         setIsJWTAdminLoading(false);
+
       })
       .catch(() => {
         setIsJWTAdminLoading(false);
@@ -106,6 +111,34 @@ const useUser = () => {
     deleteUserOrError();
     navigate('/login');
   }, [setJWT, setUser, navigate]);
+
+
+  useEffect(() => {
+    if(user?.profile?.registers&& !isInterval ){
+      setIsInterval(true)
+      setAmount(user?.profile?.credit?.amount)
+      setAmount((parseInt(user?.profile?.credit.amount)- ((Date.now()-new Date((user?.profile?.registers.data_get)).getTime())/1000*0.0001)).toFixed(2))
+
+      setInterval(function () {
+        let letAmount= parseInt(user?.profile?.credit?.amount)
+        
+        if(user?.profile?.registers){
+          
+          // console.log(new Date((user?.profile?.registers.data_get)).getMilliseconds(), Date.now(), )
+          letAmount=parseFloat(user?.profile?.credit.amount+ (Date.now()-new Date((user?.profile?.registers.data_get)).getMilliseconds())/1000*0.003).toFixed(2)
+
+          console.log((Date.now()-new Date((user?.profile?.registers.data_get)).getTime())/1000*0.003)
+
+          setAmount((letAmount- ((Date.now()-new Date((user?.profile?.registers.data_get)).getTime())/1000*0.0001)).toFixed(2))
+        }
+      }, 10000);
+    }else{
+      console.log(user)
+    }
+  }, [user]);
+
+ 
+  
   return {
     login,
     loginAdmin,
@@ -120,8 +153,10 @@ const useUser = () => {
     checkAdmin,
     isAdmin,
     isCheckingAdmin,
-    setIsCheckingAdmin
+    setIsCheckingAdmin,
+    amount
   };
 };
+
 
 export default useUser;
