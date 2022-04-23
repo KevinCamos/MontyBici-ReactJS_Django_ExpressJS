@@ -31,6 +31,10 @@ class ProfileSerializer(serializers.ModelSerializer):
             user=instance.pk, point_return__isnull=True).values('bike','data_get', station=F('point_get__station__name'))
       
         credit = Credit.objects.filter(id_user=instance.pk).last()
+        if credit: 
+            amount= {"amount": str(credit.amount)}
+        else :
+            amount = {"amount": "0"}
         if register.count() == 0:
 
             return{
@@ -44,7 +48,7 @@ class ProfileSerializer(serializers.ModelSerializer):
             return{
                 "image": instance.image,
                 "registers":reg,
-                "credit": {"amount": str(credit.amount)}
+                "credit": amount
             }
 
 

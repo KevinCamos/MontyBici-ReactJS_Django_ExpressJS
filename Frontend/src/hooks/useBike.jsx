@@ -31,6 +31,10 @@ export default function useBike() {
   };
   const obtainBike = useCallback(
     (idPoint) => {
+      
+      if(user?.profile?.credit?.amount &&parseInt(user?.profile?.credit?.amount) >0 ){
+
+
       bikeServices
         .obtainBike({ id_point: idPoint })
         .then((data) => {
@@ -55,7 +59,13 @@ export default function useBike() {
             variant: 'error'
           });
         });
-    },
+      }else{
+        enqueueSnackbar('No tienes suficiente dinero en el monedero, recarga antes de coger la bici.', {
+          variant: 'error'
+        });
+      }
+      },
+   
     [setErrorBike, user, setUser]
   );
 

@@ -32,7 +32,7 @@ function Header() {
     settings
   } = useHeader();
   
-  const { isLogged, user, logout, amount, setAmount } = useUser();
+  const { isLogged, user, logout, amount } = useUser();
 
   
   const logoutClick = (event) => {
@@ -144,7 +144,7 @@ function Header() {
       
                 <Grid item xs >
                                   
-                <Typography noWrap>{amount||"0€"}</Typography>
+                <Typography noWrap>{amount? amount.toString():"0"}€</Typography>
                 </Grid>
                 </Box>
       

@@ -1,4 +1,6 @@
+from datetime import datetime    
 from django.shortcuts import render
+from decimal import Decimal
 
 from rest_framework import status, viewsets, serializers, generics
 from rest_framework.exceptions import NotFound
@@ -15,6 +17,7 @@ from src.apps.stations.serializers import GetBikeSerializer
 # MODELS
 from .models import Bike, Register_Bike
 from src.apps.stations.models import Point
+from src.apps.credits.models import Credit
 
 # PERMSISSIONS
 from src.apps.core.permissions import IsStaff
@@ -26,13 +29,11 @@ class BikeListAPIView(generics.ListAPIView):
     queryset = Bike.objects.all().order_by('points', 'points__station')
     serializer_class = GetBikeSerializer
 
-
 class BikeListNoPointsAPIView(generics.ListAPIView):
     permission_classes = (IsAuthenticated,)
     permission_classes = [IsStaff, ]
     queryset = Bike.objects.filter(points=None)
     serializer_class = GetBikeSerializer
-
 
 class UpdpateBikeAPIView(APIView):
     permission_classes = (IsAuthenticated,)
@@ -65,7 +66,12 @@ class RegisterAPIView(APIView):
     def post(self, request):
         self_uuid = self.request.user.profile.pk
         data = request.data.get('id_point', {})
-
+        try:
+            credit = Credit.objects.filter(id_user=self_uuid).last()
+            if credit.amount <= 0:
+                raise NotFound('No hay saldo suficiente.')
+        except Credit.DoesNotExist:    
+            raise NotFound('No se ha encontrado.')
         # ¿Existe algún Registre de esta persona que haya cogido una bici y no la haya devuelto? Ergo, ¿Tiene en estos momentos una bici?
         registered = Register_Bike.objects.filter(
             user=self_uuid, point_return__isnull=True)
@@ -100,12 +106,14 @@ class RegisterAPIView(APIView):
         self_uuid = self.request.user.profile.pk
         data = request.data.get('id_point', {})
 
+
+
         try:
             registered = Register_Bike.objects.get(
                 user=self_uuid, point_return__isnull=True)
         except Register_Bike.DoesNotExist:
             raise NotFound('Actualmente no tienes ninguna bici.')
-
+        data_get = registered.data_get
         try:
             point = Point.objects.get(pk=data)
         except Point.DoesNotExist:
@@ -123,8 +131,24 @@ class RegisterAPIView(APIView):
             instance=registered,   data={"point_return": data}, partial=True)
         serializer.is_valid(raise_exception=True)
 
-        serializer.save()
-        point.SaveBike(registered.bike)
+        # serializer.save()
+        # point.SaveBike(registered.bike)
+
+        def millis(dt):
+            ms = (dt.days * 24 * 60 * 60 + dt.seconds) * 1000 + dt.microseconds / 1000.0
+            return ms
+        try:
+            credit = Credit.objects.filter(id_user=self_uuid).last()
+            print(credit.amount)
+
+            print(datetime.now().replace(tzinfo=None)-data_get.replace(tzinfo=None))
+            # la fecha a restar no cuadra, seguramente por la diferencia de hora 
+            print(credit.amount-Decimal(millis(datetime.now().replace(tzinfo=None)-data_get.replace(tzinfo=None))/1000*0.0001))
+     
+
+        except Credit.DoesNotExist:    
+            raise NotFound('No se ha encontrado.')
+
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
