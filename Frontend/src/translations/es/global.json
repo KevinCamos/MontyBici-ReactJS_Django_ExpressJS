@@ -1,0 +1,14 @@
+{
+    "header":{"hello-world":"Hola mundo"},
+    "payment":{
+        "up-money":"Aumenta tu monedero",
+        "step1":"Datos Bancarios",
+        "step2":"Revisa tus datos",
+        "thanks": "Gracias por tu recarga",
+        "your-pay":"Te hemos enviado un correo confirmándote el proceso",
+        "back":"Volver atrás",
+        "success":"Gracias por tu incidencia, intentaremos resolverla con la mayor brevedad posible.",
+        "error":"Ha habido un error en la compra"
+        
+    }
+}

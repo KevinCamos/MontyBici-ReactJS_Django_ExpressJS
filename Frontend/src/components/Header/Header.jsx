@@ -18,8 +18,11 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { Outlet, Link } from 'react-router-dom';
 import useHeader from '../../hooks/useHeader';
 import useUser from '../../hooks/useUser';
+import {useTranslation} from "react-i18next"
 
 function Header() {
+  const [t, i18n] = useTranslation("global") 
+
   const {
     anchorElNav,
     anchorElUser,
@@ -51,7 +54,34 @@ function Header() {
               sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}>
               MontyBici
             </Typography>
+            <Typography
+              variant="small"
+              noWrap
+              component="div"
+              sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
+              onClick={()=>{i18n.changeLanguage("en")}}              >
+              En
+              
+            </Typography>
+            <Typography
+              variant="small"
+              noWrap
+              component="div"
+              sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
+              onClick={()=>{i18n.changeLanguage("es")}}              >
+              Es
+            </Typography>
+            
+            <Typography
+              variant="small"
+              noWrap
+              component="div"
+              sx={{ mr: 5, display: { xs: 'none', md: 'flex' } }}
+              onClick={()=>{i18n.changeLanguage("kl")}}>
+              Klingon
+            </Typography>
 
+        
             <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
               <IconButton
                 size="large"
@@ -88,9 +118,12 @@ function Header() {
                           <Link className="nav-link " to={`/${page}`}>
                             {page}
                           </Link>
+                          
                         </Typography>
                       </MenuItem>
                     ))
+                    
+                    
                   : pagesNoLogged.map((page) => (
                       <MenuItem key={page} onClick={handleCloseNavMenu}>
                         <Typography textAlign="center">

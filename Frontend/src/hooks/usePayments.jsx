@@ -4,19 +4,20 @@ import { useForm } from 'react-hook-form';
 import { useSnackbar } from 'notistack';
 
 import StationsContext from '../context/StationsContext';
+import {useTranslation} from "react-i18next"
 
 const usePayment = () => {
   const { enqueueSnackbar } = useSnackbar();
+  const [t] = useTranslation("global") 
 
   const postPayment = useCallback(
     (data) => {
       paymentService.postPayment(data).then((response) => {
-        enqueueSnackbar(
-          'Gracias por tu incidencia, intentaremos resolverla con la mayor brevedad posible.',
+        enqueueSnackbar(t("payment.success"),
           { variant: 'success' }
         );
       }).catch((error) => {
-        enqueueSnackbar('Ha habido algún error enviando el mensaje.', {
+        enqueueSnackbar(t("payment.error"), {
           variant: 'error'
         });
       });
@@ -25,6 +26,6 @@ const usePayment = () => {
   );
 
 
-  return { postPayment };
+  return { postPayment, t};
 };
 export default usePayment;

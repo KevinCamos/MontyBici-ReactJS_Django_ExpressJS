@@ -1,0 +1,11 @@
+{
+    "header":{"hello-world":"Hola mundo"},
+    "payment":{
+        "up-money":"Data",
+        "step1":"Data",
+        "step2":"Data",
+        "thanks": "Data",
+        "your-pay":"Data"
+        
+    }
+}
