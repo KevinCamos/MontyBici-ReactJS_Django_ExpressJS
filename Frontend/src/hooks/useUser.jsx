@@ -117,17 +117,16 @@ const useUser = () => {
     if(user?.profile?.registers&& !isInterval ){
       setIsInterval(true)
       setAmount(user?.profile?.credit?.amount)
-      setAmount((parseInt(user?.profile?.credit.amount)- ((Date.now()-new Date((user?.profile?.registers.data_get)).getTime())/1000*0.0001)).toFixed(3))
+      setAmount((parseFloat(user?.profile?.credit.amount)- ((Date.now()-new Date((user?.profile?.registers.data_get)).getTime())/1000*0.0001)).toFixed(3))
 
       setInterval(function () {
-        let letAmount= parseInt(user?.profile?.credit?.amount)
-        
+
         if(user?.profile?.registers){
-          setAmount((parseInt(user?.profile?.credit.amount)- ((Date.now()-new Date((user?.profile?.registers.data_get)).getTime())/1000*0.0001)).toFixed(3))
+          setAmount((parseFloat(user?.profile?.credit.amount)- ((Date.now()-new Date((user?.profile?.registers.data_get)).getTime())/1000*0.0001)).toFixed(3))
         }
       }, 10000);
-    }else{
-      console.log(user)
+    }else if(!isInterval){
+      setAmount(user?.profile?.credit?.amount)
     }
   }, [user]);
 

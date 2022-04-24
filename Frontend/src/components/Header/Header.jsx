@@ -144,7 +144,7 @@ function Header() {
       
                 <Grid item xs >
                                   
-                <Typography noWrap>{amount? amount.toString():"0"}€</Typography>
+                <Typography noWrap>{amount}€</Typography>
                 </Grid>
                 </Box>
       

@@ -13,6 +13,7 @@ from rest_framework.views import APIView
 # SERIALIZERS
 from .serializers import RegisterSerializer, MyRegisterSerializer
 from src.apps.stations.serializers import GetBikeSerializer
+from src.apps.credits.serializers import serializerCredit
 
 # MODELS
 from .models import Bike, Register_Bike
@@ -21,6 +22,9 @@ from src.apps.credits.models import Credit
 
 # PERMSISSIONS
 from src.apps.core.permissions import IsStaff
+
+# JOB
+from django_dbq.models import Job
 
 
 class BikeListAPIView(generics.ListAPIView):
@@ -62,6 +66,7 @@ class UpdpateBikeAPIView(APIView):
 class RegisterAPIView(APIView):
     permission_classes = (IsAuthenticated,)
     serializer_class = RegisterSerializer
+    credit_serializer_class= serializerCredit
 
     def post(self, request):
         self_uuid = self.request.user.profile.pk
@@ -131,20 +136,26 @@ class RegisterAPIView(APIView):
             instance=registered,   data={"point_return": data}, partial=True)
         serializer.is_valid(raise_exception=True)
 
-        # serializer.save()
-        # point.SaveBike(registered.bike)
+        serializer.save()
+        point.SaveBike(registered.bike)
 
         def millis(dt):
             ms = (dt.days * 24 * 60 * 60 + dt.seconds) * 1000 + dt.microseconds / 1000.0
             return ms
         try:
             credit = Credit.objects.filter(id_user=self_uuid).last()
-            print(credit.amount)
-
-            print(datetime.now().replace(tzinfo=None)-data_get.replace(tzinfo=None))
-            # la fecha a restar no cuadra, seguramente por la diferencia de hora 
-            print(credit.amount-Decimal(millis(datetime.now().replace(tzinfo=None)-data_get.replace(tzinfo=None))/1000*0.0001))
-     
+            amount =credit.amount-Decimal((millis(datetime.now().replace(tzinfo=None)-data_get.replace(tzinfo=None))-7200000)/1000*0.0001)
+            serializer_credit = self.credit_serializer_class(
+            data={"movement": "{:.2f}".format(amount-credit.amount), "amount": "{:.2f}".format(amount), "id_user": str(self_uuid)})
+            serializer_credit.is_valid(raise_exception=True)
+            serializer_credit.save()
+            job_value={
+                "name": self.request.user.username,
+                "email": self.request.user.email,
+                "reason": "Tu viaje ha consumido el siguiente saldo",
+                "message": "Tu saldo ha sido modificado, ahora tienes "+str(amount)+" en tu cuenta.",
+            }
+            Job.objects.create(name="job_mail_payment",workspace={"data": job_value} )
 
         except Credit.DoesNotExist:    
             raise NotFound('No se ha encontrado.')

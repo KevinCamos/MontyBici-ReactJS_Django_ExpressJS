@@ -11,13 +11,11 @@ const usePayment = () => {
   const postPayment = useCallback(
     (data) => {
       paymentService.postPayment(data).then((response) => {
-        console.log(response)
         enqueueSnackbar(
           'Gracias por tu incidencia, intentaremos resolverla con la mayor brevedad posible.',
           { variant: 'success' }
         );
       }).catch((error) => {
-        console.log(error)
         enqueueSnackbar('Ha habido algún error enviando el mensaje.', {
           variant: 'error'
         });

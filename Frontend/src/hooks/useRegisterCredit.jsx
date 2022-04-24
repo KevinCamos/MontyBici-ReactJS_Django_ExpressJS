@@ -16,8 +16,6 @@ const useRegisterCredit = () => {
         .getPayments()
         .then((response) => {
           setIsLoading(false);
-
-          console.log(response.data)
           const registerResponse = response.data;
           createTable(registerResponse);
 
@@ -32,10 +30,10 @@ const useRegisterCredit = () => {
   const createTable = (registers) => {
     const makingRows = [];
     registers.map((register, index, allRegisters) => {
-      makingRows.push(createData(
-        allRegisters[allRegisters.length - index]?.created_at,
-         allRegisters[allRegisters.length - index]?.movement,
-          allRegisters[allRegisters.length - index]?.amount));
+      return makingRows.push(createData(
+        allRegisters[allRegisters.length - index - 1]?.created_at,
+        allRegisters[allRegisters.length - index - 1]?.movement,
+        allRegisters[allRegisters.length - index - 1]?.amount));
     });
     setRows(makingRows);
   };
@@ -43,6 +41,9 @@ const useRegisterCredit = () => {
 
   function createData(created_at, movement, amount) {
 
+    let created_at_date = new Date(created_at)
+    created_at = created_at_date.toLocaleString()
+    let eh = "eh"
     return { created_at, movement, amount };
   }
 
