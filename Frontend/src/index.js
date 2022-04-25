@@ -10,6 +10,7 @@ import { I18nextProvider } from "react-i18next"
 import i18next from "i18next"
 import global_es from "./translations/es/global.json"
 import global_en from "./translations/en/global.json"
+import global_kl from "./translations/kl/global.json"
 // https://www.youtube.com/watch?v=C6PtKxW4rvk&ab_channel=AgustinNavarroGaldon
 i18next.init({
     interpolation: { escapeValue: false },
@@ -20,6 +21,9 @@ i18next.init({
         },
         en:{
             global:global_en
+        },
+        kl:{
+            global:global_kl
         }
     }
 })

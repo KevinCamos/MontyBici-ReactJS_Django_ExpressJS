@@ -9,12 +9,14 @@ import FilledInput from '@mui/material/FilledInput';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import InputAdornment from '@mui/material/InputAdornment';
+import {useTranslation} from "react-i18next"
 
 export default function PaymentForm(props) {
   // const messageError = admin  ? '¿Tus credenciales son correctas para entrar?'
   // : '¿Has escrito bien tu email y password?';
   const { register, handleSubmit, formState: { errors } } = useForm();
   const [amount, setAmount] =useState(0);
+  const [t] = useTranslation("global") 
 
   const valueLength = (data) => {
     if (data) {
@@ -35,18 +37,18 @@ export default function PaymentForm(props) {
         onSubmit={(handleSubmit(props.emmitPayment))}
       >
      <Typography variant="h6" sx={{ my: { xs: 1, md: 1 } }}>
-        Cantidad de recarga
+     {t(`payment.recharge-amount`)}
       </Typography>
         <Grid container spacing={3}>
           <Grid item xs={12} md={12}>
       <FormControl fullWidth sx={{ m: 1 }} variant="filled">
-          <InputLabel htmlFor="filled-adornment-amount">Cantidad de recarga</InputLabel>
+          <InputLabel htmlFor="filled-adornment-amount"> {t(`payment.recharge-amount`)}</InputLabel>
           <FilledInput
             error={valueLength(errors.moneyCard)}
 
             required
             id="moneyCard"
-            label="Total recarga"
+            label={t(`payment.total-recharge`)}
             fullWidth
             autoComplete="cc-money"
             variant="standard"
@@ -61,7 +63,7 @@ export default function PaymentForm(props) {
           </Grid>
         </Grid>
       <Typography variant="h6" sx={{ my: { xs: 3, md: 3 } }} >       
-       Datos de bancarios
+      {t(`payment.bank-data`)}
       </Typography>
 
         <Grid container spacing={3}>
@@ -72,7 +74,7 @@ export default function PaymentForm(props) {
 
               required
               id="cardName"
-              label="Titular de la tarjeta"
+              label={t(`payment.cardholder`)}
               fullWidth
               autoComplete="cc-name"
               variant="standard"
@@ -87,7 +89,7 @@ export default function PaymentForm(props) {
               error={valueLength(errors.cardNumber)}
 
               id="cardNumber"
-              label="Número de tarjeta"
+              label={t(`payment.tarjet-number`)}
               fullWidth
               autoComplete="cc-number"
               variant="standard"
@@ -101,7 +103,7 @@ export default function PaymentForm(props) {
               error={valueLength(errors.expDate)}
 
               id="expDate"
-              label="Data de expiración"
+              label={t(`payment.expire-date`)}
               fullWidth
               autoComplete="cc-exp"
               variant="standard"
@@ -120,12 +122,11 @@ export default function PaymentForm(props) {
 
               id="cvv"
               label="CVV"
-              helperText="Last three or four digits on signature strip"
+              helperText={t(`payment.last-tree-digits`)}
               fullWidth
               autoComplete="cc-csc"
               variant="standard"
               defaultValue="123"
-
               {...register("cvv", { required: true, pattern: /^[0-9]{3,4}$/ })}
 
             />
@@ -136,12 +137,8 @@ export default function PaymentForm(props) {
             fullWidth
             variant="contained"
             noValidate
-
-            // onClick={handleNext}
-            // onClick={()=>{console.log("eh")}}
-            sx={{ mt: 3, ml: 1 }}
-          >
-            {props.activeStep === props.steps.length - 1 ? 'Place order' : 'Siguiente página'}
+            sx={{ mt: 3, ml: 1 }}>
+            {props.activeStep === props.steps.length - 1 ? t(`payment.buyout`)  : t(`payment.next-page`)}
           </Button>
         </Grid>
       </Box>

@@ -1,11 +1,25 @@
 {
-    "header":{"hello-world":"Hola mundo"},
-    "payment":{
-        "up-money":"Data",
-        "step1":"Data",
-        "step2":"Data",
-        "thanks": "Data",
-        "your-pay":"Data"
-        
-    }
+    "payment": {
+    "up-money": "Increase your wallet",
+    "step1": "Bank Details",
+    "step2": "Check your details",
+    "thanks": "Thank you for your recharge",
+    "your-pay": "We have sent you an email confirming the process",
+    "back": "Go back",
+    "success": "Thank you for your issue, we will try to resolve it as soon as possible.",
+    "error": "There was an error in the purchase",
+    "recharge-amount": "Recharge amount",
+    "total-recharge": "Total Recharge",
+    "bank-data": "Bank Data",
+    "cardholder": "Card holder",
+    "tarjet-number": "Card number",
+    "expire-date": "Expiration date",
+    "last-tree-digits": "3 or 4 CVV digits",
+    "buyout": "Purchase",
+    "next-page": "Next page",
+    "price-recharge": "Recharge price",
+    "recharge-montybici":"Recharge at MontyBici S.Coop",
+    "payments-details": "Payment details",
+    "make-payments":"MAKE PAYMENT"
+}
 }
