@@ -8,8 +8,8 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
-import environ
-import os
+import os 
+from os import environ
 # https://django-environ.readthedocs.io/en/latest/getting-started.html#installation
 env = environ.Env(
     # set casting, default value
