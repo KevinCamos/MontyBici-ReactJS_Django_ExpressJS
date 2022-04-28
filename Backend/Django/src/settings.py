@@ -22,7 +22,6 @@ env = environ.Env(
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
@@ -97,17 +96,21 @@ WSGI_APPLICATION = 'src.wsgi.application'
 # Database
 # https://dev.to/sm0ke/how-to-use-mysql-with-django-for-beginners-2ni0
 
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'MontyBici',
-        'USER': 'root',
-        'PASSWORD': 'root',
-        'HOST': 'localhost',
-        # 'HOST': 'mysql_db',      #<- Nombre del contenedor de docker de mysql
-        'PORT': '3306',
+        'NAME':  env('NAME_DATABASE'),
+        'USER':  env('USER_DATABASE'),
+        'PASSWORD': env('PASSWORD_DATABASE'),
+        'HOST':    env('HOST_DATABASE'),
+        'PORT': 3306,
+        'OPTIONS': {
+            "init_command": "SET sql_mode='STRICT_TRANS_TABLES'"
+        }
     }
 }
+
 # Take environment variables from .env file
 environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 # https://github.com/anymail/django-anymail
@@ -215,8 +218,10 @@ JOBS = {
         "tasks": ["src.apps.core.jobs.notification_mail"],
         "failure_hook": "src.apps.core.jobs.notification_mail_fail",
     },
-     "job_mail_payment": {
+    "job_mail_payment": {
         "tasks": ["src.apps.core.jobs.notification_mail_payment"],
         "failure_hook": "src.apps.core.jobs.notification_mail_payment_fail",
     },
 }
+import django_heroku
+django_heroku.settings(locals())
