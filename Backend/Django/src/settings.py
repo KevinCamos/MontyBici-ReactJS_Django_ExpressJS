@@ -9,12 +9,12 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 import environ
-import os 
-# https://django-environ.readthedocs.io/en/latest/getting-started.html#installation
-env = environ.Env(
-    # set casting, default value
-    DEBUG=(bool, False)
-)
+# import os 
+# # https://django-environ.readthedocs.io/en/latest/getting-started.html#installation
+# env = environ.Env(
+#     # set casting, default value
+#     DEBUG=(bool, False)
+# )
 
 
 # print("_----------",os.environ.get(AWS_ACCESS_KEY_ID))
@@ -116,17 +116,17 @@ environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 # https://github.com/anymail/django-anymail
 ANYMAIL = {
     # (exact settings here depend on your ESP...)
-    "MAILGUN_API_KEY": env('MAILGUN_API_KEY'),
+    "MAILGUN_API_KEY": os.path.join('MAILGUN_API_KEY'),
     # your Mailgun domain, if needed
-    "MAILGUN_SENDER_DOMAIN": env('MAILGUN_SENDER_DOMAIN'),
+    "MAILGUN_SENDER_DOMAIN": os.path.join('MAILGUN_SENDER_DOMAIN'),
 }
 
 # or sendgrid.EmailBackend, or...
 EMAIL_BACKEND = "anymail.backends.mailgun.EmailBackend"
 # if you don't already have this in settings
-DEFAULT_FROM_EMAIL = env('DEFAULT_FROM_EMAIL')
+DEFAULT_FROM_EMAIL = os.path.join('DEFAULT_FROM_EMAIL')
 # ditto (default from-email for Django errors)
-SERVER_EMAIL = env('SERVER_EMAIL')
+SERVER_EMAIL = os.path.join('SERVER_EMAIL')
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
 
