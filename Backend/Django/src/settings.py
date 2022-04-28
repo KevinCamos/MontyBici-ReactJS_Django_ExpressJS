@@ -9,6 +9,9 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 # import environ
+import django_heroku
+django_heroku.settings(locals())
+
 import os 
 # # https://django-environ.readthedocs.io/en/latest/getting-started.html#installation
 # env = environ.Env(
@@ -223,5 +226,3 @@ JOBS = {
         "failure_hook": "src.apps.core.jobs.notification_mail_payment_fail",
     },
 }
-import django_heroku
-django_heroku.settings(locals())
