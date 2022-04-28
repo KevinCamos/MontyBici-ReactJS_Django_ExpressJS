@@ -7,34 +7,37 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
+import dj_database_url
+import os
 from pathlib import Path
-# import environ
-import django_heroku
-django_heroku.settings(locals())
 
-import os 
-# # https://django-environ.readthedocs.io/en/latest/getting-started.html#installation
-# env = environ.Env(
-#     # set casting, default value
-#     DEBUG=(bool, False)
-# )
+import environ
+import django_heroku
+
+
+# https://django-environ.readthedocs.io/en/latest/getting-started.html#installation
+env = environ.Env(
+    # set casting, default value
+    DEBUG=(bool, False)
+)
 
 
 # print("_----------",os.environ.get(AWS_ACCESS_KEY_ID))
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '@1t_msb4qfd&9ag0im-w-_)z0u#@7hcraypd+fuuyasmu)6d1l'
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '123.0.0.1']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -99,6 +102,13 @@ WSGI_APPLICATION = 'src.wsgi.application'
 # Database
 # https://dev.to/sm0ke/how-to-use-mysql-with-django-for-beginners-2ni0
 
+# we only need the engine name, as heroku takes care of the rest
+# DATABASES = {
+#     "default": {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
 
 DATABASES = {
     'default': {
@@ -115,21 +125,21 @@ DATABASES = {
 }
 
 # Take environment variables from .env file
-# environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
+environ.Env.read_env(os.environ.join(BASE_DIR, '.env'))
 # https://github.com/anymail/django-anymail
 ANYMAIL = {
     # (exact settings here depend on your ESP...)
-    "MAILGUN_API_KEY": os.path.join('MAILGUN_API_KEY'),
+    "MAILGUN_API_KEY": os.environ.join('MAILGUN_API_KEY'),
     # your Mailgun domain, if needed
-    "MAILGUN_SENDER_DOMAIN": os.path.join('MAILGUN_SENDER_DOMAIN'),
+    "MAILGUN_SENDER_DOMAIN": os.environ.join('MAILGUN_SENDER_DOMAIN'),
 }
 
 # or sendgrid.EmailBackend, or...
 EMAIL_BACKEND = "anymail.backends.mailgun.EmailBackend"
 # if you don't already have this in settings
-DEFAULT_FROM_EMAIL = os.path.join('DEFAULT_FROM_EMAIL')
+DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL')
 # ditto (default from-email for Django errors)
-SERVER_EMAIL = os.path.join('SERVER_EMAIL')
+SERVER_EMAIL = os.environ.get('SERVER_EMAIL')
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
 
@@ -170,8 +180,13 @@ DATE_INPUT_FORMATS = ('%Y-%m-%d %H:%M:%S')
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
-
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
 STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [
+    os.path.join(PROJECT_ROOT, 'static'),
+]
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # REST_FRAMEWORK = {
 #     'DEFAULT_PERMISSION_CLASSES': [
@@ -226,3 +241,7 @@ JOBS = {
         "failure_hook": "src.apps.core.jobs.notification_mail_payment_fail",
     },
 }
+
+
+
+django_heroku.settings(locals())
