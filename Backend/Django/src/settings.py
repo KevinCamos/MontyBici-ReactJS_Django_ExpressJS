@@ -8,9 +8,13 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
-# import environ
+import environ
 import os
 # https://django-environ.readthedocs.io/en/latest/getting-started.html#installation
+os.environ.get = environ.Env(
+    # set casting, default value
+    DEBUG=(bool, False)
+)
 
 
 # print("_----------",os.environ.get(AWS_ACCESS_KEY_ID))
@@ -108,7 +112,7 @@ DATABASES = {
 }
 
 # Take environment variables from .env file
-# environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 # https://github.com/anymail/django-anymail
 ANYMAIL = {
     # (exact settings here depend on your ESP...)
