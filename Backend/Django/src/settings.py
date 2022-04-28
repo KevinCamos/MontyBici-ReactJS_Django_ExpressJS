@@ -112,7 +112,7 @@ DATABASES = {
 }
 
 # Take environment variables from .env file
-environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
+# environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 # https://github.com/anymail/django-anymail
 ANYMAIL = {
     # (exact settings here depend on your ESP...)
