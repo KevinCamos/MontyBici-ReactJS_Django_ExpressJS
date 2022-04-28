@@ -62,7 +62,6 @@ class UpdpateBikeAPIView(APIView):
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
-
 class RegisterAPIView(APIView):
     permission_classes = (IsAuthenticated,)
     serializer_class = RegisterSerializer
@@ -108,6 +107,12 @@ class RegisterAPIView(APIView):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     def put(self, request):
+
+
+        def millis(dt):
+            ms = (dt.days * 24 * 60 * 60 + dt.seconds) * 1000 + dt.microseconds / 1000.0
+            return ms
+            
         self_uuid = self.request.user.profile.pk
         data = request.data.get('id_point', {})
 
@@ -139,9 +144,7 @@ class RegisterAPIView(APIView):
         serializer.save()
         point.SaveBike(registered.bike)
 
-        def millis(dt):
-            ms = (dt.days * 24 * 60 * 60 + dt.seconds) * 1000 + dt.microseconds / 1000.0
-            return ms
+      
         try:
             credit = Credit.objects.filter(id_user=self_uuid).last()
             amount =credit.amount-Decimal((millis(datetime.now().replace(tzinfo=None)-data_get.replace(tzinfo=None))-7200000)/1000*0.0001)

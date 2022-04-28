@@ -22,8 +22,7 @@ export default function Payment() {
 
   const steps = ['step1', 'step2'];
   const [activeStep, setActiveStep] = useState(0);
-  const { postPayment,t } = usePayments();
-  const [dataPayment, setDataPayment] = useState({});
+  const { postPayment,dataPayment, setDataPayment, t } = usePayments();
 
 
   const handleNext = () => {
@@ -39,10 +38,12 @@ export default function Payment() {
     setDataPayment(e)
     handleNext()
   }
-  function getStepContent(step) {
+  const getStepContent = (step) => {
     switch (step) {
-      case 0: return <PaymentForm activeStep={activeStep} steps={steps} emmitPayment={e => { saveDataNextPage(e) }} />;
-      case 1: return <Review dataPayment={dataPayment} emmitPayment={e => { postPayment(e) }} />;
+      case 0: return <PaymentForm activeStep={activeStep} steps={steps}
+        emmitPayment={e => { saveDataNextPage(e) }} />;
+      case 1: return <Review dataPayment={dataPayment}
+        emmitPayment={e => { postPayment(e) }} />;
       default: throw new Error('Unknown step');
     }
   }
@@ -50,7 +51,7 @@ export default function Payment() {
   return (
     <>
       <CssBaseline />
-     
+
       <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
         <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
           <Typography component="h1" variant="h4" align="center">
@@ -67,10 +68,10 @@ export default function Payment() {
             {activeStep === steps.length
               ? (<React.Fragment>
                 <Typography variant="h5" gutterBottom>
-                {t("payment.thanks")}
+                  {t("payment.thanks")}
                 </Typography>
                 <Typography variant="subtitle1">
-                {t("payment.your-pay")}
+                  {t("payment.your-pay")}
 
                 </Typography>
               </React.Fragment>
@@ -81,17 +82,10 @@ export default function Payment() {
                   <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
                     {activeStep !== 0 && (
                       <Button onClick={handleBack} sx={{ mt: 3, ml: 1 }}>
-                {t("payment.back")}
+                        {t("payment.back")}
                       </Button>
                     )}
 
-                    {/* <Button
-                      variant="submit"
-                      onClick={handleNext}
-                      sx={{ mt: 3, ml: 1 }}
-                    >
-                      {activeStep === steps.length - 1 ? 'Place order' : 'Siguiente página'}
-                    </Button> */}
                   </Box>
                 </React.Fragment>
               )}

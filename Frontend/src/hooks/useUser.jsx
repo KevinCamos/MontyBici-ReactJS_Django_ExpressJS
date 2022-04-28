@@ -112,17 +112,19 @@ const useUser = () => {
     navigate('/login');
   }, [setJWT, setUser, navigate]);
 
+  const calculateAmount= (amount, data_get)=>{
+    return (parseFloat(amount)- ((Date.now()-new Date((data_get)).getTime())/1000*0.0001)).toFixed(3)
+  }
 
   useEffect(() => {
     if(user?.profile?.registers&& !isInterval ){
       setIsInterval(true)
-      setAmount(user?.profile?.credit?.amount)
-      setAmount((parseFloat(user?.profile?.credit.amount)- ((Date.now()-new Date((user?.profile?.registers.data_get)).getTime())/1000*0.0001)).toFixed(3))
+      setAmount(calculateAmount(user?.profile?.credit.amount, user?.profile?.registers.data_get))
 
       setInterval(function () {
 
         if(user?.profile?.registers){
-          setAmount((parseFloat(user?.profile?.credit.amount)- ((Date.now()-new Date((user?.profile?.registers.data_get)).getTime())/1000*0.0001)).toFixed(3))
+          setAmount(calculateAmount(user?.profile?.credit.amount, user?.profile?.registers.data_get))
         }
       }, 10000);
     }else if(!isInterval){

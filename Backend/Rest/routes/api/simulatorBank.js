@@ -13,10 +13,7 @@ router.post("/", /* auth.optional, */  async (req, res, next) => {
   const jsonUsersBank = JSON.parse(usersBankString);
   let money = 0;
 
-
   let index = jsonUsersBank.findIndex((userBank) => { return userBank.cardName === req.body.cardName })
-
-
 
   if (index != undefined && index !== -1) {
     try {
@@ -65,9 +62,6 @@ router.post("/", /* auth.optional, */  async (req, res, next) => {
 
 
   }
-
-  return res.json(req.body);
-  return res.status(500).send({ message: 'Algo ha fallado!' })
 
 });
 

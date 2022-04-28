@@ -14,15 +14,10 @@ from src.apps.bikes.models import Register_Bike
 
 class ProfileSerializer(serializers.ModelSerializer):
     username = serializers.CharField(source='user.username')
-    # bio = serializers.CharField(allow_blank=True, required=False)
     image = serializers.CharField(allow_blank=True, required=False)
-    # registers= RegisterSerializer(many=True)
-    # image = serializers.SerializerMethodField()
-    # following = serializers.SerializerMethodField()
 
     class Meta:
         model = Profile
-        # fields = ('username', 'bio', 'image', 'following')
         fields = ('username',  'image')
         read_only_fields = ('username',)
 
@@ -39,7 +34,7 @@ class ProfileSerializer(serializers.ModelSerializer):
 
             return{
                 "image": instance.image,
-                "credit": {"amount": str(credit.amount)    }
+                "credit": amount
             }
         else:
             reg= register[0]

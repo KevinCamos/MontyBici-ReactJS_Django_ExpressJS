@@ -1,5 +1,7 @@
 import { createTheme } from "@mui/material/styles";
 const green = "#43A047";
+const purple = "#BE93D4";
+const white = "#F6F7FF";
 
 const theme = createTheme({
   palette: {
@@ -12,7 +14,7 @@ const theme = createTheme({
       main: green
     },
     action:{
-      main: "#BE93D4" //Purple
+      main: purple 
     }
 
   },
@@ -21,7 +23,7 @@ const theme = createTheme({
       styleOverrides: {
         paper: {
           backgroundColor: green,
-          color:"#F6F7FF"
+          color:white
         },
       },
     }
