@@ -8,13 +8,9 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
-import environ
+# import environ
 import os
 # https://django-environ.readthedocs.io/en/latest/getting-started.html#installation
-env = environ.Env(
-    # set casting, default value
-    DEBUG=(bool, False)
-)
 
 
 # print("_----------",os.environ.get(AWS_ACCESS_KEY_ID))
@@ -100,10 +96,10 @@ WSGI_APPLICATION = 'src.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME':  env('NAME_DATABASE'),
-        'USER':  env('USER_DATABASE'),
-        'PASSWORD': env('PASSWORD_DATABASE'),
-        'HOST':    env('HOST_DATABASE'),
+        'NAME':  os.environ.get('NAME_DATABASE'),
+        'USER':  os.environ.get('USER_DATABASE'),
+        'PASSWORD': os.environ.get('PASSWORD_DATABASE'),
+        'HOST':    os.environ.get('HOST_DATABASE'),
         'PORT': 3306,
         'OPTIONS': {
             "init_command": "SET sql_mode='STRICT_TRANS_TABLES'"
@@ -112,21 +108,21 @@ DATABASES = {
 }
 
 # Take environment variables from .env file
-environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
+# environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 # https://github.com/anymail/django-anymail
 ANYMAIL = {
     # (exact settings here depend on your ESP...)
-    "MAILGUN_API_KEY": env('MAILGUN_API_KEY'),
+    "MAILGUN_API_KEY": os.environ.get('MAILGUN_API_KEY'),
     # your Mailgun domain, if needed
-    "MAILGUN_SENDER_DOMAIN": env('MAILGUN_SENDER_DOMAIN'),
+    "MAILGUN_SENDER_DOMAIN": os.environ.get('MAILGUN_SENDER_DOMAIN'),
 }
 
 # or sendgrid.EmailBackend, or...
 EMAIL_BACKEND = "anymail.backends.mailgun.EmailBackend"
 # if you don't already have this in settings
-DEFAULT_FROM_EMAIL = env('DEFAULT_FROM_EMAIL')
+DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL')
 # ditto (default from-email for Django errors)
-SERVER_EMAIL = env('SERVER_EMAIL')
+SERVER_EMAIL = os.environ.get('SERVER_EMAIL')
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
 
