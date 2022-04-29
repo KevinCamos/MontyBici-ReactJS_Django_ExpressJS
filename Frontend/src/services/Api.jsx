@@ -3,8 +3,9 @@ import SERVER_URL from '../secrets';
 
 const Api = (OTHER_URL) => {
   console.log(OTHER_URL)
+  git
   const axiosInstance = axios.create({
-    baseURL: OTHER_URL||SERVER_URL
+    baseURL: OTHER_URL||process.env.SERVER_URL
   });
 
   const token = sessionStorage.getItem('token');
