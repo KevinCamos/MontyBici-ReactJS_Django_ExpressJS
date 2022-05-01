@@ -16,7 +16,11 @@ const usePayment = () => {
   const postPayment = useCallback(
     (data) => {
       paymentService.postPayment(data).then((response) => {
-        let amountUser=user
+        let amountUser={...user}
+        console.log(amountUser)
+        console.log(amountUser.profile.credit.amount)
+        console.log(response.data.amount)
+        amountUser.profile.credit.amount=response.data.amount
         setUser(amountUser)
         enqueueSnackbar(t("payment.success"),
           { variant: 'success' }

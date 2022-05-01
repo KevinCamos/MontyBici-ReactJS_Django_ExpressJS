@@ -177,7 +177,7 @@ function Header() {
       
                 <Grid item xs >
                                   
-                <Typography noWrap>{amount}€</Typography>
+                <Typography noWrap>{(amount||"0,00").split("").reverse().join("").replace(".",",").split("").reverse().join("")}€</Typography>
                 </Grid>
                 </Box>
       

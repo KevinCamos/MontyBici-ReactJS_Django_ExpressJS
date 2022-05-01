@@ -26,14 +26,18 @@ const useRegisterCredit = () => {
         });
     }
   }, []);
+  const formatPrice = (price) => {
 
+    return (price || "-").split("").reverse().join("").replace(".", ",").split("").reverse().join("")+"€"
+
+  }
   const createTable = (registers) => {
     const makingRows = [];
     registers.reverse().map((register) => {
       return makingRows.push(createData(
         register?.created_at,
-        register?.movement,
-        register?.amount));
+        formatPrice(register?.movement),
+        formatPrice(register?.amount)));
     });
     setRows(makingRows);
   };
