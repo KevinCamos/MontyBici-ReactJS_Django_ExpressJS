@@ -17,9 +17,7 @@ const usePayment = () => {
     (data) => {
       paymentService.postPayment(data).then((response) => {
         let amountUser=user
-        console.log(response)
-        console.log(amountUser)
-        amountUser.profile.credit.amount= response.data.amount
+        setUser(amountUser)
         enqueueSnackbar(t("payment.success"),
           { variant: 'success' }
         );

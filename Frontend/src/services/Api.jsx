@@ -2,7 +2,6 @@ import axios from 'axios';
 import SERVER_URL from '../secrets';
 
 const Api = (OTHER_URL) => {
-  console.log(OTHER_URL)
   const axiosInstance = axios.create({
     baseURL: OTHER_URL||SERVER_URL
   });
@@ -15,7 +14,6 @@ const Api = (OTHER_URL) => {
   axiosInstance.interceptors.response.use(
     (response) => response,
     (error) => {
-      console.log(error);
       if (error.response.status === 401) {
         sessionStorage.removeItem('token');
         sessionStorage.removeItem('user');

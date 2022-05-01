@@ -24,7 +24,6 @@ export function AdminContextProvider({ children }) {
           setIsLoading(false);
         })
         .catch((error) => {
-          console.log(error);
           setIsLoading(false);
         });
     }
@@ -40,7 +39,6 @@ export function AdminContextProvider({ children }) {
           setIsBikeLoading(false);
         })
         .catch((error) => {
-          console.log(error);
         });
     }
   }, [bikes]);

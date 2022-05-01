@@ -21,7 +21,6 @@ router.post("/", /* auth.optional, */  async (req, res, next) => {
       if (checkCard == undefined || checkCard === -1) {
 
         let user = await request.get_user_token(req.headers.authorization);
-        // console.log(ObjectKeys(user))
         if (user.status && user.status === 404) {
           return res.status(404).send({ message: 'Existes en la Base de datos?!' })
         } else {
@@ -34,7 +33,6 @@ router.post("/", /* auth.optional, */  async (req, res, next) => {
           }
           if (jsonUsersBank[index]["moneyBank"] >=money) {
             let response = await request.post_money(money, req.headers.authorization);
-            console.log(response)
 
             if (response.status && response.status === 404) {
 
@@ -43,8 +41,6 @@ router.post("/", /* auth.optional, */  async (req, res, next) => {
               return res.status(200).send(response)
             }
           } else {
-            console.log(jsonUsersBank[index]["moneyBank"] , req.body["moneyCard"])
-            console.log("no hi ha saldo suficient")
             return res.status(404).send({ message: 'No hay saldo suficiente' })
           }
         }

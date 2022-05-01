@@ -17,7 +17,6 @@ export default function Review(props) {
     { name: t(`payment.expire-date`), detail: props.dataPayment.expDate },
   ];
   const currently = "€"
-  console.log(props.dataPayment)
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
