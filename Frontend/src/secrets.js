@@ -1,2 +1,2 @@
-const SERVER_URL = 'https://montibici.herokuapp.com/api/';
+const SERVER_URL = 'https://montybici.herokuapp.com/api/';
 export default SERVER_URL;
