@@ -38,13 +38,17 @@ class AmountCredit(APIView):
         serializer.is_valid(raise_exception=True)
 
         serializer.save()
+        try:
 
-        job_value={
-            "name": self.request.user.username,
-            "email": self.request.user.email,
-            "reason": "Tu saldo ha sido modificado",
-            "message": "Tu saldo ha sido modificado, ahora tienes "+str(amount)+" en tu cuenta.",
-        }
+            job_value={
+                "name": self.request.user.username,
+                "email": self.request.user.email,
+                "reason": "Tu saldo ha sido modificado",
+                "message": "Tu saldo ha sido modificado, ahora tienes "+str(amount)+" en tu cuenta.",
+            }
+        
+        except Credit.DoesNotExist:    
+            raise NotFound('No se ha encontrado.')
         Job.objects.create(name="job_mail_payment",workspace={"data": job_value} )
 
 
