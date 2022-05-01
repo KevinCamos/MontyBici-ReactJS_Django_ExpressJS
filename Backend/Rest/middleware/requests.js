@@ -1,8 +1,8 @@
 const fetch = require("node-fetch");
 const { Headers } = require('node-fetch');
-
+const URL_DJANGO="https://montybici.herokuapp.com/api/"
 exports.get_user_token = async (token) =>{
-    return fetch('http://localhost:8000/api/auth/user/', { 
+    return fetch(`${URL_DJANGO}auth/user/`, { 
         method: 'GET', 
         headers: new Headers({
           'Authorization': token, 
@@ -18,7 +18,7 @@ exports.get_user_token = async (token) =>{
 }
 
 exports.post_money = async (movement,token) =>{
-  return fetch('http://0.0.0.0:8000/api/credits/credit', { 
+  return fetch(`${URL_DJANGO}credits/credit`, { 
       method: 'POST', 
       body: JSON.stringify({movement:movement}),
       headers: new Headers({
