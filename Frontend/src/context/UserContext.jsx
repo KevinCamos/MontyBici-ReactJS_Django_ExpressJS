@@ -35,7 +35,7 @@ export function UserContextProvider({ children }) {
       setIsJWTLoading(false);
     }
   };
-
+  const[amount, setAmount]=useState(0)
   const [isRegisters, setIsRegisters] = useState(false);
   const [jwt, setJWT] = useState(() => checkUser());
   const [user, setUser] = useState(null);
@@ -49,7 +49,11 @@ export function UserContextProvider({ children }) {
         isJWTLoading,
         setIsJWTLoading,
         isRegisters,
-        setIsRegisters
+        setIsRegisters,
+        amount, 
+        setAmount,
+        checkUser
+        
       }}
     >
       {children}

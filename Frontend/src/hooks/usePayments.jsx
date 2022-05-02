@@ -10,7 +10,7 @@ const usePayment = () => {
   const { enqueueSnackbar } = useSnackbar();
   const [t] = useTranslation("global") 
   const [dataPayment, setDataPayment] = useState({});
-  const {  user, setUser } =
+  const {  user, setUser, setAmount,amount,checkUser} =
     useContext(UserContext);
 
   const postPayment = useCallback(
@@ -18,10 +18,13 @@ const usePayment = () => {
       paymentService.postPayment(data).then((response) => {
         let amountUser={...user}
         console.log(amountUser)
-        console.log(amountUser.profile.credit.amount)
-        console.log(response.data.amount)
-        amountUser.profile.credit.amount=response.data.amount
+        console.log(amountUser?.profile?.credit?.amount)
+        console.log(response?.data?.amount)
+        amountUser.profile={...amountUser.profile, credut:{amount:response?.data?.amount}}
+        console.log(amountUser?.profile?.credit?.amount)
+        setAmount(response?.data?.amount)
         setUser(amountUser)
+        checkUser()
         enqueueSnackbar(t("payment.success"),
           { variant: 'success' }
         );
@@ -31,7 +34,7 @@ const usePayment = () => {
         });
       });
     },
-    []
+    [amount, user]
   );
 
 

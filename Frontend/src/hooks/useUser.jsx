@@ -14,14 +14,13 @@ const useUser = () => {
     error: false,
     errorPassword: false
   });
-  const[amount, setAmount]=useState(0)
   
   const [isAdmin, setIsAdmin] = useState(false);
   const [isJWTAdminLoading, setIsJWTAdminLoading] = useState(true);
   const [isCheckingAdmin, setIsCheckingAdmin] = useState(false);
   const [isInterval, setIsInterval] = useState(false);
 
-  const { jwt, setJWT, user, setUser, isJWTLoading, isRegisters } =
+  const { jwt, setJWT, user, setUser, isJWTLoading, isRegisters,amount, setAmount } =
     useContext(UserContext);
 
   const deleteUserOrError = (error) => {

@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React, { useState } from 'react';
 import AppBar from '@mui/material/AppBar';
 import {
   Box,
@@ -18,10 +18,10 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { Outlet, Link } from 'react-router-dom';
 import useHeader from '../../hooks/useHeader';
 import useUser from '../../hooks/useUser';
-import {useTranslation} from "react-i18next"
+import { useTranslation } from "react-i18next"
 
 function Header() {
-  const [t, i18n] = useTranslation("global") 
+  const [t, i18n] = useTranslation("global")
 
   const {
     anchorElNav,
@@ -34,10 +34,10 @@ function Header() {
     pagesNoLogged,
     settings
   } = useHeader();
-  
+
   const { isLogged, user, logout, amount } = useUser();
 
-  
+console.log(amount)
   const logoutClick = (event) => {
     handleCloseUserMenu();
     logout();
@@ -59,29 +59,29 @@ function Header() {
               noWrap
               component="div"
               sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
-              onClick={()=>{i18n.changeLanguage("en")}}              >
+              onClick={() => { i18n.changeLanguage("en") }}              >
               En
-              
+
             </Typography>
             <Typography
               variant="small"
               noWrap
               component="div"
               sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
-              onClick={()=>{i18n.changeLanguage("es")}}              >
+              onClick={() => { i18n.changeLanguage("es") }}              >
               Es
             </Typography>
-            
+
             <Typography
               variant="small"
               noWrap
               component="div"
               sx={{ mr: 5, display: { xs: 'none', md: 'flex' } }}
-              onClick={()=>{i18n.changeLanguage("kl")}}>
+              onClick={() => { i18n.changeLanguage("kl") }}>
               Klingon
             </Typography>
 
-        
+
             <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
               <IconButton
                 size="large"
@@ -113,26 +113,26 @@ function Header() {
               >
                 {isLogged
                   ? pagesLogged.map((page) => (
-                      <MenuItem key={page} onClick={handleCloseNavMenu}>
-                        <Typography textAlign="center">
-                          <Link className="nav-link " to={`/${page}`}>
-                            {page}
-                          </Link>
-                          
-                        </Typography>
-                      </MenuItem>
-                    ))
-                    
-                    
+                    <MenuItem key={page} onClick={handleCloseNavMenu}>
+                      <Typography textAlign="center">
+                        <Link className="nav-link " to={`/${page}`}>
+                          {page}
+                        </Link>
+
+                      </Typography>
+                    </MenuItem>
+                  ))
+
+
                   : pagesNoLogged.map((page) => (
-                      <MenuItem key={page} onClick={handleCloseNavMenu}>
-                        <Typography textAlign="center">
-                          <Link className="nav-link " to={`/${page}`}>
-                            {page}
-                          </Link>
-                        </Typography>
-                      </MenuItem>
-                    ))}
+                    <MenuItem key={page} onClick={handleCloseNavMenu}>
+                      <Typography textAlign="center">
+                        <Link className="nav-link " to={`/${page}`}>
+                          {page}
+                        </Link>
+                      </Typography>
+                    </MenuItem>
+                  ))}
               </Menu>
             </Box>
             <Typography
@@ -147,41 +147,39 @@ function Header() {
             <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
               {isLogged
                 ? pagesLogged.map((page) => (
-                    <Button
-                      key={page}
-                      onClick={handleCloseNavMenu}
-                      sx={{ my: 2, color: 'white', display: 'block' }}
-                    >
-                      <Link className="nav-link text-white" to={`/${page}`}>
-                        {page}
-                      </Link>
-                    </Button>
-                  ))
+                  <Button
+                    key={page}
+                    onClick={handleCloseNavMenu}
+                    sx={{ my: 2, color: 'white', display: 'block' }}
+                  >
+                    <Link className="nav-link text-white" to={`/${page}`}>
+                      {page}
+                    </Link>
+                  </Button>
+                ))
                 : pagesNoLogged.map((page) => (
-                    <Button
-                      key={page}
-                      onClick={handleCloseNavMenu}
-                      sx={{ my: 2, color: 'white', display: 'block' }}
-                    >
-                      <Link className="nav-link text-white" to={`/${page}`}>
-                        {page}
-                      </Link>
-                    </Button>
-                  ))}
+                  <Button
+                    key={page}
+                    onClick={handleCloseNavMenu}
+                    sx={{ my: 2, color: 'white', display: 'block' }}
+                  >
+                    <Link className="nav-link text-white" to={`/${page}`}>
+                      {page}
+                    </Link>
+                  </Button>
+                ))}
             </Box>
 
             {isLogged && (
               <>
-                  {user?.profile?.credit?.amount &&(
-                                    <Box sx={{ flexGrow: 0 }}>
-      
-                <Grid item xs >
-                                  
-                <Typography noWrap>{(amount||"0,00").split("").reverse().join("").replace(".",",").split("").reverse().join("")}€</Typography>
-                </Grid>
+
+                <Box sx={{ flexGrow: 0 }}>
+                  <Grid item xs >
+                    <Typography noWrap>{(amount || "0,00").split("").reverse().join("").replace(".", ",").split("").reverse().join("")}€</Typography>
+                  </Grid>
                 </Box>
-      
-                  )}
+
+
                 {user.profile.registers && (
                   <Box
                     variant="h6"
@@ -197,11 +195,11 @@ function Header() {
                         {user.profile.registers.station}
                       </Typography>
                     </Grid>
-               
+
                   </Box>
                 )}
                 <Box sx={{ flexGrow: 0 }}>
-                <Grid item xs zeroMinWidth>
+                  <Grid item xs zeroMinWidth>
                     <Tooltip title="Open settings">
                       <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                         <Avatar
@@ -213,7 +211,7 @@ function Header() {
                     </Tooltip>
                     <Typography noWrap>{user.username}</Typography>
                   </Grid>
-                  
+
                   <Menu
                     sx={{ mt: '45px' }}
                     id="menu-appbar"
