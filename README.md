@@ -3,6 +3,8 @@
 
 # MontyBici-React_Django-MySQL
 
+<a href="https://www.youtube.com/watch?v=oovunY5Eg74&ab_channel=KevinCS">MIRA ESTE VÍDEO-PRESENTACIÓN DE MONTYBICI</a>
+
 Por  [`Kevin Camos Soto`](https://github.com/KevinCamos)
 
 ## Table of Contents
@@ -31,6 +33,14 @@ MontyBici es el tercer y último proyecto del curso `2º de DAW`. Realizado  por
     Te permite obtener una bicicleta siempre y cuando no esté deshabilitada. También te permite dejar una bicicleta en un slot de una estación dependiendo de si está libre y habilitado.
 4. **Dashboard:**
    Puedes acceder a datos como el viaje más largo, estación donde coges la bici que más usas al igual que donde la dejas. También te proporciona una tabla con paginación, donde puedes acceder a todos los datos de tus viajes, además de poder enviar a los administradores una incidencia en relación a cualquiera de estos.
+5. **Payment:**
+   Formulario por "Steps" o "pasos" para recargar el crédito a través de un pequeño servidor en ExpressJS y Dummies que se tras diversas validaciones contacta directamente con el servidor de DJango.
+6. **Credit:**
+   Permite visualizar en una tabla el registro de recargas y pagos.
+7. **Header:**
+   Se pueden visualizar la barra de navegación del usuario entre diferentes SPA, tu nombre de usuario e imagen de perfil y tu saldo actual,  además, si tienes una bicicleta en uso puedes visualizar de qué estación la has cogido y un decremento de tu monedero en tiempo real.
+
+
 
 <img src="./img/2.-Dashboard.gif">
 
@@ -47,6 +57,7 @@ MontyBici es el tercer y último proyecto del curso `2º de DAW`. Realizado  por
     Te permite gestionar el estado de las bicicletas
 4. **Notifiactions:**
    Además de poder ver el total de notificaciones por resolver, te ofrece un acordeon con todas las incidencias y todos los datos sobre estas. Al marcarlas como leidas se envía un correo al usuario para notificarle de que se ha tenido en cuenta su mensaje.
+
 <img src="./img/3.-CreateStation.gif">
 
 ##### `Para toda la vista de usuario hay un AuthGuard que solo te permite entrar si eres un ADMINISTRADOR de la aplicación`
@@ -104,7 +115,7 @@ Lista de tecnologías utilizadas en este proyecto:
 
 `Backend` 🏗️
 
-- [Django](https://go.dev/):  V1.17.3
+- [Django](https://www.djangoproject.com/):  V1.17.3
 
   - Routes
   - Module
@@ -121,6 +132,16 @@ Lista de tecnologías utilizadas en este proyecto:
   - Mailgun
   - Queue
   - Pillow
+
+`Backend` 🏗️
+
+- [ExpressJS](https://expressjs.com/):  V4.17.1
+
+  - Routes
+  - GET & POST al servidor DJANGO
+  - Dummies
+  - Response
+
 
 
 `Frontend` 🏛️
